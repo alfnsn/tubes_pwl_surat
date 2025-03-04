@@ -1,5 +1,3 @@
-
-
 <x-app-layout>
     <div class="container">
         <h1>Dashboard Admin</h1>
