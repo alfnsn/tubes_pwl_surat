@@ -4,8 +4,10 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use App\Models\Role;
 
 class User extends Authenticatable
 {
@@ -21,6 +23,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'role_id',
     ];
 
     public $incrementing = false; // Nonaktifkan auto-increment
@@ -48,4 +51,13 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    public function isRole($roleId){
+        return $this->role_id == $roleId;
+    }
+    public function role(){
+    return $this->belongsTo(Role::class, 'role_id');
+    }
+
+
 }
