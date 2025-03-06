@@ -15,17 +15,17 @@ Route::middleware('auth')->group(function () {
         return view('Mahasiswa.dashboard');
     })->name('Mahasiswa.dashboard');
 
-    Route::get('/kaprodi/dashboard', function () {
+    Route::get('/Kaprodi/dashboard', function () {
         return view('kaprodi.dashboard');
-    })->name('kaprodi.dashboard');
+    })->name('Kaprodi.dashboard');
 
-    Route::get('/mo/dashboard', function () {
+    Route::get('/MO/dashboard', function () {
         return view('mo.dashboard');
-    })->name('mo.dashboard');
+    })->name('MO.dashboard');
 
-    Route::get('/admin/dashboard', function () {
+    Route::get('/Admin/dashboard', function () {
         return view('admin.dashboard');
-    })->name('admin.dashboard');
+    })->name('Admin.dashboard');
 });
 
 // Tambahkan rute berdasarkan role
