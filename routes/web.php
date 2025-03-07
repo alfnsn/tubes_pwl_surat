@@ -4,7 +4,7 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('auth.login');
 });
 
 Route::middleware('auth')->group(function () {
@@ -12,7 +12,7 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::get('/Mahasiswa/dashboard', function () {
-        return view('Mahasiswa.dashboard');
+        return view('mahasiswa.dashboard');
     })->name('Mahasiswa.dashboard');
 
     Route::get('/Kaprodi/dashboard', function () {
