@@ -28,7 +28,6 @@ Route::get('/mahasiswa/laporan-hasil-studi', function () {
 
 Route::post('/pengajuan/store', [PengajuanController::class, 'store'])->name('pengajuan');
 
-
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
@@ -48,6 +47,13 @@ Route::middleware('auth')->group(function () {
     Route::get('/Admin/dashboard', function () {
         return view('admin.dashboard');
     })->name('Admin.dashboard');
+
+    Route::get('/admin/pengguna', [App\Http\Controllers\AdminController::class, 'pengguna'])->name('admin.pengguna');
+    Route::get('/admin/pengguna/create', [App\Http\Controllers\AdminController::class, 'create'])->name('admin.pengguna.create');
+    Route::post('/admin/pengguna', [App\Http\Controllers\AdminController::class, 'store'])->name('admin.pengguna.store');
+    Route::get('/admin/pengguna/{id}/edit', [App\Http\Controllers\AdminController::class, 'edit'])->name('admin.pengguna.edit');
+    Route::put('/admin/pengguna/{id}', [App\Http\Controllers\AdminController::class, 'update'])->name('admin.pengguna.update');
+    Route::delete('/admin/pengguna/{id}', [App\Http\Controllers\AdminController::class, 'destroy'])->name('admin.pengguna.destroy');
 });
 
 require __DIR__.'/auth.php';
