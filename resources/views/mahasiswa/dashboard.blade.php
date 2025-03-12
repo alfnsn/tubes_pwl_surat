@@ -13,7 +13,7 @@
         <h1 style="max-width: 1200px; word-wrap: break-word; text-align: center; margin: 0 auto; line-height: 1.2;">
         Pengajuan Surat Keterangan Mahasiswa Universitas Kristen Maranatha
         </h1>
-        <p>We are team of talented designers making websites with Bootstrap</p>
+        {{-- <p>We are team of talented designers making websites with Bootstrap</p> --}}
       </div>
       </div>
 
