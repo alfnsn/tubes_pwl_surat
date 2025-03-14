@@ -81,6 +81,8 @@
           Your message was sent, thank you!
         </div>
 
+        <div id="preloader"></div>
+
         </div>
       </div>
       <div class="col-md-4">

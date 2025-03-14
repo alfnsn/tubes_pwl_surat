@@ -71,4 +71,5 @@
     </div>
     </div>
   </main>
+  <div id="preloader"></div>
 @endsection

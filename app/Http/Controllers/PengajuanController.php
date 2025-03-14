@@ -66,14 +66,15 @@ class PengajuanController extends Controller
                     'updated_at' => now(),
                     'pengajuan_idpengajuan' => $pengajuan->getKey(), 
                 ]);
-    
-                foreach ($request->namaMahasiswa as $index => $nama) {
-                    DataMahasiswa::create([
-                        'nama' => $nama,
-                        'nrp' => $request->nrpMahasiswa[$index],
-                        'pengantarMK_idpengantarMK' => $pengantar->getKey(), 
-                    ]);
-                }
+                
+                // foreach ($request->namaMahasiswa as $index => $nama) {
+                    
+                //     DataMahasiswa::create([
+                //         'nama' => $nama,
+                //         'nrp' => $request->nrpMahasiswa[$index],
+                //         'pengantarMK_idpengantarMK' => $pengantar->getKey(), 
+                //     ]);
+                // }
             } elseif ($request->idjenisSurat == 3) {
                 $request->validate([
                     'tanggal' => 'required|date', 
