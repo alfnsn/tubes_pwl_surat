@@ -9,11 +9,17 @@ class DataMahasiswa extends Model
 {
     use HasFactory;
     protected $table = 'dataMahasiswa';
-    protected $primaryKey = 'iddataMahasiswa';
+    protected $primaryKey = 'nrp';
+    protected $keyType = 'string';
+    public $incrementing = false; 
 
     protected $fillable = [
-        'nama',
         'nrp',
-        'pengantarMK_idpengantarMK'
+        'nama',
     ];
+
+    public function pengantarMK()
+    {
+        return $this->belongsToMany(PengantarMataKuliah::class, 'dataMahasiswa_has_pengantarMK', 'dataMahasiswa_nrp', 'pengantarMK_idpengantarMK');
+    }
 }

@@ -14,7 +14,7 @@
           <div class="col-md-12 form-group mb-5">
             <label for="ditujukan" class="col-form-label">Surat Ditujukan Kepada *</label>
             <textarea class="form-control" name="ditujukan" id="ditujukan" cols="30" rows="2"
-            placeholder="Informasikan secara lengkap nama, jabatan, nama perusahaan, dan alamat perusahaan (contoh: Ibu Susi Susanti; Kepala Personalia PT. X; Jln. Cibogo no. 10 Bandung)"></textarea>
+            placeholder="Informasikan secara lengkap nama, jabatan, nama perusahaan, dan alamat perusahaan (contoh: Ibu Susi Susanti; Kepala Personalia PT. X; Jln. Cibogo no. 10 Bandung)" required maxlength="300"></textarea>
           </div>
           </div>
 
@@ -22,25 +22,36 @@
           <div class="col-md-12 form-group mb-5">
             <label for="namaKodeMk" class="col-form-label">Nama Mata Kuliah - Kode Mata Kuliah *</label>
             <input type="text" class="form-control" name="namaKodeMk" id="namaKodeMk"
-            placeholder="Contoh : Proses Bisnis - IN255">
+            placeholder="Contoh : Proses Bisnis - IN255" required maxlength="50">
           </div>
           </div>
 
           <div class="row">
-          <div class="col-md-12 form-group mb-5">
-            <label for="semester" class="col-form-label">Semester *</label>
-            <input type="text" class="form-control" name="semester" id="semester"
-            placeholder="Isikan dengan semester yang sedang ditempuh saat ini (contoh: Semester Genap 23/24)">
-          </div>
-          </div>
+            <div class="col-md-12 form-group mb-5">
+              <label for="semester" class="col-form-label">Semester *</label>
+              <select class="form-control" name="semester" id="semester">
+              <option value="" disabled selected>Pilih Semester</option>
+              <option value="Semester Genap 24/25">Semester Genap 24/25</option>
+              <option value="Semester Ganjil 25/26">Semester Ganjil 25/26</option>
+              <option value="Semester Genap 25/26">Semester Genap 25/26</option>
+              <option value="Semester Ganjil 27/28">Semester Ganjil 27/28</option>
+              <option value="Semester Genap 27/28">Semester Genap 27/28</option>
+              <option value="Semester Ganjil 29/30">Semester Ganjil 29/30</option>
+              <option value="Semester Genap 29/30">Semester Genap 29/30</option>
+              </select>
+              @if ($errors->has('semester'))
+          <small class="text-danger">{{ $errors->first('semester') }}</small>
+        @endif
+            </div>
+            </div>
 
           <div class="row">
           <div class="col-md-12 form-group mb-5">
             <label for="dataMahasiswa" class="col-form-label">Data Mahasiswa *</label>
             <div id="mahasiswaContainer">
             <div class="input-group mb-2">
-              <input type="text" name="namaMahasiswa[]" class="form-control" placeholder="Nama Mahasiswa">
-              <input type="text" name="nrpMahasiswa[]" class="form-control" placeholder="NRP Mahasiswa">
+              <input type="text" name="namaMahasiswa[]" class="form-control" placeholder="Nama Mahasiswa" required maxlength="120">
+              <input type="text" name="nrpMahasiswa[]" class="form-control" placeholder="NRP Mahasiswa" required maxlength="9">
               <button type="button" class="btn btn-danger removeMahasiswa" style="border-radius: 10px">Hapus</button>
             </div>
             </div>
@@ -53,7 +64,7 @@
           <div class="col-md-12 form-group mb-5">
             <label for="tujuan" class="col-form-label">Tujuan *</label>
             <textarea class="form-control" name="tujuan" id="tujuan" cols="30" rows="1"
-            placeholder="Tujuan"></textarea>
+            placeholder="Tujuan" required maxlength="200"></textarea>
           </div>
           </div>
 
@@ -61,7 +72,7 @@
           <div class="col-md-12 form-group mb-5">
             <label for="topik" class="col-form-label">Topik *</label>
             <textarea class="form-control" name="topik" id="topik" cols="30" rows="1"
-            placeholder="Topik"></textarea>
+            placeholder="Topik" required maxlength="100"></textarea>
           </div>
           </div>
 

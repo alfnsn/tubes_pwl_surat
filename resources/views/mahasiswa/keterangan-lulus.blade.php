@@ -15,19 +15,19 @@
           <div class="col-md-6 form-group mb-5">
             <label for="" class="col-form-label">Nama Lengkap *</label>
             <input type="text" class="form-control" name="name" id="name" value="{{ Auth::user()->name }}"
-            readonly style="background-color: white;">
+            readonly style="background-color: white;" required maxlength="120">
           </div>
           <div class="col-md-6 form-group mb-5">
             <label for="" class="col-form-label">NRP *</label>
             <input type="text" class="form-control" name="nrp" id="nrp" value="{{ Auth::user()->id }}" readonly
-            style="background-color: white;">
+            style="background-color: white;" required maxlength="9">
           </div>
           </div>
 
           <div class="row">
           <div class="col-md-12 form-group mb-5">
             <label for="tanggal" class="col-form-label">Tanggal *</label>
-            <input type="date" class="form-control" name="tanggal" id="tanggal">
+            <input type="date" class="form-control" name="tanggal" id="tanggal" required>
           </div>
           </div>
 

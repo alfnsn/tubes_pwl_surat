@@ -10,6 +10,7 @@ use App\Models\LaporanHasilStudi;
 use App\Models\PengantarMataKuliah;
 use App\Models\DataMahasiswa;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class PengajuanController extends Controller
 {
@@ -30,7 +31,7 @@ class PengajuanController extends Controller
     
             if ($request->idjenisSurat == 1) {
                 $request->validate([
-                    'semester' => 'required',
+                    'semester' => 'required|string|max:21',
                     'alamat' => 'required|string|max:300',
                     'keperluan' => 'required|string|max:255',
                 ]);
@@ -55,7 +56,7 @@ class PengajuanController extends Controller
                     'nrpMahasiswa' => 'required|array',
                     'nrpMahasiswa.*' => 'required|string|max:9',
                 ]);
-    
+            
                 $pengantar = PengantarMataKuliah::create([
                     'ditujukan' => $request->ditujukan,
                     'nama_kode_mk' => $request->namaKodeMk,
@@ -66,16 +67,23 @@ class PengajuanController extends Controller
                     'updated_at' => now(),
                     'pengajuan_idpengajuan' => $pengajuan->getKey(), 
                 ]);
-                
-                // foreach ($request->namaMahasiswa as $index => $nama) {
-                    
-                //     DataMahasiswa::create([
-                //         'nama' => $nama,
-                //         'nrp' => $request->nrpMahasiswa[$index],
-                //         'pengantarMK_idpengantarMK' => $pengantar->getKey(), 
-                //     ]);
-                // }
-            } elseif ($request->idjenisSurat == 3) {
+            
+                foreach ($request->namaMahasiswa as $index => $nama) {
+                    $nrp = $request->nrpMahasiswa[$index];
+            
+                    $mahasiswa = DataMahasiswa::where('nrp', $nrp)->first();
+            
+                    if (!$mahasiswa) {
+                        $mahasiswa = DataMahasiswa::create([
+                            'nrp' => $nrp,
+                            'nama' => $nama,
+                            'created_at' => now(),
+                            'updated_at' => now(),
+                        ]);
+                    }
+                    $pengantar->mahasiswa()->attach($mahasiswa->nrp);
+                }
+            }elseif ($request->idjenisSurat == 3) {
                 $request->validate([
                     'tanggal' => 'required|date', 
                 ]);

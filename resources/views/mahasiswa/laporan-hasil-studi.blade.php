@@ -14,12 +14,12 @@
           <div class="col-md-6 form-group mb-5">
             <label for="" class="col-form-label">Nama Lengkap *</label>
             <input type="text" class="form-control" name="name" id="name" value="{{ Auth::user()->name }}"
-            readonly style="background-color: white;">
+            readonly style="background-color: white;" required maxlength="120">
           </div>
           <div class="col-md-6 form-group mb-5">
             <label for="" class="col-form-label">NRP *</label>
             <input type="text" class="form-control" name="nrp" id="nrp" value="{{ Auth::user()->id }}" readonly
-            style="background-color: white;">
+            style="background-color: white;" required maxlength="9">
           </div>
           </div>
 
@@ -27,7 +27,7 @@
           <div class="col-md-12 form-group mb-5">
             <label for="keperluan" class="col-form-label">Keperluan Pembuatan LHS *</label>
             <textarea class="form-control" name="keperluan" id="keperluan" cols="30" rows="1"
-            placeholder="Keperluan Pembuatan"></textarea>
+            placeholder="Keperluan Pembuatan" required maxlength="200"></textarea>
           </div>
           </div>
 

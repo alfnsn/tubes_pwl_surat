@@ -19,4 +19,9 @@ class PengantarMataKuliah extends Model
         'topik', 
         'pengajuan_idpengajuan'
     ];
+
+    public function mahasiswa()
+    {
+        return $this->belongsToMany(DataMahasiswa::class, 'dataMahasiswa_has_pengantarMK', 'pengantarMK_idpengantarMK', 'dataMahasiswa_nrp');
+    }
 }

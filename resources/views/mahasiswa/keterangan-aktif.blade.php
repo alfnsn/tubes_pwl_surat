@@ -17,12 +17,12 @@
           <div class="col-md-6 form-group mb-5">
             <label for="" class="col-form-label">Nama Lengkap *</label>
             <input type="text" class="form-control" name="name" id="name" value="{{ Auth::user()->name }}"
-            readonly style="background-color: white;">
+            readonly style="background-color: white;" required maxlength="120">
           </div>
           <div class="col-md-6 form-group mb-5">
             <label for="" class="col-form-label">NRP *</label>
             <input type="text" class="form-control" name="nrp" id="nrp" value="{{ Auth::user()->id }}" readonly
-            style="background-color: white;">
+            style="background-color: white;" required maxlength="9">
           </div>
           </div>
 
@@ -31,20 +31,13 @@
             <label for="semester" class="col-form-label">Semester *</label>
             <select class="form-control" name="semester" id="semester">
             <option value="" disabled selected>Pilih Semester</option>
-            <option value="1">Semester 1</option>
-            <option value="2">Semester 2</option>
-            <option value="3">Semester 3</option>
-            <option value="4">Semester 4</option>
-            <option value="5">Semester 5</option>
-            <option value="6">Semester 6</option>
-            <option value="7">Semester 7</option>
-            <option value="8">Semester 8</option>
-            <option value="4">Semester 9</option>
-            <option value="5">Semester 10</option>
-            <option value="6">Semester 11</option>
-            <option value="7">Semester 12</option>
-            <option value="8">Semester 13</option>
-            <option value="8">Semester 14</option>
+            <option value="Semester Genap 24/25">Semester Genap 24/25</option>
+            <option value="Semester Ganjil 25/26">Semester Ganjil 25/26</option>
+            <option value="Semester Genap 25/26">Semester Genap 25/26</option>
+            <option value="Semester Ganjil 27/28">Semester Ganjil 27/28</option>
+            <option value="Semester Genap 27/28">Semester Genap 27/28</option>
+            <option value="Semester Ganjil 29/30">Semester Ganjil 29/30</option>
+            <option value="Semester Genap 29/30">Semester Genap 29/30</option>
             </select>
             @if ($errors->has('semester'))
         <small class="text-danger">{{ $errors->first('semester') }}</small>
@@ -56,7 +49,7 @@
           <div class="col-md-12 form-group mb-5">
             <label for="alamat" class="col-form-label">Alamat Lengkap Mahasiswa di Bandung *</label>
             <textarea class="form-control" name="alamat" id="alamat" cols="30" rows="1" placeholder="Alamat"
-            maxlength="300" required></textarea>
+            required maxlength="300"></textarea>
           </div>
           </div>
 
@@ -64,7 +57,7 @@
           <div class="col-md-12 form-group mb-5">
             <label for="keperluan" class="col-form-label">Keperluan Pengajuan *</label>
             <textarea class="form-control" name="keperluan" id="keperluan" cols="30" rows="1"
-            placeholder="Keperluan Pengajuan" maxlength="255" required></textarea>
+            placeholder="Keperluan Pengajuan" required maxlength="255"></textarea>
           </div>
           </div>
 
