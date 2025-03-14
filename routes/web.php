@@ -5,6 +5,8 @@ use App\Http\Controllers\PengajuanController;
 use App\Http\Controllers\KeteranganAktifController;
 use App\Models\KeteranganAktif;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PenggunaController;
+use App\Http\Controllers\DashboardController;
 
 Route::get('/', function () {
     return view('auth.login');
@@ -44,16 +46,20 @@ Route::middleware('auth')->group(function () {
         return view('mo.dashboard');
     })->name('MO.dashboard');
 
-    Route::get('/Admin/dashboard', function () {
-        return view('admin.dashboard');
-    })->name('Admin.dashboard');
-
     Route::get('/admin/pengguna', [App\Http\Controllers\AdminController::class, 'pengguna'])->name('admin.pengguna');
-    Route::get('/admin/pengguna/create', [App\Http\Controllers\AdminController::class, 'create'])->name('admin.pengguna.create');
+    Route::get('/admin/pengguna/create', [PenggunaController::class, 'create'])->name('admin.pengguna.create');
     Route::post('/admin/pengguna', [App\Http\Controllers\AdminController::class, 'store'])->name('admin.pengguna.store');
     Route::get('/admin/pengguna/{id}/edit', [App\Http\Controllers\AdminController::class, 'edit'])->name('admin.pengguna.edit');
     Route::put('/admin/pengguna/{id}', [App\Http\Controllers\AdminController::class, 'update'])->name('admin.pengguna.update');
     Route::delete('/admin/pengguna/{id}', [App\Http\Controllers\AdminController::class, 'destroy'])->name('admin.pengguna.destroy');
-});
 
+    Route::prefix('pengguna')->group(function () {
+        Route::get('/mahasiswa', [PenggunaController::class, 'showMahasiswa'])->name('pengguna.mahasiswa');
+        Route::get('/kaprodi', [PenggunaController::class, 'showKaprodi'])->name('pengguna.kaprodi');
+        Route::get('/mo', [PenggunaController::class, 'showMo'])->name('pengguna.mo');
+        Route::get('/admin', [PenggunaController::class, 'showAdmin'])->name('pengguna.admin');
+    });
+
+    Route::get('/admin/dashboard', [DashboardController::class, 'index'])->name('Admin.dashboard');
+});
 require __DIR__.'/auth.php';

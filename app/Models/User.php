@@ -21,9 +21,16 @@ class User extends Authenticatable
     protected $fillable = [
         'id',
         'name',
+        'address',
+        'status',
+        'phone',
         'email',
         'password',
+        'profile_picture',
+        'semester',
+        'remember_token',
         'role_id',
+        'study_program_id',
     ];
 
     public $incrementing = false; // Nonaktifkan auto-increment
@@ -56,7 +63,12 @@ class User extends Authenticatable
         return $this->role_id == $roleId;
     }
     public function role(){
-    return $this->belongsTo(Role::class, 'role_id');
+        return $this->belongsTo(Role::class, 'role_id');
+    }
+
+    public function studyProgram()
+    {
+    return $this->belongsTo(StudyProgram::class, 'study_program_id', 'idstudy_program');
     }
 
 

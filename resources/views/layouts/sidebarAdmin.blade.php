@@ -27,11 +27,22 @@
     </div>
 
     <!-- Nav Item - Pengguna -->
-    <li class="nav-item {{ request()->routeIs('admin.pengguna') ? 'active' : '' }}">
-        <a class="nav-link" href="{{ route('admin.pengguna') }}">
+    <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePengguna"
+            aria-expanded="true" aria-controls="collapsePengguna">
             <i class="fas fa-fw fa-users"></i>
             <span>Pengguna</span>
         </a>
+        <div id="collapsePengguna" class="collapse {{ request()->routeIs('pengguna.*') ? 'show' : '' }}" aria-labelledby="headingPengguna"
+            data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <h6 class="collapse-header">Daftar Pengguna:</h6>
+                <a class="collapse-item {{ request()->routeIs('pengguna.mahasiswa') ? 'active' : '' }}" href="{{ route('pengguna.mahasiswa') }}">Mahasiswa</a>
+                <a class="collapse-item {{ request()->routeIs('pengguna.kaprodi') ? 'active' : '' }}" href="{{ route('pengguna.kaprodi') }}">Kaprodi</a>
+                <a class="collapse-item {{ request()->routeIs('pengguna.mo') ? 'active' : '' }}" href="{{ route('pengguna.mo') }}">MO</a>
+                <a class="collapse-item {{ request()->routeIs('pengguna.admin') ? 'active' : '' }}" href="{{ route('pengguna.admin') }}">Admin</a>
+            </div>
+        </div>
     </li>
 
     <!-- Nav Item - Utilities Collapse Menu -->
