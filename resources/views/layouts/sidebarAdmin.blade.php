@@ -45,12 +45,27 @@
         </div>
     </li>
 
-    <!-- Nav Item - Utilities Collapse Menu -->
+    <!-- Nav Item - Program Studi -->
+    <li class="nav-item {{ request()->routeIs('admin.studyProgram') ? 'active' : '' }}">
+        <a class="nav-link" href="{{ route('admin.studyProgram') }}">
+            <i class="fas fa-fw fa-book"></i>
+            <span>Program Studi</span>
+        </a>
+    </li>
+
+    {{-- <!-- Nav Item - Charts -->
+    <li class="nav-item {{ request()->routeIs('charts') ? 'active' : '' }}">
+        <a class="nav-link" href="charts.html">
+            <i class="fas fa-fw fa-book"></i>
+            <span>Program Studi</span></a>
+    </li> --}}
+
+    {{-- <!-- Nav Item - Utilities Collapse Menu -->
     <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
             aria-expanded="true" aria-controls="collapseUtilities">
-            <i class="fas fa-fw fa-wrench"></i>
-            <span>Utilities</span>
+            <i class="fas fa-fw fa-book"></i>
+            <span>Program Studi </span>
         </a>
         <div id="collapseUtilities" class="collapse {{ request()->routeIs('utilities.*') ? 'show' : '' }}" aria-labelledby="headingUtilities"
             data-parent="#accordionSidebar">
@@ -62,50 +77,44 @@
                 <a class="collapse-item {{ request()->routeIs('utilities.other') ? 'active' : '' }}" href="utilities-other.html">Other</a>
             </div>
         </div>
-    </li>
+    </li> --}}
 
     <!-- Divider -->
     <hr class="sidebar-divider">
 
     <!-- Heading -->
     <div class="sidebar-heading">
-        Addons
+        Surat
     </div>
-
-    <!-- Nav Item - Pages Collapse Menu -->
-    <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
-            aria-expanded="true" aria-controls="collapsePages">
-            <i class="fas fa-fw fa-folder"></i>
-            <span>Pages</span>
-        </a>
-        <div id="collapsePages" class="collapse {{ request()->routeIs('pages.*') ? 'show' : '' }}" aria-labelledby="headingPages" data-parent="#accordionSidebar">
-            <div class="bg-white py-2 collapse-inner rounded">
-                <h6 class="collapse-header">Login Screens:</h6>
-                <a class="collapse-item {{ request()->routeIs('pages.login') ? 'active' : '' }}" href="login.html">Login</a>
-                <a class="collapse-item {{ request()->routeIs('pages.register') ? 'active' : '' }}" href="register.html">Register</a>
-                <a class="collapse-item {{ request()->routeIs('pages.forgot-password') ? 'active' : '' }}" href="forgot-password.html">Forgot Password</a>
-                <div class="collapse-divider"></div>
-                <h6 class="collapse-header">Other Pages:</h6>
-                <a class="collapse-item {{ request()->routeIs('pages.404') ? 'active' : '' }}" href="404.html">404 Page</a>
-                <a class="collapse-item {{ request()->routeIs('pages.blank') ? 'active' : '' }}" href="blank.html">Blank Page</a>
-            </div>
-        </div>
-    </li>
 
     <!-- Nav Item - Charts -->
     <li class="nav-item {{ request()->routeIs('charts') ? 'active' : '' }}">
         <a class="nav-link" href="charts.html">
-            <i class="fas fa-fw fa-chart-area"></i>
-            <span>Charts</span></a>
+            <i class="fas fa-fw fa-graduation-cap"></i>
+            <span>Surat Keterangan Lulus</span></a>
     </li>
 
     <!-- Nav Item - Tables -->
     <li class="nav-item {{ request()->routeIs('tables') ? 'active' : '' }}">
         <a class="nav-link" href="tables.html">
-            <i class="fas fa-fw fa-table"></i>
-            <span>Tables</span></a>
+            <i class="fas fa-fw fa-check-circle"></i>
+            <span>Surat Keterangan Aktif</span></a>
     </li>
+
+    <!-- Nav Item - Charts -->
+    <li class="nav-item {{ request()->routeIs('charts') ? 'active' : '' }}">
+        <a class="nav-link" href="charts.html">
+            <i class="fas fa-fw fa-file-alt"></i>
+            <span>Surat Laporan Hasil Studi</span></a>
+    </li>
+
+    <!-- Nav Item - Tables -->
+    <li class="nav-item {{ request()->routeIs('tables') ? 'active' : '' }}">
+        <a class="nav-link" href="tables.html">
+            <i class="fas fa-fw fa-book-open"></i>
+            <span>Surat Pengantar Mata Kuliah</span></a>
+    </li>
+
 
     <!-- Divider -->
     <hr class="sidebar-divider d-none d-md-block">
