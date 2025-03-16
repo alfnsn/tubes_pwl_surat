@@ -61,7 +61,15 @@ Route::middleware('auth')->group(function () {
     });
 
     Route::get('/admin/dashboard', [DashboardController::class, 'index'])->name('Admin.dashboard');
+    Route::get('/admin/studyProgram', [App\Http\Controllers\StudyProgramController::class, 'index'])->name('admin.studyProgram');
+    Route::get('/admin/studyProgram/create', [App\Http\Controllers\StudyProgramController::class, 'create'])->name('admin.studyProgram.create');
+    Route::post('/admin/studyProgram', [App\Http\Controllers\StudyProgramController::class, 'store'])->name('admin.studyProgram.store');
+    Route::get('/admin/studyProgram/{id}/edit', [App\Http\Controllers\StudyProgramController::class, 'edit'])->name('admin.studyProgram.edit');
+    Route::put('/admin/studyProgram/{id}', [App\Http\Controllers\StudyProgramController::class, 'update'])->name('admin.studyProgram.update');
+    Route::delete('/admin/studyProgram/{id}', [App\Http\Controllers\StudyProgramController::class, 'destroy'])->name('admin.studyProgram.destroy');
+
     Route::get('/riwayat-pengajuan', [PengajuanController::class, 'showPengajuan'])->name('riwayat-pengajuan');
-    Route::get('/riwayat-pengajuan-detail/{id}', [PengajuanController::class, 'showPengajuanDetail'])->name('riwayat-pengajuan-detail');
+     Route::get('/riwayat-pengajuan-detail/{id}', [PengajuanController::class, 'showPengajuanDetail'])->name('riwayat-pengajuan-detail');
+
 });
 require __DIR__.'/auth.php';
