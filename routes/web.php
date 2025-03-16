@@ -69,7 +69,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/admin/studyProgram/{id}', [App\Http\Controllers\StudyProgramController::class, 'destroy'])->name('admin.studyProgram.destroy');
 
     Route::get('/riwayat-pengajuan', [PengajuanController::class, 'showPengajuan'])->name('riwayat-pengajuan');
-     Route::get('/riwayat-pengajuan-detail/{id}', [PengajuanController::class, 'showPengajuanDetail'])->name('riwayat-pengajuan-detail');
+    Route::get('/riwayat-pengajuan-detail/{id}', [PengajuanController::class, 'showPengajuanDetail'])->name('riwayat-pengajuan-detail');
 
 });
 require __DIR__.'/auth.php';
