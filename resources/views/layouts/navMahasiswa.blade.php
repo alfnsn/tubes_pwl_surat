@@ -13,7 +13,7 @@
             <nav id="navmenu" class="navmenu d-flex align-items-center me-4">
                 <ul class="d-flex align-items-center mb-0">
                     <li class="me-4">
-                        <a href="#team">Riwayat Pengajuan</a>
+                        <a href="{{ route('riwayat-pengajuan') }}">Riwayat Pengajuan</a>
                     </li>
                     <li class="position-relative me-4">
                         <a href="#notifications">
@@ -32,7 +32,6 @@
                     {{ Auth::user()->id }}
                 </button>
                 <ul class="dropdown-menu dropdown-menu-end">
-                    <li><a class="dropdown-item" href="{{ route('profile.edit') }}">Profile</a></li>
                     <li>
                         <form method="POST" action="{{ route('logout') }}">
                             @csrf
@@ -47,6 +46,7 @@
         <button class="mobile-nav-toggle d-lg-none btn btn-outline-secondary" id="mobile-menu-button">
             <i class="bi bi-list"></i>
         </button>
+        
     </div>
 
     <!-- Responsive Navigation Menu -->

@@ -33,8 +33,9 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>{{ $title ?? config('app.name') }}</title>
-
+    {{-- <title>{{ $title ?? config('app.name') }}</title> --}}
+    <title>Pembuatan Surat Universitas Kristen Maranatha</title>
+    <link rel="shortcut icon" href="https://kompaspedia.kompas.id/wp-content/uploads/2021/07/logo_universitas-kristen-maranatha.png" type="image/x-icon">
     <!-- Styles -->
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
 </head>

@@ -27,7 +27,7 @@
           <div class="row">
           <div class="col-md-12 form-group mb-5">
             <label for="tanggal" class="col-form-label">Tanggal *</label>
-            <input type="date" class="form-control" name="tanggal" id="tanggal" required>
+            <input type="date" class="form-control" name="tanggal" id="tanggal" required max="{{ date('Y-m-d') }}">
           </div>
           </div>
 

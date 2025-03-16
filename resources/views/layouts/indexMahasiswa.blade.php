@@ -10,6 +10,8 @@
     <title>Dashboard Mahasiswa</title>
     <meta name="description" content="">
     <meta name="keywords" content="">
+   
+    <link rel="stylesheet" href="https://cdn.datatables.net/2.2.2/css/dataTables.dataTables.min.css">
 
     <!-- Favicons -->
     <link href="assets/img/favicon.png" rel="icon">
@@ -50,6 +52,7 @@
   * Author: BootstrapMade.com
   * License: https://bootstrapmade.com/license/
   ======================================================== -->
+
 </head>
 
 <body class="index-page">
@@ -86,6 +89,7 @@
     <!-- Preloader -->
     <div id="preloader"></div>
 
+    
     <!-- Vendor JS Files -->
     <script src="{{ asset('assets/vendor/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
     <script src="{{ asset('assets/vendor/php-email-form/validate.js')}}"></script>
@@ -99,5 +103,10 @@
     <!-- Main JS File -->
     <script src="{{ asset('assets/js/main.js')}}"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <link rel="stylesheet" href="https://cdn.datatables.net/2.2.2/css/dataTables.dataTables.min.css">
+    <script src="https://cdn.datatables.net/2.2.2/js/dataTables.min.js"></script>
+    <script>let table = new DataTable('#dataTable');</script>
+    
 </body>
 </html>

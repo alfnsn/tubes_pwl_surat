@@ -61,5 +61,7 @@ Route::middleware('auth')->group(function () {
     });
 
     Route::get('/admin/dashboard', [DashboardController::class, 'index'])->name('Admin.dashboard');
+    Route::get('/riwayat-pengajuan', [PengajuanController::class, 'showPengajuan'])->name('riwayat-pengajuan');
+    Route::get('/riwayat-pengajuan-detail/{id}', [PengajuanController::class, 'showPengajuanDetail'])->name('riwayat-pengajuan-detail');
 });
 require __DIR__.'/auth.php';
