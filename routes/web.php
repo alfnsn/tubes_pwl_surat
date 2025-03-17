@@ -38,9 +38,9 @@ Route::middleware('auth')->group(function () {
         return view('mahasiswa.dashboard');
     })->name('Mahasiswa.dashboard');
 
-    Route::get('/Kaprodi/dashboard', function () {
-        return view('kaprodi.dashboard');
-    })->name('Kaprodi.dashboard');
+    // Route::get('/Kaprodi/dashboard', function () {
+    //     return view('kaprodi.dashboard');
+    // })->name('Kaprodi.dashboard');
 
     Route::get('/MO/dashboard', function () {
         return view('mo.dashboard');
@@ -70,6 +70,12 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/riwayat-pengajuan', [PengajuanController::class, 'showPengajuan'])->name('riwayat-pengajuan');
     Route::get('/riwayat-pengajuan-detail/{id}', [PengajuanController::class, 'showPengajuanDetail'])->name('riwayat-pengajuan-detail');
+    
+    Route::get('/kaprodi/dashboard', [PengajuanController::class, 'showPengajuanKaprodi'])->name('Kaprodi.dashboard');
+    Route::get('/kaprodi/dashboard/pengajuan-detail/{id}', [PengajuanController::class, 'showPengajuanDetailKaprodi'])->name('pengajuan-detail');
+    Route::post('/kaprodi/dashboard/pengajuan-accept/{id}', [PengajuanController::class, 'update'])->name('pengajuan-accept');
+    Route::post('/kaprodi/dashboard/pengajuan-reject/{id}', [PengajuanController::class, 'update'])->name('pengajuan-reject');
+    Route::get('/kaprodi/dashboard/pengajuan-riwayat', [PengajuanController::class, 'showRiwayatPengajuanKaprodi'])->name('pengajuan-riwayat');
 
 });
 require __DIR__.'/auth.php';

@@ -3,7 +3,8 @@
         <!-- Logo -->
         <div class="d-flex align-items-center">
             <a href="{{ route(Auth::user()->role->name . '.dashboard') }}" class="logo d-flex align-items-center">
-                <img src="https://kompaspedia.kompas.id/wp-content/uploads/2021/07/logo_universitas-kristen-maranatha.png" alt="IMG">
+                <img src="https://kompaspedia.kompas.id/wp-content/uploads/2021/07/logo_universitas-kristen-maranatha.png"
+                    alt="IMG">
                 <h1 class="sitename ms-2">Dashboard</h1>
             </a>
         </div>
@@ -12,13 +13,22 @@
         <div class="d-flex align-items-center ms-auto"> <!-- Pastikan semua elemen di kanan -->
             <nav id="navmenu" class="navmenu d-flex align-items-center me-4">
                 <ul class="d-flex align-items-center mb-0">
-                    <li class="me-4">
-                        <a href="{{ route('riwayat-pengajuan') }}">Riwayat Pengajuan</a>
-                    </li>
+                    @isset(Auth::user()->role->name)
+                        @if(Auth::user()->role->name === 'Mahasiswa')
+                        <li class="me-4">
+                            <a href="{{ route('riwayat-pengajuan') }}">Riwayat Pengajuan</a>
+                        </li>
+                        @elseif(Auth::user()->role->name === 'Kaprodi')
+                        <li class="me-4">
+                            <a href="{{ route('pengajuan-riwayat') }}">Riwayat Pengajuan</a>
+                        </li>
+                        @endif
+                    @endisset
                     <li class="position-relative me-4">
                         <a href="#notifications">
                             <i class="fa fa-bell" style="font-size: 30px; color: #4b84f7;"></i>
-                            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                            <span
+                                class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
                                 5
                             </span>
                         </a>
@@ -28,7 +38,8 @@
 
             <!-- User Dropdown -->
             <div class="dropdown">
-                <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" color: black;">
+                <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" color:
+                    black;">
                     {{ Auth::user()->id }}
                 </button>
                 <ul class="dropdown-menu dropdown-menu-end">
@@ -46,13 +57,14 @@
         <button class="mobile-nav-toggle d-lg-none btn btn-outline-secondary" id="mobile-menu-button">
             <i class="bi bi-list"></i>
         </button>
-        
+
     </div>
 
     <!-- Responsive Navigation Menu -->
     <div id="mobile-menu" class="d-lg-none d-none">
         <ul class="list-group">
-            <li class="list-group-item"><a href="{{ route(Auth::user()->role->name . '.dashboard') }}">Dashboard</a></li>
+            <li class="list-group-item"><a href="{{ route(Auth::user()->role->name . '.dashboard') }}">Dashboard</a>
+            </li>
             <li class="list-group-item"><a href="#about">About</a></li>
             <li class="list-group-item"><a href="#services">Services</a></li>
             <li class="list-group-item"><a href="#portfolio">Portfolio</a></li>

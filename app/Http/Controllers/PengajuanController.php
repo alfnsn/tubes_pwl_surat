@@ -119,7 +119,7 @@ class PengajuanController extends Controller
 
         $pengajuans = Pengajuan::where('users_id', $userId)
             ->with(['jenisSurat:idjenisSurat,name'])
-            ->orderBy('tanggal_pengajuan', 'desc') 
+            ->orderBy('tanggal_pengajuan', 'desc')
             ->get(['idpengajuan', 'tanggal_pengajuan', 'status', 'jenisSurat_idjenisSurat']);
 
         return view('mahasiswa.riwayat-pengajuan', compact('pengajuans'));
@@ -133,5 +133,64 @@ class PengajuanController extends Controller
 
 
         return view('mahasiswa.riwayat-pengajuan-detail', compact('pengajuan'));
+    }
+
+    public function showPengajuanKaprodi()
+    {
+        $kaprodi = Auth::user();
+
+        $pengajuans = Pengajuan::whereHas('user', function ($query) use ($kaprodi) {
+            $query->where('study_program_id', $kaprodi->study_program_id);
+        })
+            ->where('status', 'Pending') 
+            ->orderBy('tanggal_pengajuan', 'desc')
+            ->get();
+
+        return view('kaprodi.dashboard', compact('pengajuans'));
+    }
+
+
+    public function showPengajuanDetailKaprodi($id)
+    {
+        $pengajuan = Pengajuan::where('idpengajuan', $id)
+            ->with(['jenisSurat', 'keteranganAktif', 'keteranganLulus', 'laporanHasilStudi', 'surat'])
+            ->firstOrFail();
+
+
+        return view('kaprodi.pengajuan-detail', compact('pengajuan'));
+    }
+
+    public function update($id, Request $request)
+    {
+        $pengajuan = Pengajuan::where('idpengajuan', $id)->first();
+
+        if ($pengajuan) {
+            if ($request->route()->getName() == 'pengajuan-accept') {
+                $pengajuan->status = 'Accepted';
+            } elseif ($request->route()->getName() == 'pengajuan-reject') {
+                $pengajuan->status = 'Rejected';
+                $pengajuan->alasan_penolakan = $request->alasan_penolakan;
+            }
+
+            $pengajuan->save();
+
+            // return redirect()->back()->with('success', 'Status pengajuan berhasil diperbarui.');
+        }
+
+        // return redirect()->back()->with('error', 'Pengajuan tidak ditemukan.');
+    }
+
+    public function showRiwayatPengajuanKaprodi()
+    {
+        $kaprodi = Auth::user();
+
+        $pengajuans = Pengajuan::whereHas('user', function ($query) use ($kaprodi) {
+            $query->where('study_program_id', $kaprodi->study_program_id);
+        })
+            ->where('status','!=', 'Pending') 
+            ->orderBy('tanggal_pengajuan', 'desc')
+            ->get();
+
+        return view('kaprodi.pengajuan-riwayat', compact('pengajuans'));
     }
 }
