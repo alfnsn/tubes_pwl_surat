@@ -170,14 +170,25 @@ class PengajuanController extends Controller
             } elseif ($request->route()->getName() == 'pengajuan-reject') {
                 $pengajuan->status = 'Rejected';
                 $pengajuan->alasan_penolakan = $request->alasan_penolakan;
+                $idjenisSurat = $pengajuan->jenisSurat_idjenisSurat;
+
+                if ($idjenisSurat == 1) {
+                    KeteranganAktif::where('pengajuan_idpengajuan', $pengajuan->idpengajuan)->delete();
+                } elseif ($idjenisSurat == 2) {
+                    PengantarMataKuliah::where('pengajuan_idpengajuan', $pengajuan->idpengajuan)->delete();
+                } elseif ($idjenisSurat == 3) {
+                    KeteranganLulus::where('pengajuan_idpengajuan', $pengajuan->idpengajuan)->delete();
+                } elseif ($idjenisSurat == 4) {
+                    LaporanHasilStudi::where('pengajuan_idpengajuan', $pengajuan->idpengajuan)->delete();
+                }
+                $pengajuan->save();
+                return redirect()->back()->with('success', 'Pengajuan Berhasil Ditolak.');
             }
-
             $pengajuan->save();
-
-            // return redirect()->back()->with('success', 'Status pengajuan berhasil diperbarui.');
+            return redirect()->back()->with('succes', 'Pengajuan Berhasil Diterima.');
         }
+        return redirect()->back()->with('error', 'Pengajuan Tidak Ditemukan.');
 
-        // return redirect()->back()->with('error', 'Pengajuan tidak ditemukan.');
     }
 
     public function showRiwayatPengajuanKaprodi()

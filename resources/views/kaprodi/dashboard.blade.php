@@ -5,7 +5,7 @@
         <!-- Hero Section -->
         <section id="hero" class="hero section" style="padding-top: 20px; margin-top: -30px;">
             <div class="container">
-                <h2>Permohonan Pengajuan Surat</h2>
+                <h2>Permohonan Pengajuan Surat Keterangan Mahasiswa</h2>
                 <table class="table table-bordered text-start" id="dataTable" width="100%" cellspacing="0"
                     style="text-align: center;">
                     <thead>
@@ -72,7 +72,7 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <form id="rejectForm" method="POST">
+                        <form id="rejectForm" method="POST" action = "{{ route('Kaprodi.dashboard') }}">
                             @csrf
                             <input type="hidden" name="id_pengajuan" id="rejectPengajuanId">
                             <div class="mb-3">
