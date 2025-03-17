@@ -142,7 +142,11 @@
                                                 <td>{{ $user->name }}</td>
                                                 <td>{{ $user->address }}</td>
                                                 <td>{{ $user->status }}</td>
-                                                <td>{{ $user->study_program }}</td>
+                                                @if($user->role->name != 'Admin')
+                                                    <td>{{ $user->studyProgram->nama }}</td>
+                                                @else
+                                                    <td>-</td>
+                                                @endif
                                                 <td>{{ $user->phone }}</td>
                                                 <td>{{ $user->email }}</td>
                                                 <td>{{ $user->role->name }}</td>

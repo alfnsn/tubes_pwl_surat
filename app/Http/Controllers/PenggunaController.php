@@ -23,7 +23,7 @@ class PenggunaController extends Controller
 
     public function showMahasiswa()
     {
-        $users = User::whereHas('role', function ($query) {
+        $users = User::with('studyProgram')->whereHas('role', function ($query) {
             $query->where('name', 'Mahasiswa');
         })->get();
 
@@ -32,7 +32,7 @@ class PenggunaController extends Controller
 
     public function showKaprodi()
     {
-        $users = User::whereHas('role', function ($query) {
+        $users = User::with('studyProgram')->whereHas('role', function ($query) {
             $query->where('name', 'Kaprodi');
         })->get();
 
@@ -41,7 +41,7 @@ class PenggunaController extends Controller
 
     public function showMo()
     {
-        $users = User::whereHas('role', function ($query) {
+        $users = User::with('studyProgram')->whereHas('role', function ($query) {
             $query->where('name', 'MO');
         })->get();
 
@@ -50,7 +50,7 @@ class PenggunaController extends Controller
 
     public function showAdmin()
     {
-        $users = User::whereHas('role', function ($query) {
+        $users = User::with('studyProgram')->whereHas('role', function ($query) {
             $query->where('name', 'Admin');
         })->get();
 

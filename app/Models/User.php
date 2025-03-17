@@ -68,8 +68,7 @@ class User extends Authenticatable
 
     public function studyProgram()
     {
-    return $this->belongsTo(StudyProgram::class, 'study_program_id', 'idstudy_program');
+        return $this->belongsTo(StudyProgram::class, 'study_program_id');
     }
-
 
 }

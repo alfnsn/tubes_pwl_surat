@@ -21,6 +21,7 @@ class StudyProgramController extends Controller
     public function store(Request $request)
     {
         $request->validate([
+            'idstudy_program' => 'required|integer|unique:study_program,idstudy_program',
             'nama' => 'required|string|max:255',
         ]);
 
@@ -50,6 +51,11 @@ class StudyProgramController extends Controller
     public function destroy($id)
     {
         $studyProgram = StudyProgram::findOrFail($id);
+
+        if ($studyProgram->users()->count() > 0) {
+            return redirect()->route('admin.studyProgram')->with('error', 'Study Program cannot be deleted because it is associated with users.');
+        }
+
         $studyProgram->delete();
 
         return redirect()->route('admin.studyProgram')->with('success', 'Study Program deleted successfully.');

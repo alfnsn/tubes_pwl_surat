@@ -88,10 +88,11 @@
     </div>
 
     <!-- Nav Item - Charts -->
-    <li class="nav-item {{ request()->routeIs('charts') ? 'active' : '' }}">
-        <a class="nav-link" href="charts.html">
+    <li class="nav-item {{ request()->routeIs('keterangan-lulus-admin') ? 'active' : '' }}">
+        <a class="nav-link" href="{{ route('keterangan-lulus-admin') }}">
             <i class="fas fa-fw fa-graduation-cap"></i>
-            <span>Surat Keterangan Lulus</span></a>
+            <span>Surat Keterangan Lulus</span>
+        </a>
     </li>
 
     <!-- Nav Item - Tables -->

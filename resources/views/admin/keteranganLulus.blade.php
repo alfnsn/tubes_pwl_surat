@@ -8,7 +8,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Admin - Study Program</title>
+    <title>Admin - Keterangan Lulus</title>
 
     <!-- Custom fonts for this template -->
     <link href="{{ asset('assetsadmin/vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">
@@ -56,48 +56,41 @@
                     @endif
                     <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h3 mb-2 text-gray-800">Study Program</h1>
-                        <a href="{{ route('admin.studyProgram.create') }}" class="btn btn-primary btn-icon-split">
+                        <h1 class="h3 mb-2 text-gray-800">Keterangan Lulus</h1>
+                        <a href="#" class="btn btn-primary btn-icon-split">
                             <span class="icon text-white-50">
                                 <i class="fas fa-plus"></i>
                             </span>
-                            <span class="text">Add Study Program</span>
+                            <span class="text">Add Keterangan Lulus</span>
                         </a>
                     </div>
-                    <p class="mb-4">Berikut adalah data study program yang terdaftar dalam sistem.</p>
+                    <p class="mb-4">Berikut adalah data keterangan lulus yang terdaftar dalam sistem.</p>
 
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">Data Study Program</h6>
+                            <h6 class="m-0 font-weight-bold text-primary">Data Keterangan Lulus</h6>
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                     <thead>
                                         <tr>
-                                            <th>ID</th>
-                                            <th>Name</th>
-                                            <th>Actions</th>
+                                            <th>ID Mahasiswa</th>
+                                            <th>Nama Mahasiswa</th>
+                                            <th>Tanggal Pengajuan</th>
+                                            <th>Status</th>
+                                            <th>Jenis Surat</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach($studyPrograms as $studyProgram)
+                                        @foreach($keteranganLulus as $item)
                                             <tr>
-                                                <td>{{ $studyProgram->idstudy_program }}</td>
-                                                <td>{{ $studyProgram->nama }}</td>
-                                                <td style="white-space: nowrap;">
-                                                    <a href="{{ route('admin.studyProgram.edit', ['id' => $studyProgram->idstudy_program]) }}" class="btn btn-warning btn-circle btn-sm" style="display: inline-block;">
-                                                        <i class="fas fa-edit"></i>
-                                                    </a>
-                                                    <form action="{{ route('admin.studyProgram.destroy', ['id' => $studyProgram->idstudy_program]) }}" method="POST" style="display: inline-block;">
-                                                        @csrf
-                                                        @method('DELETE')
-                                                        <button type="button" class="btn btn-danger btn-circle btn-sm" onclick="showDeleteModal('{{ route('admin.studyProgram.destroy', ['id' => $studyProgram->idstudy_program]) }}')">
-                                                            <i class="fas fa-trash"></i>
-                                                        </button>
-                                                    </form>
-                                                </td>
+                                                <td>{{ $item->id }}</td>
+                                                <td>{{ $item->nama}}</td>
+                                                <td>{{ $item->tanggal_pengajuan }}</td>
+                                                <td>{{ $item->status }}</td>
+                                                <td>{{ $item->jenis_surat }}</td>
                                             </tr>
                                         @endforeach
                                     </tbody>
@@ -126,31 +119,6 @@
     {{-- <!-- Logout Modal-->
     @include('layouts.logout-modal') --}}
 
-    <!-- Delete Confirmation Modal -->
-    <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="deleteModalLabel">Confirm Delete</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    Are you sure you want to delete this study program?
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                    <form id="deleteForm" method="POST">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit" class="btn btn-danger">Delete</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-
     <!-- Bootstrap core JavaScript-->
     <script src="{{ asset('assetsadmin/vendor/jquery/jquery.min.js') }}"></script>
     <script src="{{ asset('assetsadmin/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
@@ -173,12 +141,6 @@
                 $('.alert').alert('close');
             }, 3000);
         });
-
-        function showDeleteModal(action) {
-            var form = document.getElementById('deleteForm');
-            form.action = action;
-            $('#deleteModal').modal('show');
-        }
     </script>
 </body>
 

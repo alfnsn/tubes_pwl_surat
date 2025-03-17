@@ -7,6 +7,7 @@ use App\Models\KeteranganAktif;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PenggunaController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\KeteranganLulusController;
 
 Route::get('/', function () {
     return view('auth.login');
@@ -70,6 +71,7 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/riwayat-pengajuan', [PengajuanController::class, 'showPengajuan'])->name('riwayat-pengajuan');
     Route::get('/riwayat-pengajuan-detail/{id}', [PengajuanController::class, 'showPengajuanDetail'])->name('riwayat-pengajuan-detail');
+    Route::get('/admin/keterangan-lulus', [KeteranganLulusController::class, 'index'])->name('keterangan-lulus-admin');
 
 });
 require __DIR__.'/auth.php';
