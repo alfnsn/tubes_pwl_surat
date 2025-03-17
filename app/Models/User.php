@@ -71,4 +71,10 @@ class User extends Authenticatable
         return $this->belongsTo(StudyProgram::class, 'study_program_id');
     }
 
+    public function pengajuans()
+    {
+        return $this->hasMany(Pengajuan::class, 'users_id', 'id');
+    }
+
+
 }

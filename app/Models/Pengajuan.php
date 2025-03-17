@@ -48,4 +48,9 @@ class Pengajuan extends Model
     {
         return $this->hasOne(Surat::class, 'pengajuan_idpengajuan');
     }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'users_id', 'id');
+    }
 }

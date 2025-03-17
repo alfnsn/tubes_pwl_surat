@@ -10,7 +10,7 @@
     <title>Dashboard Mahasiswa</title>
     <meta name="description" content="">
     <meta name="keywords" content="">
-   
+
     <link rel="stylesheet" href="https://cdn.datatables.net/2.2.2/css/dataTables.dataTables.min.css">
 
     <!-- Favicons -->
@@ -89,7 +89,7 @@
     <!-- Preloader -->
     <div id="preloader"></div>
 
-    
+
     <!-- Vendor JS Files -->
     <script src="{{ asset('assets/vendor/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
     <script src="{{ asset('assets/vendor/php-email-form/validate.js')}}"></script>
@@ -107,6 +107,15 @@
     <link rel="stylesheet" href="https://cdn.datatables.net/2.2.2/css/dataTables.dataTables.min.css">
     <script src="https://cdn.datatables.net/2.2.2/js/dataTables.min.js"></script>
     <script>let table = new DataTable('#dataTable');</script>
-    
+    <script>
+        function openRejectModal(id) {
+            document.getElementById('rejectPengajuanId').value = id;
+            document.getElementById('rejectForm').action = "/kaprodi/dashboard/pengajuan-reject/" + id;
+            var rejectModal = new bootstrap.Modal(document.getElementById('rejectModal'));
+            rejectModal.show();
+        }
+    </script>
+
 </body>
+
 </html>
