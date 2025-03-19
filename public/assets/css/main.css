@@ -347,13 +347,13 @@ h6 {
     color: #4b84f7  !important;
   }
 
-  .navmenu .bell i:hover {
+  /* .navmenu .bell i:hover {
     color: var(--nav-hover-color);
-  }
+  } */
 
   .dropdown .btn:hover {
     background-color: #4b84f7  !important;
-    color: #fff !important;
+    /* color: #fff !important; */
   }
 
   .dropdown .btn {

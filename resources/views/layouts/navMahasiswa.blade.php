@@ -25,7 +25,7 @@
                         @endif
                     @endisset
                     <li class="position-relative me-4 dropdown">
-                        <a href="#" data-bs-toggle="dropdown" aria-expanded="false">
+                        <a href="#" data-bs-toggle="dropdown" aria-expanded="false" >
                             <i class="fa fa-bell" style="font-size: 30px; color: #4b84f7;"></i>
                             @php
                                 $userId = Auth::id();
@@ -47,23 +47,23 @@
                                     ->get();
                             @endphp
                             @foreach($notifications as $notification)
-                                <li class="dropdown-item d-flex justify-content-between align-items-center">
-                                    <div>
-                                        <p><strong>From:</strong> {{ $notification->user->name }}</p>
-                                        <p><strong>Message:</strong> {{ $notification->pesan }}</p>
-                                    </div>
-                                    <div class="notification-actions">
-                                        <a href="#" data-bs-toggle="modal" data-bs-target="#notificationsModal" class="btn-icon">
-                                            <i class="fa fa-eye"></i>
-                                        </a>
-                                        <form method="POST" action="{{ route('notifications.markAsRead', $notification->idnotifikasi) }}" class="d-inline">
-                                            @csrf
-                                            <button type="submit" class="btn-icon">
-                                                <i class="fa fa-check"></i>
-                                            </button>
-                                        </form>
-                                    </div>
-                                </li>
+                            <li class="dropdown-item">
+                                <div>
+                                    <p><strong>From:</strong> {{ $notification->user->name }}</p>
+                                    <p class="notif-text"><strong>Message:</strong> {{ $notification->pesan }}</p>
+                                </div>
+                                <div class="notification-actions d-flex">
+                                    <a href="#" data-bs-toggle="modal" data-bs-target="#notificationsModal" class="btn-icon">
+                                        <i class="fa fa-eye"></i>
+                                    </a>
+                                    <form method="POST" action="{{ route('notifications.markAsRead', $notification->idnotifikasi) }}" class="d-inline">
+                                        @csrf
+                                        <button type="submit" class="btn-icon">
+                                            <i class="fa fa-check"></i>
+                                        </button>
+                                    </form>
+                                </div>
+                            </li>                            
                             @endforeach
                             @if($notifications->isEmpty())
                                 <li class="dropdown-item text-center">
@@ -171,4 +171,16 @@
         display: flex;
         gap: 0.5rem;
     }
+    .dropdown-menu {
+    max-width: 300vh; 
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    white-space: normal;
+}
+
+.dropdown-item p {
+    margin-bottom: 0; 
+    white-space: normal;
+}
+
 </style>
