@@ -24,14 +24,53 @@
                         </li>
                         @endif
                     @endisset
-                    <li class="position-relative me-4">
-                        <a href="#notifications">
+                    <li class="position-relative me-4 dropdown">
+                        <a href="#" data-bs-toggle="dropdown" aria-expanded="false">
                             <i class="fa fa-bell" style="font-size: 30px; color: #4b84f7;"></i>
-                            <span
-                                class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                                5
+                            @php
+                                $userId = Auth::id();
+                                $notificationCount = DB::table('notifikasi')
+                                    ->where('tujuan', $userId)
+                                    ->where('status', 'unread')
+                                    ->count();
+                            @endphp
+                            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                                {{ $notificationCount }}
                             </span>
                         </a>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            @php
+                                $notifications = App\Models\Notifikasi::with('user')
+                                    ->where('tujuan', $userId)
+                                    ->where('status', 'unread') // Only fetch unread notifications
+                                    ->orderBy('created_at', 'desc')
+                                    ->get();
+                            @endphp
+                            @foreach($notifications as $notification)
+                                <li class="dropdown-item d-flex justify-content-between align-items-center">
+                                    <div>
+                                        <p><strong>From:</strong> {{ $notification->user->name }}</p>
+                                        <p><strong>Message:</strong> {{ $notification->pesan }}</p>
+                                    </div>
+                                    <div class="notification-actions">
+                                        <a href="#" data-bs-toggle="modal" data-bs-target="#notificationsModal" class="btn-icon">
+                                            <i class="fa fa-eye"></i>
+                                        </a>
+                                        <form method="POST" action="{{ route('notifications.markAsRead', $notification->idnotifikasi) }}" class="d-inline">
+                                            @csrf
+                                            <button type="submit" class="btn-icon">
+                                                <i class="fa fa-check"></i>
+                                            </button>
+                                        </form>
+                                    </div>
+                                </li>
+                            @endforeach
+                            @if($notifications->isEmpty())
+                                <li class="dropdown-item text-center">
+                                    Belum ada pesan
+                                </li>
+                            @endif
+                        </ul>
                     </li>
                 </ul>
             </nav>
@@ -82,3 +121,54 @@
         </ul>
     </div>
 </header>
+
+<!-- Notifications Modal -->
+<div class="modal fade" id="notificationsModal" tabindex="-1" aria-labelledby="notificationsModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="notificationsModalLabel">Notifications</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                @php
+                    $notifications = App\Models\Notifikasi::with('user')
+                        ->where('tujuan', $userId)
+                        ->where('status', 'unread') // Only fetch unread notifications
+                        ->orderBy('created_at', 'desc')
+                        ->get();
+                @endphp
+                @foreach($notifications as $notification)
+                    <div class="notification-item">
+                        <p><strong>From:</strong> {{ $notification->user->name }}</p>
+                        <p><strong>Message:</strong> {{ $notification->pesan }}</p>
+                        <form method="POST" action="{{ route('notifications.markAsRead', $notification->idnotifikasi) }}">
+                            @csrf
+                            <button type="submit" class="btn btn-sm btn-primary">Mark as Read</button>
+                        </form>
+                        <hr>
+                    </div>
+                @endforeach
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .btn-icon {
+        border: none;
+        background: none;
+        cursor: pointer;
+    }
+    .btn-icon:hover {
+        color: inherit;
+    }
+    .btn-icon:focus {
+        outline: none;
+        box-shadow: none;
+    }
+    .notification-actions {
+        display: flex;
+        gap: 0.5rem;
+    }
+</style>

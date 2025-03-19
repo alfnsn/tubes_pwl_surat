@@ -11,6 +11,7 @@ use App\Models\PengantarMataKuliah;
 use App\Models\DataMahasiswa;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use App\Models\Notifikasi;
 
 class PengajuanController extends Controller
 {
@@ -44,6 +45,19 @@ class PengajuanController extends Controller
                     'updated_at' => now(),
                     'pengajuan_idpengajuan' => $pengajuan->getKey(),
                 ]);
+
+                // Create notification for Kaprodi
+                try {
+                    Notifikasi::create([
+                        'pesan' => Auth::user()->name . ' melakukan pengajuan surat Keterangan Aktif',
+                        'status' => 'unread',
+                        'users_id' => Auth::id(),
+                        'tujuan' => '22222',
+                        'pengajuan_idpengajuan' => $pengajuan->getKey(),
+                    ]);
+                } catch (\Exception $e) {
+                    dd($e->getMessage());
+                }
             } elseif ($request->idjenisSurat == 2) {
                 $request->validate([
                     'ditujukan' => 'required|string|max:300',
@@ -167,6 +181,14 @@ class PengajuanController extends Controller
         if ($pengajuan) {
             if ($request->route()->getName() == 'pengajuan-accept') {
                 $pengajuan->status = 'Accepted';
+                // Create notification for Mahasiswa
+                Notifikasi::create([
+                    'pesan' => 'Kaprodi menyetujui permintaan Anda',
+                    'status' => 'unread',
+                    'users_id' => Auth::id(),
+                    'tujuan' => $pengajuan->users_id,
+                    'pengajuan_idpengajuan' => $pengajuan->getKey(),
+                ]);
             } elseif ($request->route()->getName() == 'pengajuan-reject') {
                 $pengajuan->status = 'Rejected';
                 $pengajuan->alasan_penolakan = $request->alasan_penolakan;
@@ -181,6 +203,16 @@ class PengajuanController extends Controller
                 } elseif ($idjenisSurat == 4) {
                     LaporanHasilStudi::where('pengajuan_idpengajuan', $pengajuan->idpengajuan)->delete();
                 }
+
+                // Create notification for Mahasiswa
+                Notifikasi::create([
+                    'pesan' => 'Kaprodi menolak permintaan Anda',
+                    'status' => 'unread',
+                    'users_id' => Auth::id(),
+                    'tujuan' => $pengajuan->users_id,
+                    'pengajuan_idpengajuan' => $pengajuan->getKey(),
+                ]);
+
                 $pengajuan->save();
                 return redirect()->back()->with('success', 'Pengajuan Berhasil Ditolak.');
             }
@@ -203,5 +235,34 @@ class PengajuanController extends Controller
             ->get();
 
         return view('kaprodi.pengajuan-riwayat', compact('pengajuans'));
+    }
+
+    public function upload($id, Request $request)
+    {
+        $request->validate([
+            'file' => 'required|mimes:pdf,doc,docx|max:2048',
+        ]);
+
+        $pengajuan = Pengajuan::findOrFail($id);
+
+        if ($request->file('file')) {
+            $filePath = $request->file('file')->store('uploads', 'public');
+            $pengajuan->file_path = $filePath;
+            $pengajuan->save();
+
+            return redirect()->back()->with('success', 'File berhasil diupload!');
+        }
+
+        return redirect()->back()->with('error', 'Terjadi kesalahan saat mengupload file. Silakan coba lagi.');
+    }
+
+    public function showPengajuanMo()
+    {
+        $pengajuans = Pengajuan::where('status', 'Accepted')
+            ->with(['user', 'jenisSurat'])
+            ->orderBy('tanggal_pengajuan', 'desc')
+            ->get();
+
+        return view('mo.dashboard', compact('pengajuans'));
     }
 }

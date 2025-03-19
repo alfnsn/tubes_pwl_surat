@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PenggunaController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\KeteranganLulusController;
+use App\Http\Controllers\NotificationController;
 
 Route::get('/', function () {
     return view('auth.login');
@@ -31,6 +32,10 @@ Route::get('/mahasiswa/laporan-hasil-studi', function () {
 
 Route::post('/pengajuan/store', [PengajuanController::class, 'store'])->name('pengajuan');
 
+Route::post('/notifications/{id}/markAsRead', [NotificationController::class, 'markAsRead'])->name('notifications.markAsRead');
+
+Route::post('/pengajuan/{id}/upload', [PengajuanController::class, 'upload'])->name('pengajuan-upload');
+
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
@@ -43,9 +48,7 @@ Route::middleware('auth')->group(function () {
     //     return view('kaprodi.dashboard');
     // })->name('Kaprodi.dashboard');
 
-    Route::get('/MO/dashboard', function () {
-        return view('mo.dashboard');
-    })->name('MO.dashboard');
+    Route::get('/MO/dashboard', [PengajuanController::class, 'showPengajuanMo'])->name('MO.dashboard');
 
     Route::get('/admin/pengguna', [App\Http\Controllers\AdminController::class, 'pengguna'])->name('admin.pengguna');
     Route::get('/admin/pengguna/create', [PenggunaController::class, 'create'])->name('admin.pengguna.create');
