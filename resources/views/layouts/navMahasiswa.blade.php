@@ -22,6 +22,10 @@
                         <li class="me-4">
                             <a href="{{ route('pengajuan-riwayat') }}">Riwayat Pengajuan</a>
                         </li>
+                        @elseif(Auth::user()->role->name === 'MO')
+                        <li class="me-4">
+                            <a href="{{ route('pengajuan-riwayat-mo') }}">Riwayat Pengajuan</a>
+                        </li>
                         @endif
                     @endisset
                     <li class="position-relative me-4 dropdown">

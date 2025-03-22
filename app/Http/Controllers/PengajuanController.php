@@ -9,6 +9,7 @@ use App\Models\KeteranganLulus;
 use App\Models\LaporanHasilStudi;
 use App\Models\PengantarMataKuliah;
 use App\Models\DataMahasiswa;
+use App\Models\Surat;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use App\Models\Notifikasi;
@@ -25,7 +26,7 @@ class PengajuanController extends Controller
         try {
             $pengajuan = Pengajuan::create([
                 'tanggal_pengajuan' => now(),
-                'status' => 'Pending',
+                'status' => 'Menunggu Persetujuan Kaprodi',
                 'users_id' => Auth::id(),
                 'jenisSurat_idjenisSurat' => $request->idjenisSurat,
             ]);
@@ -156,7 +157,7 @@ class PengajuanController extends Controller
         $pengajuans = Pengajuan::whereHas('user', function ($query) use ($kaprodi) {
             $query->where('study_program_id', $kaprodi->study_program_id);
         })
-            ->where('status', 'Pending') 
+            ->where('status', 'Menunggu Persetujuan Kaprodi')
             ->orderBy('tanggal_pengajuan', 'desc')
             ->get();
 
@@ -180,8 +181,7 @@ class PengajuanController extends Controller
 
         if ($pengajuan) {
             if ($request->route()->getName() == 'pengajuan-accept') {
-                $pengajuan->status = 'Accepted';
-                // Create notification for Mahasiswa
+                $pengajuan->status = 'Disetujui Oleh Kaprodi';
                 Notifikasi::create([
                     'pesan' => 'Kaprodi menyetujui permintaan Anda',
                     'status' => 'unread',
@@ -190,7 +190,7 @@ class PengajuanController extends Controller
                     'pengajuan_idpengajuan' => $pengajuan->getKey(),
                 ]);
             } elseif ($request->route()->getName() == 'pengajuan-reject') {
-                $pengajuan->status = 'Rejected';
+                $pengajuan->status = 'Ditolak Oleh Kaprodi';
                 $pengajuan->alasan_penolakan = $request->alasan_penolakan;
                 $idjenisSurat = $pengajuan->jenisSurat_idjenisSurat;
 
@@ -204,7 +204,6 @@ class PengajuanController extends Controller
                     LaporanHasilStudi::where('pengajuan_idpengajuan', $pengajuan->idpengajuan)->delete();
                 }
 
-                // Create notification for Mahasiswa
                 Notifikasi::create([
                     'pesan' => 'Kaprodi menolak permintaan Anda',
                     'status' => 'unread',
@@ -220,7 +219,6 @@ class PengajuanController extends Controller
             return redirect()->back()->with('succes', 'Pengajuan Berhasil Diterima.');
         }
         return redirect()->back()->with('error', 'Pengajuan Tidak Ditemukan.');
-
     }
 
     public function showRiwayatPengajuanKaprodi()
@@ -230,7 +228,7 @@ class PengajuanController extends Controller
         $pengajuans = Pengajuan::whereHas('user', function ($query) use ($kaprodi) {
             $query->where('study_program_id', $kaprodi->study_program_id);
         })
-            ->where('status','!=', 'Pending') 
+            ->where('status', '!=', 'Menunggu Persetujuan Kaprodi')
             ->orderBy('tanggal_pengajuan', 'desc')
             ->get();
 
@@ -243,14 +241,31 @@ class PengajuanController extends Controller
             'file' => 'required|mimes:pdf,doc,docx|max:2048',
         ]);
 
-        $pengajuan = Pengajuan::findOrFail($id);
+        $pengajuan = Pengajuan::with('user', 'jenisSurat')->findOrFail($id);
 
         if ($request->file('file')) {
-            $filePath = $request->file('file')->store('uploads', 'public');
-            $pengajuan->file_path = $filePath;
-            $pengajuan->save();
+            $nama = str_replace(' ', '_', $pengajuan->user->name);
+            $surat = str_replace(' ', '_', $pengajuan->jenisSurat->name);
+            $tanggal = \Carbon\Carbon::parse($pengajuan->tanggal_pengajuan)->format('d_m_Y');
+            $dot = $request->file('file')->getClientOriginalExtension();
+            $namaFile = "{$nama}-{$surat}-{$tanggal}.{$dot}";
 
-            return redirect()->back()->with('success', 'File berhasil diupload!');
+            $request->file('file')->move(public_path('assets/surat'), $namaFile);
+
+            Surat::create([
+                'file_path' => $namaFile,
+                'uploaded_date' => now(),
+                'created_at' => now(),
+                'updated_at' => now(),
+                'pengajuan_idpengajuan' => $pengajuan->idpengajuan,
+            ]);
+
+            $pengajuan->update([
+                'status' => 'Surat Telah Selesai Dibuat',
+                'updated_at' => now(),
+            ]);
+
+            return redirect()->back()->with('success', 'File berhasil diupload');
         }
 
         return redirect()->back()->with('error', 'Terjadi kesalahan saat mengupload file. Silakan coba lagi.');
@@ -258,11 +273,29 @@ class PengajuanController extends Controller
 
     public function showPengajuanMo()
     {
-        $pengajuans = Pengajuan::where('status', 'Accepted')
-            ->with(['user', 'jenisSurat'])
+        $mo = Auth::user();
+
+        $pengajuans = Pengajuan::whereHas('user', function ($query) use ($mo) {
+            $query->where('study_program_id', $mo->study_program_id);
+        })
+            ->where('status', 'Disetujui Oleh Kaprodi')
             ->orderBy('tanggal_pengajuan', 'desc')
             ->get();
 
         return view('mo.dashboard', compact('pengajuans'));
+    }
+
+    public function showRiwayatPengajuanMO()
+    {
+        $mo = Auth::user();
+
+        $pengajuans = Pengajuan::whereHas('user', function ($query) use ($mo) {
+            $query->where('study_program_id', $mo->study_program_id);
+        })
+            ->where('status', '=', 'Surat Telah Selesai Dibuat')
+            ->orderBy('tanggal_pengajuan', 'desc')
+            ->get();
+
+        return view('mo.pengajuan-riwayat', compact('pengajuans'));
     }
 }

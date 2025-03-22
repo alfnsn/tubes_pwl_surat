@@ -81,14 +81,16 @@ Route::middleware('auth')->group(function () {
     Route::post('/kaprodi/dashboard/pengajuan-accept/{id}', [PengajuanController::class, 'update'])->name('pengajuan-accept');
     Route::post('/kaprodi/dashboard/pengajuan-reject/{id}', [PengajuanController::class, 'update'])->name('pengajuan-reject');
     Route::get('/kaprodi/dashboard/pengajuan-riwayat', [PengajuanController::class, 'showRiwayatPengajuanKaprodi'])->name('pengajuan-riwayat');
-
+    
     Route::get('/kaprodi/dashboard', [PengajuanController::class, 'showPengajuanKaprodi'])->name('Kaprodi.dashboard');
     Route::get('/kaprodi/dashboard/pengajuan-detail/{id}', [PengajuanController::class, 'showPengajuanDetailKaprodi'])->name('pengajuan-detail');
     Route::post('/kaprodi/dashboard/pengajuan-accept/{id}', [PengajuanController::class, 'update'])->name('pengajuan-accept');
     Route::post('/kaprodi/dashboard/pengajuan-reject/{id}', [PengajuanController::class, 'update'])->name('pengajuan-reject');
     Route::get('/kaprodi/dashboard/pengajuan-riwayat', [PengajuanController::class, 'showRiwayatPengajuanKaprodi'])->name('pengajuan-riwayat');
-
+    
     Route::get('/admin/keterangan-lulus', [KeteranganLulusController::class, 'index'])->name('keterangan-lulus-admin');
+    
+    Route::get('/MO/dashboard/pengajuan-riwayat-mo', [PengajuanController::class, 'showRiwayatPengajuanMO'])->name('pengajuan-riwayat-mo');
 
 });
 require __DIR__.'/auth.php';

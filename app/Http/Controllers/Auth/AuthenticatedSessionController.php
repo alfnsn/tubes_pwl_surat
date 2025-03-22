@@ -57,10 +57,9 @@ class AuthenticatedSessionController extends Controller
             case 4:
                 return redirect()->route('Admin.dashboard');
             default:
-                return redirect()->route('login'); // Redirect default jika role_id tidak dikenali
+                return redirect()->route('login'); 
         }
 
-        // return redirect()->intended(route('dashboard'));
     }
 
     /**
