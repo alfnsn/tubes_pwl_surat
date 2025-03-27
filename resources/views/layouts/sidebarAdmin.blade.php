@@ -1,11 +1,11 @@
 <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
-
     <!-- Sidebar - Brand -->
-    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{ asset('assetsadmin/index.html') }}">
+    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{ route(Auth::user()->role->name . '.dashboard') }}">
         <div class="sidebar-brand-icon rotate-n-15">
-            <i class="fas fa-laugh-wink"></i>
+            <img src="https://kompaspedia.kompas.id/wp-content/uploads/2021/07/logo_universitas-kristen-maranatha.png"
+            alt="IMG" style="max-width: 50px; height: auto; transform: rotate(0); filter: brightness(0) invert(1);">
         </div>
-        <div class="sidebar-brand-text mx-3">SB Admin <sup>2</sup></div>
+        <div class="sidebar-brand-text mx-3"> Maranatha</div>
     </a>
 
     <!-- Divider -->

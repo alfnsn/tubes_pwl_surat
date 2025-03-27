@@ -36,6 +36,7 @@
 
     <!-- Main CSS File -->
     <link href="{{ asset('assets/css/main.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
 
 
     <!-- Form -->
@@ -45,6 +46,9 @@
     <link rel="stylesheet" href="{{asset('assets/css/bootstrap.min.css')}}">
     <!-- Style -->
     <link rel="stylesheet" href="{{asset('assets/css/style.css')}}">
+
+    <!-- Custom styles for this template-->
+    <link href="{{ asset('assetsadmin/css/sb-admin-2.min.css') }}" rel="stylesheet">
     <!-- =======================================================
   * Template Name: OnePage
   * Template URL: https://bootstrapmade.com/onepage-multipurpose-bootstrap-template/
@@ -116,6 +120,9 @@
         }
     </script>
 
+    <!-- Bootstrap core JavaScript-->
+    <script src="{{ asset('assetsadmin/vendor/jquery/jquery.min.js') }}"></script>
+    <script src="{{ asset('assetsadmin/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
 </body>
 
 </html>

@@ -26,27 +26,27 @@
                             ID
                         @endif
                     </label>
-                    <input type="text" class="form-control" id="id" name="id" required>
+                    <input type="text" class="form-control" id="id" name="id" maxlength="9" required>
                 </div>
                 <div class="form-group">
                     <label for="name">Name</label>
-                    <input type="text" class="form-control" id="name" name="name" required>
+                    <input type="text" class="form-control" id="name" name="name" maxlength="120" required>
                 </div>
                 <div class="form-group">
                     <label for="email">Email</label>
-                    <input type="email" class="form-control" id="email" name="email" required>
+                    <input type="email" class="form-control" id="email" name="email" maxlength="45" required>
                 </div>
                 <div class="form-group">
                     <label for="password">Password</label>
-                    <input type="password" class="form-control" id="password" name="password" required>
+                    <input type="password" class="form-control" id="password" name="password" maxlength="255" required>
                 </div>
                 <div class="form-group">
                     <label for="address">Address</label>
-                    <input type="text" class="form-control" id="address" name="address" required>
+                    <input type="text" class="form-control" id="address" name="address" maxlength="300" required>
                 </div>
                 <div class="form-group">
                     <label for="status">Status</label>
-                    <input type="text" class="form-control" id="status" name="status" required>
+                    <input type="text" class="form-control" id="status" name="status" maxlength="12" required>
                 </div>
                 @if($role != 'Admin')
                 <div class="form-group">
@@ -61,7 +61,7 @@
                 @endif
                 <div class="form-group">
                     <label for="phone">Phone</label>
-                    <input type="text" class="form-control" id="phone" name="phone" required>
+                    <input type="text" class="form-control" id="phone" name="phone" maxlength="16" required>
                 </div>
                 <input type="hidden" name="role_id" value="{{ $roleId }}">
                 <input type="hidden" name="role" value="{{ $role }}">

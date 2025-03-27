@@ -23,26 +23,49 @@ class AdminController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'id' => 'required|unique:users',
+            'id' => 'required|unique:users|max:9',
             'name' => 'required|max:120',
-            'email' => 'required|email|unique:users',
-            'password' => 'required|min:8',
+            'email' => 'required|email|unique:users|max:45',
+            'password' => 'required|min:8|max:255',
             'address' => 'required|max:300',
             'status' => 'required|max:12',
             'study_program_id' => 'required',
             'phone' => 'required|max:16',
             'role_id' => 'required',
+        ], [
+            'id.required' => 'The ID field is required.',
+            'id.unique' => 'The ID has already been taken.',
+            'id.max' => 'The ID may not be greater than 9 characters.',
+            'name.required' => 'The Name field is required.',
+            'name.max' => 'The Name may not be greater than 120 characters.',
+            'email.required' => 'The Email field is required.',
+            'email.email' => 'The Email must be a valid email address.',
+            'email.unique' => 'The Email has already been taken.',
+            'email.max' => 'The Email may not be greater than 45 characters.',
+            'password.required' => 'The Password field is required.',
+            'password.min' => 'The Password must be at least 8 characters.',
+            'password.max' => 'The Password may not be greater than 255 characters.',
+            'address.required' => 'The Address field is required.',
+            'address.max' => 'The Address may not be greater than 300 characters.',
+            'status.required' => 'The Status field is required.',
+            'status.max' => 'The Status may not be greater than 12 characters.',
+            'study_program_id.required' => 'The Study Program field is required.',
+            'phone.required' => 'The Phone field is required.',
+            'phone.max' => 'The Phone may not be greater than 16 characters.',
+            'role_id.required' => 'The Role field is required.',
         ]);
 
         try {
             $data = $request->all();
             $data['password'] = bcrypt($request->password);
 
-            User::create($data);
+            $user = User::create($data);
 
-            return redirect()->route('pengguna.' . strtolower($request->role))->with('success', 'Pengguna created successfully.');
+            $role = strtolower($user->role->name);
+
+            return redirect()->route('pengguna.' . $role)->with('success', 'Pengguna created successfully.');
         } catch (\Exception $e) {
-            return redirect()->route('admin.pengguna')->with('error', 'Failed to create Pengguna.');
+            return back()->with('error', 'Failed to create Pengguna.');
         }
     }
 
@@ -57,21 +80,40 @@ class AdminController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'name' => 'required',
-            'email' => 'required|email|unique:users,email,'.$id,
-            'address' => 'required',
-            'status' => 'required',
+            'name' => 'required|max:120',
+            'email' => 'required|email|unique:users,email,'.$id.'|max:45',
+            'address' => 'required|max:300',
+            'status' => 'required|max:12',
             'study_program_id' => 'required',
-            'phone' => 'required',
+            'phone' => 'required|max:16',
             'role_id' => 'required',
+        ], [
+            'name.required' => 'The Name field is required.',
+            'name.max' => 'The Name may not be greater than 120 characters.',
+            'email.required' => 'The Email field is required.',
+            'email.email' => 'The Email must be a valid email address.',
+            'email.unique' => 'The Email has already been taken.',
+            'email.max' => 'The Email may not be greater than 45 characters.',
+            'address.required' => 'The Address field is required.',
+            'address.max' => 'The Address may not be greater than 300 characters.',
+            'status.required' => 'The Status field is required.',
+            'status.max' => 'The Status may not be greater than 12 characters.',
+            'study_program_id.required' => 'The Study Program field is required.',
+            'phone.required' => 'The Phone field is required.',
+            'phone.max' => 'The Phone may not be greater than 16 characters.',
+            'role_id.required' => 'The Role field is required.',
         ]);
 
-        $user = User::find($id);
-        $user->update($request->all());
+        try {
+            $user = User::find($id);
+            $user->update($request->all());
 
-        $role = strtolower($user->role->name);
+            $role = strtolower($user->role->name);
 
-        return redirect()->route('pengguna.' . $role)->with('success', 'Pengguna updated successfully.');
+            return redirect()->route('pengguna.' . $role)->with('success', 'Pengguna updated successfully.');
+        } catch (\Exception $e) {
+            return back()->with('error', 'Failed to update Pengguna.');
+        }
     }
 
     public function destroy($id)

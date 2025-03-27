@@ -97,20 +97,33 @@
 
         <div class="container mt-4">
             <h4>Status Pengajuan</h4>
-            <div class="progress" style="height: 30px;">
-                <div class="progress-bar 
-                    @if($pengajuan->status == 'Pending') bg-warning
-                    @elseif($pengajuan->status == 'Diproses') bg-primary
-                    @elseif($pengajuan->status == 'Accepted') bg-success
-                    @elseif($pengajuan->status == 'Rejected') bg-danger
-                    @endif" role="progressbar" style="width: 
-                    @if($pengajuan->status == 'Pending') 25%
-                    @elseif($pengajuan->status == 'Diproses') 50%
-                    @elseif($pengajuan->status == 'Accepted') 100%
-                    @elseif($pengajuan->status == 'Rejected') 100%
-                    @endif;">
-                    {{ $pengajuan->status }}
-                </div>
+            <div class="progress-section">
+                <ul class="timeline">
+                    <li class="@if($pengajuan->status == 'Menunggu Persetujuan Kaprodi') active @else not-active @endif" style="--accent-color:#FBCA3E">
+                        <div class="date">Pending</div>
+                        @if($pengajuan->status == 'Menunggu Persetujuan Kaprodi')
+                            <div class="status-text">Menunggu Persetujuan Kaprodi</div>
+                        @endif
+                    </li>
+                    <li class="@if($pengajuan->status == 'Disetujui Oleh Kaprodi') active @elseif($pengajuan->status == 'Surat Telah Selesai Dibuat') not-active @elseif($pengajuan->status == 'Menunggu Persetujuan Kaprodi' || $pengajuan->status == 'Ditolak Oleh Kaprodi') pending @endif" style="--accent-color:#4CADAD">
+                        <div class="date">Accepted</div>
+                        @if($pengajuan->status == 'Disetujui Oleh Kaprodi')
+                            <div class="status-text">Disetujui Oleh Kaprodi, Surat Sedang Dibuat oleh MO</div>
+                        @endif
+                    </li>
+                    <li class="@if($pengajuan->status == 'Ditolak Oleh Kaprodi') active @else pending @endif" style="--accent-color:#E24A68">
+                        <div class="date">Rejected</div>
+                        @if($pengajuan->status == 'Ditolak Oleh Kaprodi')
+                            <div class="status-text">Ditolak Oleh Kaprodi</div>
+                        @endif
+                    </li>
+                    <li class="@if($pengajuan->status == 'Surat Telah Selesai Dibuat') active @else pending @endif" style="--accent-color:#1B5F8C">
+                        <div class="date">Surat Telah Selesai Dibuat</div>
+                        @if($pengajuan->status == 'Surat Telah Selesai Dibuat')
+                            <div class="status-text">Silahkan Download Surat Di Bawah</div>
+                        @endif
+                    </li>
+                </ul>
             </div>
         </div>
 
