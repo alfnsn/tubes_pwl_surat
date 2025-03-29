@@ -262,6 +262,30 @@ window.addEventListener("load", function () {
     document.getElementById("preloader").style.display = "none";
 });
 
+// document
+//     .getElementById("tambahMahasiswa")
+//     .addEventListener("click", function () {
+//         let container = document.getElementById("mahasiswaContainer");
+
+//         let newInput = document.createElement("div");
+//         newInput.classList.add("input-group", "mb-2");
+//         newInput.innerHTML = `
+//                         <input type="text" name="namaMahasiswa[]" class="form-control" placeholder="Nama Mahasiswa" required maxlength="120">
+//                         <input type="text" name="nrpMahasiswa[]" class="form-control" placeholder="NRP Mahasiswa" required maxlength="9">
+//                         <button type="button" class=" btn-danger removeMahasiswa rounded-circle" style="width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; margin-left: 10px;">
+//                             <i class="fas fa-trash"></i>
+//                         </button>
+//                     `;
+
+//         container.appendChild(newInput);
+//     });
+
+// document.addEventListener("click", function (event) {
+//     if (event.target.classList.contains("removeMahasiswa")) {
+//         event.target.parentElement.remove();
+//     }
+// });
+
 document
     .getElementById("tambahMahasiswa")
     .addEventListener("click", function () {
@@ -270,16 +294,63 @@ document
         let newInput = document.createElement("div");
         newInput.classList.add("input-group", "mb-2");
         newInput.innerHTML = `
-                        <input type="text" name="namaMahasiswa[]" class="form-control" placeholder="Nama Mahasiswa">
-                        <input type="text" name="nrpMahasiswa[]" class="form-control" placeholder="NRP Mahasiswa">
-                        <button type="button" class="btn btn-danger removeMahasiswa">Hapus</button>
-                    `;
+      <input type="text" name="namaMahasiswa[]" class="form-control" placeholder="Nama Mahasiswa" required maxlength="120">
+      <input type="text" name="nrpMahasiswa[]" class="form-control" placeholder="NRP Mahasiswa" required maxlength="9">
+      <button type="button" class=" btn-danger removeMahasiswa rounded-circle" style="width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; margin-left: 10px;">
+                    <i class="fas fa-trash"></i>
+                  </button>
+    `;
 
         container.appendChild(newInput);
     });
 
-document.addEventListener("click", function (event) {
-    if (event.target.classList.contains("removeMahasiswa")) {
-        event.target.parentElement.remove();
+document
+    .getElementById("mahasiswaContainer")
+    .addEventListener("click", function (event) {
+        // Pastikan yang diklik adalah tombol hapus
+        if (event.target.closest(".removeMahasiswa")) {
+            // Hapus div yang berisi input dan tombol hapus
+            event.target.closest(".input-group").remove();
+        }
+    });
+
+function updateFileName(input) {
+    const fileName = input.files.length > 0 ? input.files[0].name : "";
+    const fileNameElement = document.getElementById("fileName");
+    if (fileName) {
+        fileNameElement.textContent = fileName;
+        fileNameElement.style.display = "inline-block";
+    } else {
+        fileNameElement.style.display = "none";
     }
-});
+}
+
+function downloadFile(url) {
+    fetch(url)
+        .then((response) => response.blob())
+        .then((blob) => {
+            const link = document.createElement("a");
+            link.href = URL.createObjectURL(blob);
+            link.download = url.split("/").pop();
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        })
+        .catch((error) => console.error("Download error:", error));
+}
+
+function cekFormat(input) {
+    let value = input.value;
+    let errorMsg = document.getElementById("error-msg");
+
+    // Cek apakah semua huruf kapital kecuali huruf pertama
+    if (value.length > 1 && value === value.toUpperCase()) {
+        errorMsg.style.display = "inline";
+        input.setCustomValidity(
+            "Tidak boleh huruf besar semua, kecuali huruf pertama."
+        );
+    } else {
+        errorMsg.style.display = "none";
+        input.setCustomValidity(""); // Reset error jika valid
+    }
+}

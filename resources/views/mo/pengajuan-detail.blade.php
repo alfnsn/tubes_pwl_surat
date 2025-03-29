@@ -85,6 +85,40 @@
                         <td>{{$pengajuan->laporanHasilStudi->keperluan_pembuatan}}</td>
                     </tr>
                 @endif
+                <tr>
+                    <th>Download Template Surat</th>
+                    <td>
+                        <a onclick="downloadFile('{{ asset('assets/TemplateJadi/' . $pengajuan->path_template) }}')"
+                            class="d-flex align-items-center justify-content-center rounded-circle"
+                            style="width: 42px; height: 42px; background-color: #1d3557; color: white; border: none; cursor: pointer;">
+                            <i class="fas fa-download" style="font-size: 20px; line-height: 1;"></i>
+                        </a>
+                    </td>
+                </tr>
+                <tr>
+                    <th>Upload Surat</th>
+                    <td>
+                        <form action="{{ route('pengajuan-upload', $pengajuan->idpengajuan) }}" method="POST"
+                            class="d-inline" enctype="multipart/form-data">
+                            @csrf
+                            <input type="file" name="file" id="fileInput" class="d-none" required
+                                onchange="updateFileName(this)">
+
+                            <label for="fileInput"
+                                class="btn btn-secondary rounded-circle d-flex align-items-center justify-content-center"
+                                style="width: 40px; height: 40px; cursor: pointer;">
+                                <i class="fas fa-paperclip" style="font-size: 20px; line-height: 1;"></i>
+                            </label>
+
+                            <span id="fileName" class="text-muted" style="display: none; font-size: 14px;"></span>
+
+                            <button type="submit" class="d-flex align-items-center justify-content-center rounded-circle"
+                                style="width: 42px; height: 42px; background-color: #28a745; color: white; border: none;">
+                                <i class="fas fa-upload" style="font-size: 20px; line-height: 1;"></i>
+                            </button>
+                        </form>
+                    </td>
+                </tr>
             </tbody>
         </table>
 

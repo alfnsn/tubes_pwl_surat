@@ -91,6 +91,12 @@ Route::middleware('auth')->group(function () {
     Route::get('/admin/keterangan-lulus', [KeteranganLulusController::class, 'index'])->name('keterangan-lulus-admin');
     
     Route::get('/MO/dashboard/pengajuan-riwayat-mo', [PengajuanController::class, 'showRiwayatPengajuanMO'])->name('pengajuan-riwayat-mo');
+    Route::get('/MO/dashboard/pengajuan-detail-mo/{id}', [PengajuanController::class, 'showPengajuanDetailMO'])->name('pengajuan-detail-mo');
+
+
+    // Template
+
+
 
 });
 require __DIR__.'/auth.php';

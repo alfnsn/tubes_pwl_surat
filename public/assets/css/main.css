@@ -359,7 +359,7 @@ h6 {
 
     .dropdown .btn:hover {
         background-color: #4b84f7 !important;
-        /* color: #fff !important; */
+        color: #fff !important;
     }
 
     .dropdown .btn {

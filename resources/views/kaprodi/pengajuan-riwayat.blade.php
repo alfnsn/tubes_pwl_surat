@@ -43,8 +43,5 @@
                 </table>
             </div>
         </section>
-        <div class="d-flex justify-content-end mt-3 mb-3">
-            <a href="{{ route('Kaprodi.dashboard') }}" class="btn btn-primary" style="border-radius: 10px;">Back</a>
-        </div>
     </main>
 @endsection

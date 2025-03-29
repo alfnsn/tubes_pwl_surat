@@ -20,17 +20,17 @@
                 <ul class="d-flex align-items-center mb-0" style="list-style: none;">
                     @isset(Auth::user()->role->name)
                         @if(Auth::user()->role->name === 'Mahasiswa')
-                        <li class="me-4">
-                            <a href="{{ route('riwayat-pengajuan') }}">Riwayat Pengajuan</a>
-                        </li>
+                            <li class="me-4">
+                                <a href="{{ route('riwayat-pengajuan') }}">Riwayat Pengajuan</a>
+                            </li>
                         @elseif(Auth::user()->role->name === 'Kaprodi')
-                        <li class="me-4">
-                            <a href="{{ route('pengajuan-riwayat') }}">Riwayat Pengajuan</a>
-                        </li>
+                            <li class="me-4">
+                                <a href="{{ route('pengajuan-riwayat') }}">Riwayat Pengajuan</a>
+                            </li>
                         @elseif(Auth::user()->role->name === 'MO')
-                        <li class="me-4">
-                            <a href="{{ route('pengajuan-riwayat-mo') }}">Riwayat Pengajuan</a>
-                        </li>
+                            <li class="me-4">
+                                <a href="{{ route('pengajuan-riwayat-mo') }}">Riwayat Pengajuan</a>
+                            </li>
                         @endif
                     @endisset
                 </ul>
@@ -38,17 +38,21 @@
 
             <!-- Nav Item - Alerts -->
             <li class="nav-item dropdown no-arrow mx-1">
-                <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button"
-                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <i class="fas fa-bell fa-fw"></i>
-                    @php
-                        $userId = Auth::id();
-                        $notificationCount = DB::table('notifikasi')
-                            ->where('tujuan', $userId)
-                            ->where('status', 'unread')
-                            ->count();
-                    @endphp
-                    <span class="badge badge-danger badge-counter">{{ $notificationCount }}</span>
+                <a class="nav-link notif-baru" href="#" id="alertsDropdown" role="button" data-toggle="dropdown"
+                    aria-haspopup="true" aria-expanded="false">
+                    <i class="fas fa-bell fa-fw" style="position: relative; font-size: 25px;">
+                        @php
+                            $userId = Auth::id();
+                            $notificationCount = DB::table('notifikasi')
+                                ->where('tujuan', $userId)
+                                ->where('status', 'unread')
+                                ->count();
+                        @endphp
+                        @if($notificationCount >= 0)
+                            <span class="badge badge-danger badge-counter position-absolute"
+                                style="top: -4px; right: -1px; font-size: 10px; !important">{{ $notificationCount }}</span>
+                        @endif
+                    </i>
                 </a>
                 <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
                     aria-labelledby="alertsDropdown">
@@ -61,17 +65,16 @@
                             ->get();
                     @endphp
                     @foreach($notifications as $notification)
-                        <a class="dropdown-item d-flex align-items-center" href="#" 
-                        data-bs-toggle="modal" 
-                        data-bs-target="#notificationsModal" 
-                        data-message="{{ $notification->pesan }}" 
-                        data-sender="{{ $notification->user->name }}">
-                            <div class="bg-warning d-flex justify-content-center align-items-center" 
+                        <a class="dropdown-item d-flex align-items-center" href="#" data-bs-toggle="modal"
+                            data-bs-target="#notificationsModal" data-message="{{ $notification->pesan }}"
+                            data-sender="{{ $notification->user->name }}" data-id="{{ $notification->idnotifikasi }}">
+                            <div class="bg-warning d-flex justify-content-center align-items-center"
                                 style="border-radius: 50%; width: 2rem; height: 2rem;">
                                 <i class="fas fa-exclamation-triangle text-white"></i>
                             </div>
                             <div style="margin-left: 0.5rem">
-                                <div class="small text-gray-800"><strong>From: {{ $notification->user->name }} </strong></div>
+                                <div class="small text-gray-800"><strong>From: {{ $notification->user->name }} </strong>
+                                </div>
                                 {{ $notification->pesan }}
                             </div>
                         </a>
@@ -106,23 +109,23 @@
         <ul class="list-group">
             @isset(Auth::user()->role->name)
                 @if(Auth::user()->role->name === 'Mahasiswa')
-                <li class="me-4">
-                    <a href="{{ route('riwayat-pengajuan') }}">Riwayat Pengajuan</a>
-                </li>
+                    <li class="me-4">
+                        <a href="{{ route('riwayat-pengajuan') }}">Riwayat Pengajuan</a>
+                    </li>
                 @elseif(Auth::user()->role->name === 'Kaprodi')
-                <li class="me-4">
-                    <a href="{{ route('pengajuan-riwayat') }}">Riwayat Pengajuan</a>
-                </li>
+                    <li class="me-4">
+                        <a href="{{ route('pengajuan-riwayat') }}">Riwayat Pengajuan</a>
+                    </li>
                 @elseif(Auth::user()->role->name === 'MO')
-                <li class="me-4">
-                    <a href="{{ route('pengajuan-riwayat-mo') }}">Riwayat Pengajuan</a>
-                </li>
+                    <li class="me-4">
+                        <a href="{{ route('pengajuan-riwayat-mo') }}">Riwayat Pengajuan</a>
+                    </li>
                 @endif
             @endisset
             <!-- Nav Item - Alerts -->
             <li class="nav-item dropdown no-arrow mx-1">
-                <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button"
-                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button" data-toggle="dropdown"
+                    aria-haspopup="true" aria-expanded="false">
                     <i class="fas fa-bell fa-fw"></i>
                     @php
                         $userId = Auth::id();
@@ -144,17 +147,16 @@
                             ->get();
                     @endphp
                     @foreach($notifications as $notification)
-                        <a class="dropdown-item d-flex align-items-center" href="#" 
-                        data-bs-toggle="modal" 
-                        data-bs-target="#notificationsModal" 
-                        data-message="{{ $notification->pesan }}" 
-                        data-sender="{{ $notification->user->name }}">
-                            <div class="bg-warning d-flex justify-content-center align-items-center" 
+                        <a class="dropdown-item d-flex align-items-center" href="#" data-bs-toggle="modal"
+                            data-bs-target="#notificationsModal" data-message="{{ $notification->pesan }}"
+                            data-sender="{{ $notification->user->name }}" data-id="{{ $notification->idnotifikasi }}">
+                            <div class="bg-warning d-flex justify-content-center align-items-center"
                                 style="border-radius: 50%; width: 2rem; height: 2rem;">
                                 <i class="fas fa-exclamation-triangle text-white"></i>
                             </div>
                             <div style="margin-left: 0.5rem">
-                                <div class="small text-gray-800"><strong>From: {{ $notification->user->name }} </strong></div>
+                                <div class="small text-gray-800"><strong>From: {{ $notification->user->name }} </strong>
+                                </div>
                                 {{ $notification->pesan }}
                             </div>
                         </a>
@@ -186,7 +188,8 @@
 </header>
 
 <!-- Notifications Modal -->
-<div class="modal fade" id="notificationsModal" tabindex="-1" aria-labelledby="notificationsModalLabel" aria-hidden="true">
+<div class="modal fade" id="notificationsModal" tabindex="-1" aria-labelledby="notificationsModalLabel"
+    aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -196,7 +199,7 @@
             <div class="modal-body">
                 <p><strong>From:</strong> <span id="modalSender"></span></p>
                 <p><strong>Message:</strong> <span id="modalMessage"></span></p>
-                <form method="POST" action="{{ route('notifications.markAsRead', $notification->idnotifikasi) }}">
+                <form method="POST" action="" id="markAsReadForm">
                     @csrf
                     <button type="submit" class="btn btn-sm btn-primary">Mark as Read</button>
                 </form>
@@ -212,12 +215,15 @@
             const button = event.relatedTarget;
             const message = button.getAttribute('data-message');
             const sender = button.getAttribute('data-sender');
+            const notificationId = button.getAttribute('data-id'); // Get notification ID
 
             const modalMessage = notificationsModal.querySelector('#modalMessage');
             const modalSender = notificationsModal.querySelector('#modalSender');
+            const markAsReadForm = notificationsModal.querySelector('#markAsReadForm');
 
             modalMessage.textContent = message;
             modalSender.textContent = sender;
+            markAsReadForm.action = `/notifications/${notificationId}/markAsRead`; // Set form action dynamically
         });
 
         const mobileMenuButton = document.getElementById('mobile-menu-button');
@@ -235,33 +241,36 @@
         background: none;
         cursor: pointer;
     }
+
     .btn-icon:hover {
         color: inherit;
     }
+
     .btn-icon:focus {
         outline: none;
         box-shadow: none;
     }
+
     .notification-actions {
         display: flex;
         gap: 0.5rem;
     }
+
     .dropdown-menu {
-    max-width: 300vh; 
-    word-wrap: break-word;
-    overflow-wrap: break-word;
-    white-space: normal;
-}
+        max-width: 300vh;
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+        white-space: normal;
+    }
 
-.dropdown-item p {
-    margin-bottom: 0; 
-    white-space: normal;
-}
+    .dropdown-item p {
+        margin-bottom: 0;
+        white-space: normal;
+    }
 
-.nav-item.dropdown.no-arrow {
-    margin: 0;
-    padding: 0; 
-    list-style: none; 
-}
-
+    .nav-item.dropdown.no-arrow {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+    }
 </style>

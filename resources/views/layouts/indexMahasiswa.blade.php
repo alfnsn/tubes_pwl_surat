@@ -7,7 +7,9 @@
 <head>
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <title>Dashboard Mahasiswa</title>
+    <title>Dashboard {{Auth::user()->role->name}}</title>
+    <link rel="icon" type="image/png"
+        href="https://kompaspedia.kompas.id/wp-content/uploads/2021/07/logo_universitas-kristen-maranatha.png">
     <meta name="description" content="">
     <meta name="keywords" content="">
 
@@ -121,8 +123,10 @@
     </script>
 
     <!-- Bootstrap core JavaScript-->
-    <script src="{{ asset('assetsadmin/vendor/jquery/jquery.min.js') }}"></script>
+    {{--
+    <script src="{{ asset('assetsadmin/vendor/jquery/jquery.min.js') }}"></script> --}}
     <script src="{{ asset('assetsadmin/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+
 </body>
 
 </html>

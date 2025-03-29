@@ -16,6 +16,8 @@ class Pengajuan extends Model
     protected $fillable = [
         'tanggal_pengajuan',
         'status',
+        'disetujui_oleh',
+        'path_template',
         'users_id',
         'jenisSurat_idjenisSurat'
     ];

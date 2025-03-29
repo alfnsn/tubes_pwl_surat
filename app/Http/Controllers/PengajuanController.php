@@ -10,6 +10,7 @@ use App\Models\LaporanHasilStudi;
 use App\Models\PengantarMataKuliah;
 use App\Models\DataMahasiswa;
 use App\Models\Surat;
+use App\template\TemplateSurat;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use App\Models\Notifikasi;
@@ -24,20 +25,55 @@ class PengajuanController extends Controller
         ]);
 
         try {
-            $pengajuan = Pengajuan::create([
-                'tanggal_pengajuan' => now(),
-                'status' => 'Menunggu Persetujuan Kaprodi',
-                'users_id' => Auth::id(),
-                'jenisSurat_idjenisSurat' => $request->idjenisSurat,
-            ]);
-
             if ($request->idjenisSurat == 1) {
                 $request->validate([
                     'semester' => 'required|string|max:21',
                     'alamat' => 'required|string|max:300',
                     'keperluan' => 'required|string|max:255',
                 ]);
-
+            } elseif ($request->idjenisSurat == 2) {
+                $request->validate([
+                    'namaKodeMk' => [
+                        'required',
+                        'string',
+                        'max:50',
+                        'regex:/^[A-Za-z0-9\s]+ - [A-Za-z0-9\s]+$/'
+                    ],
+                    'ditujukan' => [
+                        'required',
+                        'string',
+                        'max:300',
+                        'regex:/^([A-Za-z\s]+;\s*){2}[A-Za-z\s]+$/'
+                    ],
+                    'semester' => 'required|string|max:21',
+                    'tujuan' => 'required|string|max:200',
+                    'topik' => 'required|string|max:100',
+                    'namaMahasiswa' => 'required|array',
+                    'namaMahasiswa.*' => 'required|string|max:120',
+                    'nrpMahasiswa' => 'required|array',
+                    'nrpMahasiswa.*' => 'required|string|max:9',
+                ], [
+                    'namaKodeMk.regex' => 'Format harus: Teks - Teks (contoh: Proses Bisnis - IN234).',
+                    'ditujukan.regex' => 'Format harus: Nama; Jabatan; Perusahaan (contoh: Ibu Susi Susanti; Kepala Personalia PT. X; Jln. Cibogo no. 10 Bandung).'
+                ]);
+            } elseif ($request->idjenisSurat == 3) {
+                $request->validate([
+                    'tanggal' => ['required', 'date', 'before_or_equal:today'],
+                ]);
+            } elseif ($request->idjenisSurat == 4) {
+                $request->validate([
+                    'keperluan' => 'required|string|max:200',
+                ]);
+            }
+        
+            $pengajuan = Pengajuan::create([
+                'tanggal_pengajuan' => now(),
+                'status' => 'Menunggu Persetujuan Kaprodi',
+                'users_id' => Auth::id(),
+                'jenisSurat_idjenisSurat' => $request->idjenisSurat,
+            ]);
+        
+            if ($request->idjenisSurat == 1) {
                 KeteranganAktif::create([
                     'semester' => $request->semester,
                     'alamat_bandung' => $request->alamat,
@@ -46,32 +82,7 @@ class PengajuanController extends Controller
                     'updated_at' => now(),
                     'pengajuan_idpengajuan' => $pengajuan->getKey(),
                 ]);
-
-                // Create notification for Kaprodi
-                try {
-                    Notifikasi::create([
-                        'pesan' => Auth::user()->name . ' melakukan pengajuan surat Keterangan Aktif',
-                        'status' => 'unread',
-                        'users_id' => Auth::id(),
-                        'tujuan' => '22222',
-                        'pengajuan_idpengajuan' => $pengajuan->getKey(),
-                    ]);
-                } catch (\Exception $e) {
-                    dd($e->getMessage());
-                }
             } elseif ($request->idjenisSurat == 2) {
-                $request->validate([
-                    'ditujukan' => 'required|string|max:300',
-                    'namaKodeMk' => 'required|string|max:50',
-                    'semester' => 'required|string|max:21',
-                    'tujuan' => 'required|string|max:200',
-                    'topik' => 'required|string|max:100',
-                    'namaMahasiswa' => 'required|array',
-                    'namaMahasiswa.*' => 'required|string|max:120',
-                    'nrpMahasiswa' => 'required|array',
-                    'nrpMahasiswa.*' => 'required|string|max:9',
-                ]);
-
                 $pengantar = PengantarMataKuliah::create([
                     'ditujukan' => $request->ditujukan,
                     'nama_kode_mk' => $request->namaKodeMk,
@@ -82,12 +93,12 @@ class PengajuanController extends Controller
                     'updated_at' => now(),
                     'pengajuan_idpengajuan' => $pengajuan->getKey(),
                 ]);
-
+        
                 foreach ($request->namaMahasiswa as $index => $nama) {
                     $nrp = $request->nrpMahasiswa[$index];
-
+        
                     $mahasiswa = DataMahasiswa::where('nrp', $nrp)->first();
-
+        
                     if (!$mahasiswa) {
                         $mahasiswa = DataMahasiswa::create([
                             'nrp' => $nrp,
@@ -99,10 +110,6 @@ class PengajuanController extends Controller
                     $pengantar->mahasiswa()->attach($mahasiswa->nrp);
                 }
             } elseif ($request->idjenisSurat == 3) {
-                $request->validate([
-                    'tanggal' => ['required', 'date', 'before_or_equal:today'],
-                ]);
-
                 KeteranganLulus::create([
                     'tanggal_kelulusan' => $request->tanggal,
                     'created_at' => now(),
@@ -110,10 +117,6 @@ class PengajuanController extends Controller
                     'pengajuan_idpengajuan' => $pengajuan->getKey(),
                 ]);
             } elseif ($request->idjenisSurat == 4) {
-                $request->validate([
-                    'keperluan' => 'required|string|max:200',
-                ]);
-
                 LaporanHasilStudi::create([
                     'keperluan_pembuatan' => $request->keperluan,
                     'created_at' => now(),
@@ -121,11 +124,12 @@ class PengajuanController extends Controller
                     'pengajuan_idpengajuan' => $pengajuan->getKey(),
                 ]);
             }
-
+        
             return redirect()->back()->with('success', 'Pengajuan berhasil dikirim!');
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Terjadi kesalahan saat menyimpan data. Silakan coba lagi.');
         }
+        
     }
 
     public function showPengajuan(Request $request)
@@ -182,6 +186,7 @@ class PengajuanController extends Controller
         if ($pengajuan) {
             if ($request->route()->getName() == 'pengajuan-accept') {
                 $pengajuan->status = 'Disetujui Oleh Kaprodi';
+                $pengajuan->disetujui_oleh = Auth::id() . ' (' . Auth::user()->name . ')';
                 Notifikasi::create([
                     'pesan' => 'Kaprodi menyetujui permintaan Anda',
                     'status' => 'unread',
@@ -189,6 +194,9 @@ class PengajuanController extends Controller
                     'tujuan' => $pengajuan->users_id,
                     'pengajuan_idpengajuan' => $pengajuan->getKey(),
                 ]);
+                // buat
+                $namaPath = TemplateSurat::generate($pengajuan);
+                $pengajuan->path_template = $namaPath;
             } elseif ($request->route()->getName() == 'pengajuan-reject') {
                 $pengajuan->status = 'Ditolak Oleh Kaprodi';
                 $pengajuan->alasan_penolakan = $request->alasan_penolakan;
@@ -297,5 +305,15 @@ class PengajuanController extends Controller
             ->get();
 
         return view('mo.pengajuan-riwayat', compact('pengajuans'));
+    }
+
+    public function showPengajuanDetailMO($id)
+    {
+        $pengajuan = Pengajuan::where('idpengajuan', $id)
+            ->with(['jenisSurat', 'keteranganAktif', 'keteranganLulus', 'laporanHasilStudi', 'surat'])
+            ->firstOrFail();
+
+
+        return view('MO.pengajuan-detail', compact('pengajuan'));
     }
 }

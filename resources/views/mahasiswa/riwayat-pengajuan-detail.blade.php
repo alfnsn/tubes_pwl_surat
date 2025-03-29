@@ -4,7 +4,39 @@
     <div class="container" style="min-height: 70vh;">
         <h1 class="mt-4" style="color: #124265;">Detail Pengajuan</h1>
 
-        <table class="table table-bordered table-sm mx-auto mt-5" style="width: 60%;">
+        <div class="container mt-4">
+            <h4 style="margin-top: 80px !important;">Status</h4>
+            <div class="progress-section">
+                <ul class="timeline">
+                    <li class="@if($pengajuan->status == 'Menunggu Persetujuan Kaprodi') active @else not-active @endif" style="--accent-color:#FBCA3E">
+                        <div class="date">Pending</div>
+                        @if($pengajuan->status == 'Menunggu Persetujuan Kaprodi')
+                            <div class="status-text">Menunggu Persetujuan Kaprodi</div>
+                        @endif
+                    </li>
+                    <li class="@if($pengajuan->status == 'Disetujui Oleh Kaprodi') active @elseif($pengajuan->status == 'Surat Telah Selesai Dibuat') not-active @elseif($pengajuan->status == 'Menunggu Persetujuan Kaprodi' || $pengajuan->status == 'Ditolak Oleh Kaprodi') pending @endif" style="--accent-color:#4CADAD">
+                        <div class="date">Accepted</div>
+                        @if($pengajuan->status == 'Disetujui Oleh Kaprodi')
+                            <div class="status-text">Disetujui Oleh Kaprodi, Surat Sedang Dibuat oleh MO</div>
+                        @endif
+                    </li>
+                    <li class="@if($pengajuan->status == 'Ditolak Oleh Kaprodi') active @else pending @endif" style="--accent-color:#E24A68">
+                        <div class="date">Rejected</div>
+                        @if($pengajuan->status == 'Ditolak Oleh Kaprodi')
+                            <div class="status-text">Ditolak Oleh Kaprodi</div>
+                        @endif
+                    </li>
+                    <li class="@if($pengajuan->status == 'Surat Telah Selesai Dibuat') active @else pending @endif" style="--accent-color:#1B5F8C">
+                        <div class="date">Surat Telah Selesai Dibuat</div>
+                        @if($pengajuan->status == 'Surat Telah Selesai Dibuat')
+                            <div class="status-text">Silahkan Download Surat Di Bawah</div>
+                        @endif
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <table class="table table-bordered table-sm mx-auto mt-5" style="width: 60%; margin-top: 120px !important;">
             <tbody>
                 <tr>
                     <th width="40%">ID Pengajuan</th>
@@ -92,50 +124,26 @@
                         <td>{{$pengajuan->laporanHasilStudi->keperluan_pembuatan}}</td>
                     </tr>
                 @endif
+                @if($pengajuan->surat)
+                    <tr>
+                        <th>Download Surat</th>
+                        {{-- <td>
+                            <a href="{{ asset('assets/surat/' . $pengajuan->surat->file_path) }}" download 
+                                class="d-flex align-items-center justify-content-center rounded-circle"
+                                style="width: 42px; height: 42px; background-color: #28a745; color: white; border: none;">
+                                <i class="fas fa-download" style="font-size: 20px; line-height: 1;"></i>
+                            </a>
+                        </td> --}}
+                        <td>
+                            <a onclick="downloadFile('{{ asset('assets/surat/' . $pengajuan->surat->file_path) }}')" 
+                               class="d-flex align-items-center justify-content-center rounded-circle"
+                               style="width: 42px; height: 42px; background-color: #28a745; color: white; border: none; cursor: pointer;">
+                                <i class="fas fa-download" style="font-size: 20px; line-height: 1;"></i>
+                            </a>
+                        </td>
+                    </tr>
+                @endif
             </tbody>
         </table>
-
-        <div class="container mt-4">
-            <h4>Status Pengajuan</h4>
-            <div class="progress-section">
-                <ul class="timeline">
-                    <li class="@if($pengajuan->status == 'Menunggu Persetujuan Kaprodi') active @else not-active @endif" style="--accent-color:#FBCA3E">
-                        <div class="date">Pending</div>
-                        @if($pengajuan->status == 'Menunggu Persetujuan Kaprodi')
-                            <div class="status-text">Menunggu Persetujuan Kaprodi</div>
-                        @endif
-                    </li>
-                    <li class="@if($pengajuan->status == 'Disetujui Oleh Kaprodi') active @elseif($pengajuan->status == 'Surat Telah Selesai Dibuat') not-active @elseif($pengajuan->status == 'Menunggu Persetujuan Kaprodi' || $pengajuan->status == 'Ditolak Oleh Kaprodi') pending @endif" style="--accent-color:#4CADAD">
-                        <div class="date">Accepted</div>
-                        @if($pengajuan->status == 'Disetujui Oleh Kaprodi')
-                            <div class="status-text">Disetujui Oleh Kaprodi, Surat Sedang Dibuat oleh MO</div>
-                        @endif
-                    </li>
-                    <li class="@if($pengajuan->status == 'Ditolak Oleh Kaprodi') active @else pending @endif" style="--accent-color:#E24A68">
-                        <div class="date">Rejected</div>
-                        @if($pengajuan->status == 'Ditolak Oleh Kaprodi')
-                            <div class="status-text">Ditolak Oleh Kaprodi</div>
-                        @endif
-                    </li>
-                    <li class="@if($pengajuan->status == 'Surat Telah Selesai Dibuat') active @else pending @endif" style="--accent-color:#1B5F8C">
-                        <div class="date">Surat Telah Selesai Dibuat</div>
-                        @if($pengajuan->status == 'Surat Telah Selesai Dibuat')
-                            <div class="status-text">Silahkan Download Surat Di Bawah</div>
-                        @endif
-                    </li>
-                </ul>
-            </div>
-        </div>
-
-        <div class="d-flex justify-content-end mt-3 mb-3">
-            <a href="{{ route('riwayat-pengajuan') }}" class="btn btn-primary" style="border-radius: 10px;">Back</a>
-        </div>
-        @if($pengajuan->surat)
-            <div class="text-center mt-4">
-                <a href="{{ asset('assets/surat/' . $pengajuan->surat->file_path) }}" class="btn btn-primary" download>
-                    Download Surat
-                </a>
-            </div>
-        @endif
     </div>
 @endsection
