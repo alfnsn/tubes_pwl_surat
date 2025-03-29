@@ -39,7 +39,7 @@
             <!-- Nav Item - Alerts -->
             <li class="nav-item dropdown no-arrow mx-1">
                 <a class="nav-link notif-baru" href="#" id="alertsDropdown" role="button" data-toggle="dropdown"
-                    aria-haspopup="true" aria-expanded="false">
+                data-bs-proper="static" aria-haspopup="true" aria-expanded="false">
                     <i class="fas fa-bell fa-fw" style="position: relative; font-size: 25px;">
                         @php
                             $userId = Auth::id();
@@ -54,7 +54,7 @@
                         @endif
                     </i>
                 </a>
-                <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                <div class="dropdown-list dropdown-menu dropdown-menu-end shadow animated--grow-in"
                     aria-labelledby="alertsDropdown">
                     <h6 class="dropdown-header">Notifikasi</h6>
                     @php
@@ -136,7 +136,7 @@
                     @endphp
                     <span class="badge badge-danger badge-counter">{{ $notificationCount }}</span>
                 </a>
-                <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                <div class="dropdown-list dropdown-menu dropdown-menu-end shadow animated--grow-in"
                     aria-labelledby="alertsDropdown">
                     <h6 class="dropdown-header">Notifikasi</h6>
                     @php
@@ -201,7 +201,7 @@
                 <p><strong>Message:</strong> <span id="modalMessage"></span></p>
                 <form method="POST" action="" id="markAsReadForm">
                     @csrf
-                    <button type="submit" class="btn btn-sm btn-primary">Mark as Read</button>
+                    <button type="submit" class="btn-sm btn-primary">Mark as Read</button>
                 </form>
             </div>
         </div>
@@ -261,6 +261,10 @@
         word-wrap: break-word;
         overflow-wrap: break-word;
         white-space: normal;
+        right: 1% !important;
+        left: Auto !important;  
+        transform: translateY(1%) !important; 
+        margin-top: 50px !important;
     }
 
     .dropdown-item p {
@@ -273,4 +277,6 @@
         padding: 0;
         list-style: none;
     }
+
+
 </style>

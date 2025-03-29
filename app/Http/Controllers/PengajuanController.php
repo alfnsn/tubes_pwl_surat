@@ -82,6 +82,23 @@ class PengajuanController extends Controller
                     'updated_at' => now(),
                     'pengajuan_idpengajuan' => $pengajuan->getKey(),
                 ]);
+
+                try {
+                    $kaprodi = \App\Models\User::where('study_program_id', $pengajuan->user->study_program_id)
+                    ->where('role_id', 2) 
+                    ->where('status', 'aktif')
+                    ->first();
+                    $namaKaprodi = $kaprodi->id;
+                    Notifikasi::create([
+                        'pesan' => Auth::user()->name . ' melakukan pengajuan surat Keterangan Aktif',
+                        'status' => 'unread',
+                        'users_id' => Auth::id(),
+                        'tujuan' => $namaKaprodi,
+                        'pengajuan_idpengajuan' => $pengajuan->getKey(),
+                    ]);
+                } catch (\Exception $e) {
+                    dd($e->getMessage());
+                }
             } elseif ($request->idjenisSurat == 2) {
                 $pengantar = PengantarMataKuliah::create([
                     'ditujukan' => $request->ditujukan,
