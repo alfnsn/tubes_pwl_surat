@@ -14,7 +14,7 @@
                             style="max-width: 1200px; word-wrap: break-word; text-align: center; margin: 0 auto; line-height: 1.2;">
                             Pengajuan Surat Keterangan Mahasiswa Universitas Kristen Maranatha
                         </h1>
-                        <p>We are team of talented designers making websites with Bootstrap</p>
+                        <p>Selamat datang silahkan pilih jenis surat di bawah</p>
                     </div>
                 </div>
 
@@ -73,7 +73,7 @@
         </section><!-- /Hero Section -->
 
         <!-- Stats Section -->
-        <section id="stats" class="stats section light-background">
+        {{-- <section id="stats" class="stats section light-background">
 
             <div class="container" data-aos="fade-up" data-aos-delay="100">
 
@@ -115,9 +115,9 @@
 
             </div>
 
-        </section><!-- /Stats Section -->
+        </section><!-- /Stats Section --> --}}
 
-        <!-- Clients Section -->
+        {{-- <!-- Clients Section -->
         <section id="clients" class="clients section light-background">
 
             <div class="container" data-aos="fade-up">
@@ -152,9 +152,9 @@
 
             </div>
 
-        </section><!-- /Clients Section -->
+        </section><!-- /Clients Section --> --}}
 
-        <!-- Testimonials Section -->
+        {{-- <!-- Testimonials Section -->
         <section id="testimonials" class="testimonials section">
 
             <!-- Section Title -->
@@ -277,9 +277,9 @@
 
             </div>
 
-        </section><!-- /Testimonials Section -->
+        </section><!-- /Testimonials Section --> --}}
 
-        <!-- Services Section -->
+        {{-- <!-- Services Section -->
         <section id="services" class="services section light-background">
 
             <!-- Section Title -->
@@ -413,7 +413,7 @@
 
             </div>
 
-        </section><!-- /Services Section -->
+        </section><!-- /Services Section --> --}}
 
     </main>
 @endsection

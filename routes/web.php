@@ -9,6 +9,7 @@ use App\Http\Controllers\PenggunaController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\KeteranganLulusController;
 use App\Http\Controllers\NotificationController;
+use App\Http\Controllers\AdminController;
 
 Route::get('/', function () {
     return view('auth.login');
@@ -75,6 +76,12 @@ Route::middleware('auth')->group(function () {
     Route::get('/riwayat-pengajuan', [PengajuanController::class, 'showPengajuan'])->name('riwayat-pengajuan');
     Route::get('/riwayat-pengajuan-detail/{id}', [PengajuanController::class, 'showPengajuanDetail'])->name('riwayat-pengajuan-detail');
     Route::get('/admin/keterangan-lulus', [KeteranganLulusController::class, 'index'])->name('keterangan-lulus-admin');
+    Route::get('/admin/keterangan-lulus/create', [KeteranganLulusController::class, 'create'])->name('admin.createKeteranganLulus');
+    Route::post('/admin/keterangan-lulus/store', [KeteranganLulusController::class, 'store'])->name('admin.storeKeteranganLulus');
+    
+    Route::get('/admin/keterangan-aktif', [KeteranganAktifController::class, 'index'])->name('keterangan-aktif-admin');
+    Route::get('/admin/keterangan-aktif/create', [KeteranganAktifController::class, 'create'])->name('admin.createKeteranganAktif');
+    Route::post('/admin/keterangan-aktif/store', [KeteranganAktifController::class, 'store'])->name('admin.storeKeteranganAktif');
     
     Route::get('/kaprodi/dashboard', [PengajuanController::class, 'showPengajuanKaprodi'])->name('Kaprodi.dashboard');
     Route::get('/kaprodi/dashboard/pengajuan-detail/{id}', [PengajuanController::class, 'showPengajuanDetailKaprodi'])->name('pengajuan-detail');
@@ -93,6 +100,20 @@ Route::middleware('auth')->group(function () {
     Route::get('/MO/dashboard/pengajuan-riwayat-mo', [PengajuanController::class, 'showRiwayatPengajuanMO'])->name('pengajuan-riwayat-mo');
     Route::get('/MO/dashboard/pengajuan-detail-mo/{id}', [PengajuanController::class, 'showPengajuanDetailMO'])->name('pengajuan-detail-mo');
 
+    Route::get('/mahasiswa/profile', function () {
+        return view('mahasiswa.profile');
+    })->name('mahasiswa.profile');
+
+    Route::get('/admin/profile', [AdminController::class, 'editProfile'])->name('admin.profile');
+    Route::put('/admin/profile', [AdminController::class, 'updateProfile'])->name('admin.profile.update');
+
+    Route::get('/admin/laporan-hasil-studi', [App\Http\Controllers\LaporanHasilStudiController::class, 'index'])->name('laporan-hasil-studi-admin');
+    Route::get('/admin/laporan-hasil-studi/create', [App\Http\Controllers\LaporanHasilStudiController::class, 'create'])->name('admin.createLaporanHasilStudi');
+    Route::post('/admin/laporan-hasil-studi/store', [App\Http\Controllers\LaporanHasilStudiController::class, 'store'])->name('admin.storeLaporanHasilStudi');
+
+    Route::get('/admin/pengantar-tugas-mata-kuliah', [App\Http\Controllers\PengantarTugasMataKuliahController::class, 'index'])->name('pengantar-tugas-mata-kuliah-admin');
+    Route::get('/admin/pengantar-tugas-mata-kuliah/create', [App\Http\Controllers\PengantarTugasMataKuliahController::class, 'create'])->name('admin.createPengantarTugasMataKuliah');
+    Route::post('/admin/pengantar-tugas-mata-kuliah/store', [App\Http\Controllers\PengantarTugasMataKuliahController::class, 'store'])->name('admin.storePengantarTugasMataKuliah');
 
     // Template
 

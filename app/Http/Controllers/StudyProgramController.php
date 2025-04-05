@@ -21,11 +21,12 @@ class StudyProgramController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'idstudy_program' => 'required|integer|unique:study_program,idstudy_program',
             'nama' => 'required|string|max:255',
         ]);
 
-        StudyProgram::create($request->all());
+        StudyProgram::create([
+            'nama' => $request->nama,
+        ]);
 
         return redirect()->route('admin.studyProgram')->with('success', 'Study Program created successfully.');
     }

@@ -6,59 +6,61 @@ use Illuminate\Http\Request;
 use App\Models\Pengajuan;
 use App\Models\User;
 use App\Models\Notifikasi;
-use App\Models\KeteranganLulus;
+use App\Models\LaporanHasilStudi;
 
-class KeteranganLulusController extends Controller
+class LaporanHasilStudiController extends Controller
 {
     public function index()
     {
-        $keteranganLulus = Pengajuan::whereHas('user', function ($query) {
+        $laporanHasilStudi = Pengajuan::whereHas('user', function ($query) {
             $query->where('role_id', 1);
         })
-        // ->where('status', 'Surat Telah Selesai Dibuat')
-        ->where('jenisSurat_idjenisSurat', 3) 
+        ->where('jenisSurat_idjenisSurat', 4)
         ->with('user', 'jenisSurat')
         ->get();
 
-        return view('admin.keteranganLulus', compact('keteranganLulus'));
+        return view('admin.laporanHasilStudi', compact('laporanHasilStudi'));
     }
 
     public function create()
     {
-        $mahasiswa = User::where('role_id', 1)->get(); // Assuming role_id 1 is for mahasiswa
-        return view('admin.createKeteranganLulus', compact('mahasiswa'));
+        $mahasiswa = User::where('role_id', 1)->get(); 
+        return view('admin.createLaporanHasilStudi', compact('mahasiswa'));
     }
 
     public function store(Request $request)
     {
         $request->validate([
             'nrp' => 'required|exists:users,id',
-            'tanggal' => ['required', 'date', 'before_or_equal:today'],
+            'keperluan' => 'required|string|max:200',
         ]);
 
         try {
+            // Create Pengajuan
             $pengajuan = Pengajuan::create([
                 'tanggal_pengajuan' => now(),
                 'status' => 'Menunggu Persetujuan Kaprodi',
                 'users_id' => $request->nrp,
-                'jenisSurat_idjenisSurat' => 3,
+                'jenisSurat_idjenisSurat' => 4,
             ]);
 
-            KeteranganLulus::create([
-                'tanggal_kelulusan' => $request->tanggal,
+            // Create LaporanHasilStudi
+            LaporanHasilStudi::create([
+                'keperluan_pembuatan' => $request->keperluan,
                 'created_at' => now(),
                 'updated_at' => now(),
                 'pengajuan_idpengajuan' => $pengajuan->getKey(),
             ]);
 
-            $kaprodi = \App\Models\User::where('study_program_id', $pengajuan->user->study_program_id)
-                ->where('role_id', 2) 
+            // Send Notification to Kaprodi
+            $kaprodi = User::where('study_program_id', $pengajuan->user->study_program_id)
+                ->where('role_id', 2)
                 ->where('status', 'aktif')
                 ->first();
 
             if ($kaprodi) {
                 Notifikasi::create([
-                    'pesan' => $pengajuan->user->name . ' melakukan pengajuan surat Keterangan Lulus',
+                    'pesan' => $pengajuan->user->name . ' melakukan pengajuan surat Laporan Hasil Studi',
                     'status' => 'unread',
                     'users_id' => $pengajuan->users_id,
                     'tujuan' => $kaprodi->id,
@@ -66,7 +68,7 @@ class KeteranganLulusController extends Controller
                 ]);
             }
 
-            return redirect()->route('keterangan-lulus-admin')->with('success', 'Pengajuan berhasil dikirim!');
+            return redirect()->route('laporan-hasil-studi-admin')->with('success', 'Pengajuan berhasil dikirim!');
         } catch (\Exception $e) {
             return redirect()->back()->withErrors(['error' => 'Terjadi kesalahan saat menyimpan data. Silakan coba lagi.']);
         }

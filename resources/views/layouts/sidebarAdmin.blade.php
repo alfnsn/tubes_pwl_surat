@@ -1,7 +1,7 @@
 <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
     <!-- Sidebar - Brand -->
     <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{ route(Auth::user()->role->name . '.dashboard') }}">
-        <div class="sidebar-brand-icon rotate-n-15">
+        <div class="sidebar-brand-icon">
             <img src="https://kompaspedia.kompas.id/wp-content/uploads/2021/07/logo_universitas-kristen-maranatha.png"
             alt="IMG" style="max-width: 50px; height: auto; transform: rotate(0); filter: brightness(0) invert(1);">
         </div>
@@ -87,7 +87,7 @@
         Surat
     </div>
 
-    <!-- Nav Item - Charts -->
+    <!-- Nav Item - Surat Keterangan Lulus -->
     <li class="nav-item {{ request()->routeIs('keterangan-lulus-admin') ? 'active' : '' }}">
         <a class="nav-link" href="{{ route('keterangan-lulus-admin') }}">
             <i class="fas fa-fw fa-graduation-cap"></i>
@@ -95,27 +95,29 @@
         </a>
     </li>
 
-    <!-- Nav Item - Tables -->
-    <li class="nav-item {{ request()->routeIs('tables') ? 'active' : '' }}">
-        <a class="nav-link" href="tables.html">
+    <!-- Nav Item - Surat Keterangan Aktif -->
+    <li class="nav-item {{ request()->routeIs('keterangan-aktif-admin') ? 'active' : '' }}">
+        <a class="nav-link" href="{{ route('keterangan-aktif-admin') }}">
             <i class="fas fa-fw fa-check-circle"></i>
-            <span>Surat Keterangan Aktif</span></a>
+            <span>Surat Keterangan Aktif</span>
+        </a>
     </li>
 
-    <!-- Nav Item - Charts -->
-    <li class="nav-item {{ request()->routeIs('charts') ? 'active' : '' }}">
-        <a class="nav-link" href="charts.html">
-            <i class="fas fa-fw fa-file-alt"></i>
-            <span>Surat Laporan Hasil Studi</span></a>
+    <!-- Nav Item - Surat Laporan Hasil Studi -->
+    <li class="nav-item {{ request()->routeIs('laporan-hasil-studi-admin') ? 'active' : '' }}">
+        <a class="nav-link" href="{{ route('laporan-hasil-studi-admin') }}">
+            <i class="fas fa-fw fa-chart-bar"></i> <!-- Updated icon -->
+            <span>Surat Laporan Hasil Studi</span>
+        </a>
     </li>
 
-    <!-- Nav Item - Tables -->
-    <li class="nav-item {{ request()->routeIs('tables') ? 'active' : '' }}">
-        <a class="nav-link" href="tables.html">
-            <i class="fas fa-fw fa-book-open"></i>
-            <span>Surat Pengantar Mata Kuliah</span></a>
+    <!-- Nav Item - Surat Pengantar Mata Kuliah -->
+    <li class="nav-item {{ request()->routeIs('pengantar-tugas-mata-kuliah-admin') ? 'active' : '' }}">
+        <a class="nav-link" href="{{ route('pengantar-tugas-mata-kuliah-admin') }}">
+            <i class="fas fa-fw fa-book-open"></i> <!-- Updated icon -->
+            <span>Surat Pengantar Mata Kuliah</span>
+        </a>
     </li>
-
 
     <!-- Divider -->
     <hr class="sidebar-divider d-none d-md-block">

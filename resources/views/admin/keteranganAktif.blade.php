@@ -8,7 +8,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Admin - Keterangan Lulus</title>
+    <title>Admin - Keterangan Aktif</title>
 
     <!-- Custom fonts for this template -->
     <link href="{{ asset('assetsadmin/vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">
@@ -56,20 +56,20 @@
                     @endif
                     <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h3 mb-2 text-gray-800">Keterangan Lulus</h1>
-                        <a href="{{ route('admin.createKeteranganLulus') }}" class="btn btn-primary btn-icon-split">
+                        <h1 class="h3 mb-2 text-gray-800">Keterangan Aktif</h1>
+                        <a href="{{ route('admin.createKeteranganAktif') }}" class="btn btn-primary btn-icon-split">
                             <span class="icon text-white-50">
                                 <i class="fas fa-plus"></i>
                             </span>
-                            <span class="text">Add Keterangan Lulus</span>
+                            <span class="text">Add Keterangan Aktif</span>
                         </a>
                     </div>
-                    <p class="mb-4">Berikut adalah data keterangan lulus yang terdaftar dalam sistem.</p>
+                    <p class="mb-4">Berikut adalah data keterangan aktif yang terdaftar dalam sistem.</p>
 
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">Data Keterangan Lulus</h6>
+                            <h6 class="m-0 font-weight-bold text-primary">Data Keterangan Aktif</h6>
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
@@ -84,7 +84,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach($keteranganLulus as $item)
+                                        @foreach($keteranganAktif as $item)
                                             <tr>
                                                 <td>{{ $item->user->id }}</td>
                                                 <td>{{ $item->user->name }}</td>

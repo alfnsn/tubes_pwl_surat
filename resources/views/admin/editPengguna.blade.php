@@ -3,8 +3,8 @@
 @section('content')
 <div class="container-fluid">
 
-    <!-- Page Heading -->
-    <h1 class="h3 mb-2 text-gray-800">Edit Pengguna</h1>
+    {{-- <!-- Page Heading -->
+    <h1 class="h3 mb-2 text-gray-800">Edit Pengguna</h1> --}}
 
     <!-- Form Example -->
     <div class="card shadow mb-4">
@@ -29,7 +29,10 @@
                 </div>
                 <div class="form-group">
                     <label for="status">Status</label>
-                    <input type="text" class="form-control" id="status" name="status" value="{{ $user->status }}" required>
+                    <select class="form-control" id="status" name="status" required>
+                        <option value="aktif" {{ $user->status == 'aktif' ? 'selected' : '' }}>Aktif</option>
+                        <option value="tidak aktif" {{ $user->status == 'tidak aktif' ? 'selected' : '' }}>Tidak Aktif</option>
+                    </select>
                 </div>
                 <div class="form-group">
                     <label for="study_program">Study Program</label>

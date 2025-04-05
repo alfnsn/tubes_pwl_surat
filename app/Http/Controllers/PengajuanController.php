@@ -126,6 +126,23 @@ class PengajuanController extends Controller
                     }
                     $pengantar->mahasiswa()->attach($mahasiswa->nrp);
                 }
+
+                try {
+                    $kaprodi = \App\Models\User::where('study_program_id', $pengajuan->user->study_program_id)
+                    ->where('role_id', 2) 
+                    ->where('status', 'aktif')
+                    ->first();
+                    $namaKaprodi = $kaprodi->id;
+                    Notifikasi::create([
+                        'pesan' => Auth::user()->name . ' melakukan pengajuan surat Pengantar Mata Kuliah',
+                        'status' => 'unread',
+                        'users_id' => Auth::id(),
+                        'tujuan' => $namaKaprodi,
+                        'pengajuan_idpengajuan' => $pengajuan->getKey(),
+                    ]);
+                } catch (\Exception $e) {
+                    dd($e->getMessage());
+                }
             } elseif ($request->idjenisSurat == 3) {
                 KeteranganLulus::create([
                     'tanggal_kelulusan' => $request->tanggal,
@@ -133,6 +150,22 @@ class PengajuanController extends Controller
                     'updated_at' => now(),
                     'pengajuan_idpengajuan' => $pengajuan->getKey(),
                 ]);
+                try {
+                    $kaprodi = \App\Models\User::where('study_program_id', $pengajuan->user->study_program_id)
+                    ->where('role_id', 2) 
+                    ->where('status', 'aktif')
+                    ->first();
+                    $namaKaprodi = $kaprodi->id;
+                    Notifikasi::create([
+                        'pesan' => Auth::user()->name . ' melakukan pengajuan surat Keterangan Lulus',
+                        'status' => 'unread',
+                        'users_id' => Auth::id(),
+                        'tujuan' => $namaKaprodi,
+                        'pengajuan_idpengajuan' => $pengajuan->getKey(),
+                    ]);
+                } catch (\Exception $e) {
+                    dd($e->getMessage());
+                }
             } elseif ($request->idjenisSurat == 4) {
                 LaporanHasilStudi::create([
                     'keperluan_pembuatan' => $request->keperluan,
@@ -140,8 +173,23 @@ class PengajuanController extends Controller
                     'updated_at' => now(),
                     'pengajuan_idpengajuan' => $pengajuan->getKey(),
                 ]);
+                try {
+                    $kaprodi = \App\Models\User::where('study_program_id', $pengajuan->user->study_program_id)
+                    ->where('role_id', 2) 
+                    ->where('status', 'aktif')
+                    ->first();
+                    $namaKaprodi = $kaprodi->id;
+                    Notifikasi::create([
+                        'pesan' => Auth::user()->name . ' melakukan pengajuan surat Laporan Hasil Studi',
+                        'status' => 'unread',
+                        'users_id' => Auth::id(),
+                        'tujuan' => $namaKaprodi,
+                        'pengajuan_idpengajuan' => $pengajuan->getKey(),
+                    ]);
+                } catch (\Exception $e) {
+                    dd($e->getMessage());
+                }
             }
-        
             return redirect()->back()->with('success', 'Pengajuan berhasil dikirim!');
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Terjadi kesalahan saat menyimpan data. Silakan coba lagi.');
@@ -211,6 +259,20 @@ class PengajuanController extends Controller
                     'tujuan' => $pengajuan->users_id,
                     'pengajuan_idpengajuan' => $pengajuan->getKey(),
                 ]);
+
+                $kaprodi = \App\Models\User::where('study_program_id', $pengajuan->user->study_program_id)
+                    ->where('role_id', 3) 
+                    ->where('status', 'aktif')
+                    ->first();
+                    $namaKaprodi = $kaprodi->id;
+                    Notifikasi::create([
+                        'pesan' => Auth::user()->name . ' melakukan persetujuan surat',
+                        'status' => 'unread',
+                        'users_id' => Auth::id(),
+                        'tujuan' => $namaKaprodi,
+                        'pengajuan_idpengajuan' => $pengajuan->getKey(),
+                    ]);
+
                 // buat
                 $namaPath = TemplateSurat::generate($pengajuan);
                 $pengajuan->path_template = $namaPath;
@@ -283,6 +345,14 @@ class PengajuanController extends Controller
                 'created_at' => now(),
                 'updated_at' => now(),
                 'pengajuan_idpengajuan' => $pengajuan->idpengajuan,
+            ]);
+
+            Notifikasi::create([
+                'pesan' => Auth::user()->name . ' telah membuatkan surat anda',
+                'status' => 'unread',
+                'users_id' => Auth::id(),
+                'tujuan' => $pengajuan->users_id,
+                'pengajuan_idpengajuan' => $pengajuan->getKey(),
             ]);
 
             $pengajuan->update([

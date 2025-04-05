@@ -58,19 +58,39 @@
                     aria-labelledby="alertsDropdown">
                     <h6 class="dropdown-header">Notifikasi</h6>
                     @php
+                        $userId = Auth::id();
                         $notifications = App\Models\Notifikasi::with('user')
                             ->where('tujuan', $userId)
                             ->where('status', 'unread')
                             ->orderBy('created_at', 'desc')
+                            ->take(5)
+                            ->get();
+                        $allNotifications = App\Models\Notifikasi::with('user')
+                            ->where('tujuan', $userId)
+                            ->orderBy('created_at', 'desc')
                             ->get();
                     @endphp
                     @foreach($notifications as $notification)
+                        @php
+                            $bgClass = 'bg-warning'; // Default class
+                            $iconClass = 'fas fa-exclamation-triangle'; // Default icon
+                            if (str_contains($notification->pesan, 'Kaprodi menyetujui permintaan Anda')) {
+                                $bgClass = 'bg-success';
+                                $iconClass = 'fas fa-check-circle';
+                            } elseif (str_contains($notification->pesan, 'Kaprodi menolak permintaan Anda')) {
+                                $bgClass = 'bg-warning';
+                                $iconClass = 'fas fa-times-circle';
+                            } elseif (str_contains($notification->pesan, 'MO telah membuatkan surat anda')) {
+                                $bgClass = 'bg-primary';
+                                $iconClass = 'fas fa-envelope';
+                            }
+                        @endphp
                         <a class="dropdown-item d-flex align-items-center" href="#" data-bs-toggle="modal"
                             data-bs-target="#notificationsModal" data-message="{{ $notification->pesan }}"
                             data-sender="{{ $notification->user->name }}" data-id="{{ $notification->idnotifikasi }}">
-                            <div class="bg-warning d-flex justify-content-center align-items-center"
+                            <div class="{{ $bgClass }} d-flex justify-content-center align-items-center"
                                 style="border-radius: 50%; width: 2rem; height: 2rem;">
-                                <i class="fas fa-exclamation-triangle text-white"></i>
+                                <i class="{{ $iconClass }} text-white"></i>
                             </div>
                             <div style="margin-left: 0.5rem">
                                 <div class="small text-gray-800"><strong>From: {{ $notification->user->name }} </strong>
@@ -84,6 +104,8 @@
                             Belum ada pesan
                         </a>
                     @endif
+                    <a class="dropdown-item text-center small text-gray-500" href="#" data-bs-toggle="modal"
+                        data-bs-target="#allNotificationsModal">Show All Notifications</a>
                 </div>
             </li>
 
@@ -93,6 +115,9 @@
                     {{ Auth::user()->id }}
                 </button>
                 <ul class="dropdown-menu dropdown-menu-end">
+                    <li>
+                        <a class="dropdown-item" href="{{ route('mahasiswa.profile') }}">Edit Profile</a>
+                    </li>
                     <li>
                         <form method="POST" action="{{ route('logout') }}">
                             @csrf
@@ -144,15 +169,34 @@
                             ->where('tujuan', $userId)
                             ->where('status', 'unread')
                             ->orderBy('created_at', 'desc')
+                            ->take(5)
+                            ->get();
+                        $allNotifications = App\Models\Notifikasi::with('user')
+                            ->where('tujuan', $userId)
+                            ->orderBy('created_at', 'desc')
                             ->get();
                     @endphp
                     @foreach($notifications as $notification)
+                        @php
+                            $bgClass = 'bg-warning'; // Default class
+                            $iconClass = 'fas fa-exclamation-triangle'; // Default icon
+                            if (str_contains($notification->pesan, 'Kaprodi menyetujui permintaan Anda')) {
+                                $bgClass = 'bg-success';
+                                $iconClass = 'fas fa-check-circle';
+                            } elseif (str_contains($notification->pesan, 'Kaprodi menolak permintaan Anda')) {
+                                $bgClass = 'bg-warning';
+                                $iconClass = 'fas fa-times-circle';
+                            } elseif (str_contains($notification->pesan, 'MO telah membuatkan surat anda')) {
+                                $bgClass = 'bg-primary';
+                                $iconClass = 'fas fa-envelope';
+                            }
+                        @endphp
                         <a class="dropdown-item d-flex align-items-center" href="#" data-bs-toggle="modal"
                             data-bs-target="#notificationsModal" data-message="{{ $notification->pesan }}"
                             data-sender="{{ $notification->user->name }}" data-id="{{ $notification->idnotifikasi }}">
-                            <div class="bg-warning d-flex justify-content-center align-items-center"
+                            <div class="{{ $bgClass }} d-flex justify-content-center align-items-center"
                                 style="border-radius: 50%; width: 2rem; height: 2rem;">
-                                <i class="fas fa-exclamation-triangle text-white"></i>
+                                <i class="{{ $iconClass }} text-white"></i>
                             </div>
                             <div style="margin-left: 0.5rem">
                                 <div class="small text-gray-800"><strong>From: {{ $notification->user->name }} </strong>
@@ -166,6 +210,8 @@
                             Belum ada pesan
                         </a>
                     @endif
+                    <a class="dropdown-item text-center small text-gray-500" href="#" data-bs-toggle="modal"
+                        data-bs-target="#allNotificationsModal">Show All Notifications</a>
                 </div>
             </li>
 
@@ -175,6 +221,9 @@
                     {{ Auth::user()->id }}
                 </button>
                 <ul class="dropdown-menu dropdown-menu-end">
+                    <li>
+                        <a class="dropdown-item" href="{{ route('mahasiswa.profile') }}">Edit Profile</a>
+                    </li>
                     <li>
                         <form method="POST" action="{{ route('logout') }}">
                             @csrf
@@ -203,6 +252,52 @@
                     @csrf
                     <button type="submit" class="btn-sm btn-primary">Mark as Read</button>
                 </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- All Notifications Modal -->
+<div class="modal fade" id="allNotificationsModal" tabindex="-1" aria-labelledby="allNotificationsModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="allNotificationsModalLabel">All Notifications</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                @foreach($allNotifications as $notification)
+                    @php
+                        $bgClass = 'bg-warning'; // Default class
+                        $iconClass = 'fas fa-exclamation-triangle'; // Default icon
+                        if (str_contains($notification->pesan, 'Kaprodi menyetujui permintaan Anda')) {
+                            $bgClass = 'bg-success';
+                            $iconClass = 'fas fa-check-circle';
+                        } elseif (str_contains($notification->pesan, 'Kaprodi menolak permintaan Anda')) {
+                            $bgClass = 'bg-warning';
+                            $iconClass = 'fas fa-times-circle';
+                        } elseif (str_contains($notification->pesan, 'MO telah membuatkan surat anda')) {
+                            $bgClass = 'bg-primary';
+                            $iconClass = 'fas fa-envelope';
+                        }
+                    @endphp
+                    <div class="d-flex align-items-center mb-3">
+                        <div class="{{ $bgClass }} d-flex justify-content-center align-items-center"
+                            style="border-radius: 50%; width: 2rem; height: 2rem;">
+                            <i class="{{ $iconClass }} text-white"></i>
+                        </div>
+                        <div style="margin-left: 0.5rem">
+                            <div class="small text-gray-800"><strong>From: {{ $notification->user->name }} </strong></div>
+                            {{ $notification->pesan }}
+                        </div>
+                        <button class="btn-sm btn-primary ms-auto" data-bs-toggle="modal"
+                            data-bs-target="#notificationsModal" data-message="{{ $notification->pesan }}"
+                            data-sender="{{ $notification->user->name }}" data-id="{{ $notification->idnotifikasi }}">
+                            View
+                        </button>
+                    </div>
+                @endforeach
             </div>
         </div>
     </div>

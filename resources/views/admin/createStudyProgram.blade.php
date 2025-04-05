@@ -49,10 +49,6 @@
                             <form action="{{ route('admin.studyProgram.store') }}" method="POST">
                                 @csrf
                                 <div class="form-group">
-                                    <label for="idstudy_program">ID</label>
-                                    <input type="text" class="form-control" id="idstudy_program" name="idstudy_program" required>
-                                </div>
-                                <div class="form-group">
                                     <label for="name">Name</label>
                                     <input type="text" class="form-control" id="name" name="nama" required>
                                 </div>

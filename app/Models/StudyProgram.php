@@ -12,7 +12,7 @@ class StudyProgram extends Model
     protected $table = 'study_program';
     protected $primaryKey = 'idstudy_program';
 
-    protected $fillable = ['idstudy_program', 'nama'];
+    protected $fillable = ['nama'];
 
     public function users()
     {
