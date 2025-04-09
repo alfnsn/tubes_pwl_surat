@@ -14,7 +14,7 @@
                             style="max-width: 1200px; word-wrap: break-word; text-align: center; margin: 0 auto; line-height: 1.2;">
                             Pengajuan Surat Keterangan Mahasiswa Universitas Kristen Maranatha
                         </h1>
-                        <p>Selamat datang silahkan pilih jenis surat di bawah</p>
+                        <p>Selamat datang silahkan pilih jenis surat yang anda ingin ajukan di bawah</p>
                     </div>
                 </div>
 

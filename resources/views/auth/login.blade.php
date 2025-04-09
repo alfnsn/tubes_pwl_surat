@@ -60,8 +60,8 @@
 
     <div class="limiter">
         <div class="container-login100">
-            <div class="wrap-login100">
-                <div class="login100-pic js-tilt" data-tilt>
+            <div class="wrap-login100 ">
+                <div class="login100-pic js-tilt" data-tilt style="margin-bottom: 80px;" !important>
                     {{-- <img src="{{ asset('images/img-01.png') }}" alt="IMG"> --}}
                     <img src="https://kompaspedia.kompas.id/wp-content/uploads/2021/07/logo_universitas-kristen-maranatha.png" alt="IMG">
                 </div>
@@ -70,7 +70,7 @@
                 <x-auth-session-status class="mb-4" :status="session('status')" />
 
                 <!-- Form Login -->
-                <form class="login100-form validate-form" method="POST" action="{{ route('login') }}">
+                <form class="login100-form validate-form" method="POST" action="{{ route('login') }}" style="margin-top: 30px;" !important>
                     @csrf  
                     <span class="login100-form-title">
                          Login
@@ -83,9 +83,9 @@
                         <span class="symbol-input100">
                             <i class="fa fa-user" aria-hidden="true"></i>
                         </span>
-                        <x-input-error :messages="$errors->get('login')" class="mt-2" />
-
+                        
                     </div>
+                    <x-input-error :messages="$errors->get('login')" class="mt-2" />
      
                     
                      <div class="wrap-input100 validate-input">
@@ -100,10 +100,10 @@
 
                     <!-- Remember Me -->
                     <div class="block mt-4">
-                        <label for="remember_me" class="inline-flex items-center">
+                        {{-- <label for="remember_me" class="inline-flex items-center">
                             <input id="remember_me" type="checkbox" class="rounded border-gray-300 text-indigo-600 focus:ring-indigo-500" name="remember">
                             <span class="ms-2 text-sm text-gray-600">{{ __('Remember me') }}</span>
-                        </label>
+                        </label> --}}
                     </div>
 
                     <!-- Tombol Login -->
@@ -114,21 +114,15 @@
                     </div>
 
                     <!-- Link Lupa Password -->
-                    <div class="text-center p-t-12">
-                        @if (Route::has('password.request'))
-                            <a class="txt2" href="{{ route('password.request') }}">
+                    <div class="text-center p-t-20">
+                        {{-- @if (Route::has('password.request'))
+                            <a class="txt2" href="">
                                 Forgot Username / Password?
                             </a>
-                        @endif
+                        @endif --}}
                     </div>
 
                     <!-- Link Register -->
-                    <div class="text-center p-t-40">
-                        <a class="txt2" href="{{ route('register') }}">
-                            Create your Account
-                            <i class="fa fa-long-arrow-right m-l-5" aria-hidden="true"></i>
-                        </a>
-                    </div>
                 </form>
             </div>
         </div>

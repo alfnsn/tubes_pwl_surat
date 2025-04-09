@@ -42,7 +42,7 @@ class PengajuanController extends Controller
                         'required',
                         'string',
                         'max:300',
-                        'regex:/^([A-Za-z\s]+;\s*){2}[A-Za-z\s]+$/'
+                        'regex:/^([A-Za-z0-9\s.,;()\-\/]+;\s*){2}[A-Za-z0-9\s.,;()\-\/]+$/'
                     ],
                     'semester' => 'required|string|max:21',
                     'tujuan' => 'required|string|max:200',
@@ -353,7 +353,7 @@ class PengajuanController extends Controller
     public function upload($id, Request $request)
     {
         $request->validate([
-            'file' => 'required|mimes:pdf,doc,docx|max:2048',
+            'file' => 'required|mimes:pdf,doc,docx|max:5120',
         ]);
 
         $pengajuan = Pengajuan::with('user', 'jenisSurat')->findOrFail($id);
@@ -365,6 +365,7 @@ class PengajuanController extends Controller
             $dot = $request->file('file')->getClientOriginalExtension();
             $namaFile = "{$nama}-{$surat}-{$tanggal}.{$dot}";
 
+            // harus ganti storage
             $request->file('file')->move(public_path('assets/surat'), $namaFile);
 
             Surat::create([

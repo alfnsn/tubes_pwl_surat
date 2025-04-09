@@ -38,6 +38,7 @@ Route::post('/notifications/{id}/markAsRead', [NotificationController::class, 'm
 Route::post('/pengajuan/{id}/upload', [PengajuanController::class, 'upload'])->name('pengajuan-upload');
 
 Route::middleware('auth')->group(function () {
+    
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');

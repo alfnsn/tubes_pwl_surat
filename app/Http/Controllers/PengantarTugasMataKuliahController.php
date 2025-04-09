@@ -43,7 +43,7 @@ class PengantarTugasMataKuliahController extends Controller
                 'required',
                 'string',
                 'max:300',
-                'regex:/^([A-Za-z\s]+;\s*){2}[A-Za-z\s]+$/'
+                'regex:/^([A-Za-z0-9\s.,;()\-\/]+;\s*){2}[A-Za-z0-9\s.,;()\-\/]+$/'
             ],
             'semester' => 'required|string|max:21',
             'tujuan' => 'required|string|max:200',

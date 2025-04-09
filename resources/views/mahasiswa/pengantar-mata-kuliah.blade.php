@@ -30,7 +30,6 @@
                                             *</label>
                                         <input type="text" class="form-control" name="namaKodeMk" id="namaKodeMk"
                                             placeholder="Contoh : Proses Bisnis - IN255" required maxlength="50"
-                                            pattern="^[A-Za-z0-9\s]+ - [A-Za-z0-9\s]+$"
                                             value="{{ old('namaKodeMk') }}">
                                         @if ($errors->has('namaKodeMk'))
                                             <small class="text-danger">{{ $errors->first('namaKodeMk') }}</small>

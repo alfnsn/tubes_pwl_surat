@@ -23,7 +23,6 @@
                     <label for="namaKodeMk">Nama Mata Kuliah - Kode Mata Kuliah *</label>
                     <input type="text" class="form-control @error('namaKodeMk') is-invalid @enderror" name="namaKodeMk" id="namaKodeMk"
                         placeholder="Contoh : Proses Bisnis - IN255" required maxlength="50"
-                        pattern="^[A-Za-z0-9\s]+ - [A-Za-z0-9\s]+$"
                         value="{{ old('namaKodeMk') }}">
                     @error('namaKodeMk')
                         <div class="invalid-feedback">{{ $message }}</div>

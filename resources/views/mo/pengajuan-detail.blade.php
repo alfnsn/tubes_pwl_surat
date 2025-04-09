@@ -102,7 +102,7 @@
                             class="d-inline" enctype="multipart/form-data">
                             @csrf
                             <input type="file" name="file" id="fileInput" class="d-none" required
-                                onchange="updateFileName(this)">
+                                onchange="updateFileName(this)" accept="image/png" />
 
                             <label for="fileInput"
                                 class="btn btn-secondary rounded-circle d-flex align-items-center justify-content-center"
