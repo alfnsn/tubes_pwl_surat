@@ -92,7 +92,7 @@
                 @endif
                 <div class="form-group">
                     <label for="phone">Phone</label>
-                    <input type="text" class="form-control" id="phone" name="phone" maxlength="16" value="{{ old('phone') }}" required>
+                    <input type="text" class="form-control" id="phone" name="phone" maxlength="16" value="{{ old('phone') }}" required oninput="this.value = this.value.replace(/[^0-9]/g, '')">
                     @error('phone')
                         <small class="text-danger">{{ $message }}</small>
                     @enderror

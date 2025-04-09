@@ -14,12 +14,12 @@
                                 @csrf
                                 <input type="hidden" name="idjenisSurat" value="1">
                                 <div class="row">
-                                    <div class="col-md-6 form-group mb-5">
+                                    <div class="col-md-6 form-group mb-3">
                                         <label for="" class="col-form-label">Nama Lengkap *</label>
                                         <input type="text" class="form-control" name="name" id="name"
                                             value="{{ Auth::user()->name }}" readonly required maxlength="120">
                                     </div>
-                                    <div class="col-md-6 form-group mb-5">
+                                    <div class="col-md-6 form-group mb-3">
                                         <label for="" class="col-form-label">NRP *</label>
                                         <input type="text" class="form-control" name="nrp" id="nrp"
                                             value="{{ Auth::user()->id }}" readonly required maxlength="9">
@@ -27,17 +27,17 @@
                                 </div>
 
                                 <div class="row">
-                                    <div class="col-md-12 form-group mb-5">
+                                    <div class="col-md-12 form-group mb-3">
                                         <label for="semester" class="col-form-label">Semester *</label>
                                         <select class="form-control" name="semester" id="semester">
-                                            <option value="" disabled selected>Pilih Semester</option>
-                                            <option value="Semester Genap 24/25">Semester Genap 24/25</option>
-                                            <option value="Semester Ganjil 25/26">Semester Ganjil 25/26</option>
-                                            <option value="Semester Genap 25/26">Semester Genap 25/26</option>
-                                            <option value="Semester Ganjil 27/28">Semester Ganjil 27/28</option>
-                                            <option value="Semester Genap 27/28">Semester Genap 27/28</option>
-                                            <option value="Semester Ganjil 29/30">Semester Ganjil 29/30</option>
-                                            <option value="Semester Genap 29/30">Semester Genap 29/30</option>
+                                            <option value="" disabled {{ old('semester') ? '' : 'selected' }}>Pilih Semester</option>
+                                            <option value="Semester Genap 24/25" {{ old('semester') == 'Semester Genap 24/25' ? 'selected' : '' }}>Semester Genap 24/25</option>
+                                            <option value="Semester Ganjil 25/26" {{ old('semester') == 'Semester Ganjil 25/26' ? 'selected' : '' }}>Semester Ganjil 25/26</option>
+                                            <option value="Semester Genap 25/26" {{ old('semester') == 'Semester Genap 25/26' ? 'selected' : '' }}>Semester Genap 25/26</option>
+                                            <option value="Semester Ganjil 27/28" {{ old('semester') == 'Semester Ganjil 27/28' ? 'selected' : '' }}>Semester Ganjil 27/28</option>
+                                            <option value="Semester Genap 27/28" {{ old('semester') == 'Semester Genap 27/28' ? 'selected' : '' }}>Semester Genap 27/28</option>
+                                            <option value="Semester Ganjil 29/30" {{ old('semester') == 'Semester Ganjil 29/30' ? 'selected' : '' }}>Semester Ganjil 29/30</option>
+                                            <option value="Semester Genap 29/30" {{ old('semester') == 'Semester Genap 29/30' ? 'selected' : '' }}>Semester Genap 29/30</option>
                                         </select>
                                         @if ($errors->has('semester'))
                                             <small class="text-danger">{{ $errors->first('semester') }}</small>
@@ -46,11 +46,14 @@
                                 </div>
 
                                 <div class="row">
-                                    <div class="col-md-12 form-group mb-5">
+                                    <div class="col-md-12 form-group mb-3">
                                         <label for="alamat" class="col-form-label">Alamat Lengkap Mahasiswa di Bandung
                                             *</label>
                                         <textarea class="form-control" name="alamat" id="alamat" cols="30" rows="1"
-                                            placeholder="Alamat" required maxlength="300"></textarea>
+                                            placeholder="Alamat" required maxlength="300">{{ old('alamat') }}</textarea>
+                                        @if ($errors->has('alamat'))
+                                            <small class="text-danger">{{ $errors->first('alamat') }}</small>
+                                        @endif
                                     </div>
                                 </div>
 
@@ -58,7 +61,10 @@
                                     <div class="col-md-12 form-group mb-5">
                                         <label for="keperluan" class="col-form-label">Keperluan Pengajuan *</label>
                                         <textarea class="form-control" name="keperluan" id="keperluan" cols="30" rows="1"
-                                            placeholder="Keperluan Pengajuan" required maxlength="255"></textarea>
+                                            placeholder="Keperluan Pengajuan" required maxlength="255">{{ old('keperluan') }}</textarea>
+                                        @if ($errors->has('keperluan'))
+                                            <small class="text-danger">{{ $errors->first('keperluan') }}</small>
+                                        @endif
                                     </div>
                                 </div>
 

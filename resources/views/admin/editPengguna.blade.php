@@ -48,6 +48,14 @@
                     <input type="text" class="form-control" id="phone" name="phone" value="{{ $user->phone }}" required>
                 </div>
                 <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" class="form-control" id="password" name="password" placeholder="Leave blank to keep current password">
+                </div>
+                <div class="form-group">
+                    <label for="password_confirmation">Confirm Password</label>
+                    <input type="password" class="form-control" id="password_confirmation" name="password_confirmation" placeholder="Leave blank to keep current password">
+                </div>
+                <div class="form-group">
                     <label for="role">Role</label>
                     <select class="form-control" id="role" name="role_id" required>
                         <option value="">Select Role</option>

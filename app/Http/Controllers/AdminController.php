@@ -92,6 +92,11 @@ class AdminController extends Controller
     public function edit($id)
     {
         $user = User::find($id);
+
+        if (!$user) {
+            return redirect()->back()->with('error', 'User with the specified ID does not exist.');
+        }
+
         $studyPrograms = StudyProgram::all();
         $roles = Role::all();
         return view('admin.editPengguna', compact('user', 'studyPrograms', 'roles'));
@@ -99,6 +104,12 @@ class AdminController extends Controller
 
     public function update(Request $request, $id)
     {
+        $user = User::find($id);
+
+        if (!$user) {
+            return redirect()->back()->with('error', 'User with the specified ID does not exist.');
+        }
+
         $request->validate([
             'name' => 'required|max:120',
             'email' => 'required|email|unique:users,email,'.$id.'|max:45',
@@ -107,6 +118,7 @@ class AdminController extends Controller
             'study_program_id' => 'required',
             'phone' => 'required|max:16',
             'role_id' => 'required',
+            'password' => 'nullable|confirmed|min:8|max:255',
         ], [
             'name.required' => 'The Name field is required.',
             'name.max' => 'The Name may not be greater than 120 characters.',
@@ -122,11 +134,12 @@ class AdminController extends Controller
             'phone.required' => 'The Phone field is required.',
             'phone.max' => 'The Phone may not be greater than 16 characters.',
             'role_id.required' => 'The Role field is required.',
+            'password.confirmed' => 'The Password confirmation does not match.',
+            'password.min' => 'The Password must be at least 8 characters.',
+            'password.max' => 'The Password may not be greater than 255 characters.',
         ]);
 
         try {
-            $user = User::find($id);
-
             // Check if the role is Kaprodi and the status is being set to "aktif"
             if ($request->role_id == $user->role_id && strtolower($user->role->name) == 'kaprodi' && $request->status == 'aktif') {
                 $existingKaprodi = User::where('role_id', $user->role_id)
@@ -140,7 +153,14 @@ class AdminController extends Controller
                 }
             }
 
-            $user->update($request->all());
+            $data = $request->all();
+            if (!empty($request->password)) {
+                $data['password'] = bcrypt($request->password);
+            } else {
+                unset($data['password']);
+            }
+
+            $user->update($data);
 
             $role = strtolower($user->role->name);
 

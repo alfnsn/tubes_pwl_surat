@@ -19,12 +19,15 @@
                             @csrf
                             <div class="form-group">
                                 <label for="nrp">NRP *</label>
-                                <select class="form-control" name="nrp" id="nrp" required>
+                                <select class="form-control @error('nrp') is-invalid @enderror" name="nrp" id="nrp" required>
                                     <option value="" disabled selected>Pilih NRP Mahasiswa</option>
                                     @foreach($mahasiswa as $user)
-                                        <option value="{{ $user->id }}" data-name="{{ $user->name }}">{{ $user->id }}</option>
+                                        <option value="{{ $user->id }}" data-name="{{ $user->name }}" {{ old('nrp') == $user->id ? 'selected' : '' }}>{{ $user->id }}</option>
                                     @endforeach
                                 </select>
+                                @error('nrp')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
                             </div>
                             <div class="form-group">
                                 <label for="name">Nama Lengkap *</label>
@@ -32,8 +35,11 @@
                             </div>
                             <div class="form-group">
                                 <label for="tanggal">Tanggal *</label>
-                                <input type="date" class="form-control" name="tanggal" id="tanggal" required
-                                    max="{{ date('Y-m-d') }}">
+                                <input type="date" class="form-control @error('tanggal') is-invalid @enderror" name="tanggal" id="tanggal" required
+                                    max="{{ date('Y-m-d') }}" value="{{ old('tanggal') }}">
+                                @error('tanggal')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
                             </div>
                             <button type="submit" class="btn btn-primary">Kirim</button>
                         </form>

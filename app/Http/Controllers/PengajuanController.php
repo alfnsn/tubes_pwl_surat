@@ -19,7 +19,6 @@ class PengajuanController extends Controller
 {
     public function store(Request $request)
     {
-
         $request->validate([
             'idjenisSurat' => 'required|integer',
         ]);
@@ -191,10 +190,11 @@ class PengajuanController extends Controller
                 }
             }
             return redirect()->back()->with('success', 'Pengajuan berhasil dikirim!');
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            return redirect()->back()->withErrors($e->validator)->withInput();
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Terjadi kesalahan saat menyimpan data. Silakan coba lagi.');
         }
-        
     }
 
     public function showPengajuan(Request $request)
@@ -211,6 +211,12 @@ class PengajuanController extends Controller
 
     public function showPengajuanDetail($id)
     {
+        $idpengajuan = Pengajuan::find($id);
+
+        if (!$idpengajuan) {
+            return redirect()->back()->with('error', 'Pengajuan with the specified ID does not exist.');
+        }
+        
         $pengajuan = Pengajuan::where('idpengajuan', $id)
             ->with(['jenisSurat', 'keteranganAktif', 'keteranganLulus', 'laporanHasilStudi', 'surat'])
             ->firstOrFail();
@@ -236,6 +242,28 @@ class PengajuanController extends Controller
 
     public function showPengajuanDetailKaprodi($id)
     {
+        $idpengajuan = Pengajuan::find($id);
+
+        if (!$idpengajuan) {
+            return redirect()->back()->with('error', 'Pengajuan with the specified ID does not exist.');
+        }
+
+        $pengajuan = Pengajuan::where('idpengajuan', $id)
+            ->with(['jenisSurat', 'keteranganAktif', 'keteranganLulus', 'laporanHasilStudi', 'surat'])
+            ->firstOrFail();
+
+
+        return view('kaprodi.pengajuan-detail', compact('pengajuan'));
+    }
+
+    public function showPengajuanDetailRiwayatMo($id)
+    {
+        $idpengajuan = Pengajuan::find($id);
+
+        if (!$idpengajuan) {
+            return redirect()->back()->with('error', 'Pengajuan with the specified ID does not exist.');
+        }
+
         $pengajuan = Pengajuan::where('idpengajuan', $id)
             ->with(['jenisSurat', 'keteranganAktif', 'keteranganLulus', 'laporanHasilStudi', 'surat'])
             ->firstOrFail();
@@ -396,6 +424,12 @@ class PengajuanController extends Controller
 
     public function showPengajuanDetailMO($id)
     {
+        $idpengajuan = Pengajuan::find($id);
+
+        if (!$idpengajuan) {
+            return redirect()->back()->with('error', 'Pengajuan with the specified ID does not exist.');
+        }
+
         $pengajuan = Pengajuan::where('idpengajuan', $id)
             ->with(['jenisSurat', 'keteranganAktif', 'keteranganLulus', 'laporanHasilStudi', 'surat'])
             ->firstOrFail();

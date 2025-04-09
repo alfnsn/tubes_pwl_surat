@@ -30,7 +30,7 @@
                                 <td>{{$pengajuan->jenisSurat->name}}</td>
                                 <td class="text-nowrap">
                                     <div class="d-flex justify-content-center align-items-center gap-2">
-                                        <a href="{{ route('pengajuan-detail', $pengajuan->idpengajuan) }}"
+                                        <a href="{{ route('pengajuan-riwayat-detail-mo', $pengajuan->idpengajuan) }}"
                                             class="d-flex align-items-center justify-content-center rounded-circle"
                                             style="width: 42px; height: 42px; background-color: #1d3557; color: white; text-decoration: none;">
                                             <i class="fas fa-eye" style="font-size: 20px; line-height: 1;"></i>

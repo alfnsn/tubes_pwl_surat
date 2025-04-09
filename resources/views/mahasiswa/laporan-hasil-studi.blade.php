@@ -12,12 +12,12 @@
                                 @csrf
                                 <input type="hidden" name="idjenisSurat" value="4">
                                 <div class="row">
-                                    <div class="col-md-6 form-group mb-5">
+                                    <div class="col-md-6 form-group mb-3">
                                         <label for="" class="col-form-label">Nama Lengkap *</label>
                                         <input type="text" class="form-control" name="name" id="name"
                                             value="{{ Auth::user()->name }}" readonly required maxlength="120">
                                     </div>
-                                    <div class="col-md-6 form-group mb-5">
+                                    <div class="col-md-6 form-group mb-3">
                                         <label for="" class="col-form-label">NRP *</label>
                                         <input type="text" class="form-control" name="nrp" id="nrp"
                                             value="{{ Auth::user()->id }}" readonly required maxlength="9">
@@ -25,10 +25,13 @@
                                 </div>
 
                                 <div class="row">
-                                    <div class="col-md-12 form-group mb-5">
+                                    <div class="col-md-12 form-group mb-3">
                                         <label for="keperluan" class="col-form-label">Keperluan Pembuatan LHS *</label>
                                         <textarea class="form-control" name="keperluan" id="keperluan" cols="30" rows="1"
-                                            placeholder="Keperluan Pembuatan" required maxlength="200"></textarea>
+                                            placeholder="Keperluan Pembuatan" required maxlength="200">{{ old('keperluan') }}</textarea>
+                                        @if ($errors->has('keperluan'))
+                                            <small class="text-danger">{{ $errors->first('keperluan') }}</small>
+                                        @endif
                                     </div>
                                 </div>
 

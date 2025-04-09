@@ -68,7 +68,7 @@ class KeteranganLulusController extends Controller
 
             return redirect()->route('keterangan-lulus-admin')->with('success', 'Pengajuan berhasil dikirim!');
         } catch (\Exception $e) {
-            return redirect()->back()->withErrors(['error' => 'Terjadi kesalahan saat menyimpan data. Silakan coba lagi.']);
+            return redirect()->back()->withInput()->withErrors(['error' => 'Terjadi kesalahan saat menyimpan data. Silakan coba lagi.']);
         }
     }
 }
