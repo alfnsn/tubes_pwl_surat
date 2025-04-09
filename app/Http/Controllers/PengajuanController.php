@@ -416,7 +416,8 @@ class PengajuanController extends Controller
         $pengajuans = Pengajuan::whereHas('user', function ($query) use ($mo) {
             $query->where('study_program_id', $mo->study_program_id);
         })
-            ->where('status', '=', 'Surat Telah Selesai Dibuat')
+            ->where('status', '!=', 'Menunggu Persetujuan Kaprodi ')
+            ->where('status', '!=', 'Disetujui Oleh Kaprodi ')
             ->orderBy('tanggal_pengajuan', 'desc')
             ->get();
 

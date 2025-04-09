@@ -5,6 +5,7 @@
         <!-- Hero Section -->
         <section id="hero" class="hero section" style="padding-top: 20px; margin-top: -30px;">
             <div class="container">
+                <h2 class="mt-4" style="color: #124265;">Riwayat Pengajuan</h2>
                 <table class="table table-bordered text-start" id="dataTable" width="100%" cellspacing="0"
                     style="text-align: center;">
                     <thead>

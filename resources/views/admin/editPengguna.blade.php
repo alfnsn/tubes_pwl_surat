@@ -16,12 +16,27 @@
                 @csrf
                 @method('PUT')
                 <div class="form-group">
+                    @if($user->role->name == 'Mahasiswa')
+                        <label for="id">NRP</label>
+                        <input type="text" class="form-control" id="id" name="nrp" value="{{ $user->id }}" readonly>
+                    @elseif($user->role->name == 'Kaprodi')
+                        <label for="id">NIK</label>
+                        <input type="text" class="form-control" id="id" name="nik" value="{{ $user->id }}" readonly>
+                    @elseif($user->role->name == 'MO')
+                        <label for="id">NIP</label>
+                        <input type="text" class="form-control" id="id" name="nip" value="{{ $user->id }}" readonly>
+                    @else
+                        <label for="id">ID</label>
+                        <input type="text" class="form-control" id="id" name="id" value="{{ $user->id }}" readonly>
+                    @endif
+                </div>
+                <div class="form-group">
                     <label for="name">Name</label>
                     <input type="text" class="form-control" id="name" name="name" value="{{ $user->name }}" required>
                 </div>
                 <div class="form-group">
                     <label for="email">Email</label>
-                    <input type="email" class="form-control" id="email" name="email" value="{{ $user->email }}" required>
+                    <input type="email" class="form-control" id="email" name="email" value="{{ $user->email }}" readonly>
                 </div>
                 <div class="form-group">
                     <label for="address">Address</label>
@@ -36,12 +51,7 @@
                 </div>
                 <div class="form-group">
                     <label for="study_program">Study Program</label>
-                    <select class="form-control" id="study_program" name="study_program_id" required>
-                        <option value="">Select Study Program</option>
-                        @foreach($studyPrograms as $studyProgram)
-                            <option value="{{ $studyProgram->idstudy_program }}" {{ $user->study_program_id == $studyProgram->idstudy_program ? 'selected' : '' }}>{{ $studyProgram->nama }}</option>
-                        @endforeach
-                    </select>
+                    <input type="text" class="form-control" id="study_program" name="study_program_id" value="{{ $user->studyProgram->nama }}" readonly>
                 </div>
                 <div class="form-group">
                     <label for="phone">Phone</label>
@@ -57,12 +67,7 @@
                 </div>
                 <div class="form-group">
                     <label for="role">Role</label>
-                    <select class="form-control" id="role" name="role_id" required>
-                        <option value="">Select Role</option>
-                        @foreach($roles as $role)
-                            <option value="{{ $role->id }}" {{ $user->role_id == $role->id ? 'selected' : '' }}>{{ $role->name }}</option>
-                        @endforeach
-                    </select>
+                    <input type="text" class="form-control" id="role" name="role" value="{{ $user->role->name }}" readonly>
                 </div>
                 <button type="submit" class="btn btn-primary">Update</button>
             </form>

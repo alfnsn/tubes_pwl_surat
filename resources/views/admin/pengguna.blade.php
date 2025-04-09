@@ -150,17 +150,10 @@
                                                 <td>{{ $user->phone }}</td>
                                                 <td>{{ $user->email }}</td>
                                                 <td>{{ $user->role->name }}</td>
-                                                <td style="white-space: nowrap;">
+                                                <td style="white-space: nowrap; text-align:center;">
                                                     <a href="{{ route('admin.pengguna.edit', $user->id) }}" class="btn btn-warning btn-circle btn-sm" style="display: inline-block;">
                                                         <i class="fas fa-edit"></i>
                                                     </a>
-                                                    <form action="{{ route('admin.pengguna.destroy', $user->id) }}" method="POST" style="display: inline-block;">
-                                                        @csrf
-                                                        @method('DELETE')
-                                                        <button type="button" class="btn btn-danger btn-circle btn-sm" onclick="showDeleteModal('{{ route('admin.pengguna.destroy', $user->id) }}')">
-                                                            <i class="fas fa-trash"></i>
-                                                        </button>
-                                                    </form>
                                                 </td>
                                             </tr>
                                         @endforeach
