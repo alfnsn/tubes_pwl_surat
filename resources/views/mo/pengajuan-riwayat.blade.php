@@ -27,7 +27,15 @@
                                 <td class="text-start">{{$pengajuan->idpengajuan}}</td>
                                 <td>{{$pengajuan->user->name}} ({{ $pengajuan->user->id }})
                                 <td>{{\Carbon\Carbon::parse($pengajuan->tanggal_pengajuan)->format('d - m - Y') }}</td>
-                                <td class="text-start">{{$pengajuan->status}}</td>
+                                @if($pengajuan->status == 'Ditolak Oleh Kaprodi')
+                                    <td class="text-start text-danger fw-bold">{{$pengajuan->status}}</td>    
+                                @elseif($pengajuan->status == 'Disetujui Oleh Kaprodi')
+                                    <td class="text-start text-success fw-bold">{{$pengajuan->status}}</td>  
+                                @elseif($pengajuan->status == 'Surat Telah Selesai Dibuat')
+                                    <td class="text-start text-primary fw-bold">{{$pengajuan->status}}</td> 
+                                @elseif($pengajuan->status == 'Menunggu Persetujuan Kaprodi')
+                                    <td class="text-start text-warning fw-bold">{{$pengajuan->status}}</td> 
+                                @endif
                                 <td>{{$pengajuan->jenisSurat->name}}</td>
                                 <td class="text-nowrap">
                                     <div class="d-flex justify-content-center align-items-center gap-2">

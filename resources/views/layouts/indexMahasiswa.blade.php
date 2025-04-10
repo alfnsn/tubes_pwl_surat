@@ -19,6 +19,7 @@
     <link href="assets/img/favicon.png" rel="icon">
     <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 
 
     <!-- Fonts -->
@@ -113,15 +114,6 @@
     <link rel="stylesheet" href="https://cdn.datatables.net/2.2.2/css/dataTables.dataTables.min.css">
     <script src="https://cdn.datatables.net/2.2.2/js/dataTables.min.js"></script>
     <script>let table = new DataTable('#dataTable');</script>
-    <script>
-        function openRejectModal(id) {
-            document.getElementById('rejectPengajuanId').value = id;
-            document.getElementById('rejectForm').action = "/kaprodi/dashboard/pengajuan-reject/" + id;
-            var rejectModal = new bootstrap.Modal(document.getElementById('rejectModal'));
-            rejectModal.show();
-        }
-    </script>
-
     <!-- Bootstrap core JavaScript-->
     {{--
     <script src="{{ asset('assetsadmin/vendor/jquery/jquery.min.js') }}"></script> --}}

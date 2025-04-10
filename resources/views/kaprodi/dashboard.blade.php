@@ -5,7 +5,7 @@
         <!-- Hero Section -->
         <section id="hero" class="hero section" style="padding-top: 20px; margin-top: -30px;">
             <div class="container">
-                <h2>Permohonan Pengajuan Surat Keterangan Mahasiswa</h2>
+                <h2 class="mt-4">Permohonan Pengajuan Surat Keterangan Mahasiswa</h2>
                 <table class="table table-bordered text-start" id="dataTable" width="100%" cellspacing="0"
                     style="text-align: center;">
                     <thead>
@@ -78,7 +78,7 @@
                             <div class="mb-3">
                                 <label for="alasan_penolakan" class="form-label">Alasan Penolakan</label>
                                 <textarea class="form-control" name="alasan_penolakan" id="alasan_penolakan" rows="3"
-                                    required></textarea>
+                                required></textarea>
                             </div>
                             <button type="submit" class="btn btn-danger">Tolak Pengajuan</button>
                         </form>
@@ -86,5 +86,16 @@
                 </div>
             </div>
         </div>
+        
     </main>
+    <script>
+        function openRejectModal(id) {
+            document.getElementById('rejectPengajuanId').value = id;
+            document.getElementById('rejectForm').action = "/kaprodi/dashboard/pengajuan-reject/" + id;
+            var rejectModal = new bootstrap.Modal(document.getElementById('rejectModal'));
+            rejectModal.show();
+        }
+    </script>    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
 @endsection

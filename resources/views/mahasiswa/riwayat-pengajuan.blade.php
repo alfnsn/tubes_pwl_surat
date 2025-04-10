@@ -9,7 +9,7 @@
                 @if($pengajuans->isEmpty())
                     <p class="text-center mt-5">No records found.</p>
                 @else
-                    <table class="table table-bordered text-start" id="dataTable" width="100%" cellspacing="0"
+                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0"
                         style="text-align: center;">
                         <thead>
                             <tr>
@@ -27,20 +27,21 @@
                                 <tr>
                                     <td class="text-start">{{$no++}}</td>
                                     <td class="text-start">{{$pengajuan->idpengajuan}}</td>
-                                    <td>{{\Carbon\Carbon::parse($pengajuan->tanggal_pengajuan)->format('d - m - Y') }}</td>
+                                    <td class="text-start">{{\Carbon\Carbon::parse($pengajuan->tanggal_pengajuan)->format('d - m - Y') }}</td>
                                     @if($pengajuan->status == "Rejected")
-                                        <td class="text-danger">{{$pengajuan->status}}</td>
+                                        <td class="text-start text-danger">{{$pengajuan->status}}</td>
                                     @else
-                                        <td>{{$pengajuan->status}}</td>
+                                        <td class="text-start">{{$pengajuan->status}}</td>
                                     @endif
-                                    <td>{{$pengajuan->jenisSurat->name}}</td>
-                                    <td>
+                                    <td class="text-start">{{$pengajuan->jenisSurat->name}}</td>
+                                    <td class="text-center">
                                         <a href="{{ route('riwayat-pengajuan-detail', $pengajuan->idpengajuan) }}"
-                                            class="d-flex align-items-center justify-content-center rounded-circle mt-2"
+                                            class="d-flex align-items-center justify-content-center rounded-circle mx-auto"
                                             style="width: 42px; height: 42px; background-color: #1d3557; color: white; text-decoration: none;">
-                                            <i class="fas fa-eye" style="font-size: 20px; line-height: 1;"></i>
+                                            <i class="fas fa-eye" style="font-size: 20px;"></i>
                                         </a>
                                     </td>
+                                    
                                 </tr>
                             @endforeach
                         </tbody>

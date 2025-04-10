@@ -365,16 +365,27 @@ class PengajuanController extends Controller
             $dot = $request->file('file')->getClientOriginalExtension();
             $namaFile = "{$nama}-{$surat}-{$tanggal}.{$dot}";
 
-            // harus ganti storage
+            if (Surat::where('pengajuan_idpengajuan', $pengajuan->idpengajuan)->exists()) {
+                $suratt = Surat::where('pengajuan_idpengajuan', $pengajuan->idpengajuan)->first();
+                $fileLama = $suratt->file_path;
+                $tempatFileLama = public_path('assets/surat/' . $fileLama);
+                if (file_exists($tempatFileLama)) {
+                    unlink($tempatFileLama);
+                }
+                $suratt->update([
+                    'file_path' => $namaFile,
+                    'updated_at' => now(),
+                ]);
+            } else {
+                Surat::create([
+                    'file_path' => $namaFile,
+                    'uploaded_date' => now(),
+                    'created_at' => now(),
+                    'updated_at' => now(),
+                    'pengajuan_idpengajuan' => $pengajuan->idpengajuan,
+                ]);
+            }
             $request->file('file')->move(public_path('assets/surat'), $namaFile);
-
-            Surat::create([
-                'file_path' => $namaFile,
-                'uploaded_date' => now(),
-                'created_at' => now(),
-                'updated_at' => now(),
-                'pengajuan_idpengajuan' => $pengajuan->idpengajuan,
-            ]);
 
             Notifikasi::create([
                 'pesan' => Auth::user()->name . ' telah membuatkan surat anda',
@@ -416,7 +427,6 @@ class PengajuanController extends Controller
         $pengajuans = Pengajuan::whereHas('user', function ($query) use ($mo) {
             $query->where('study_program_id', $mo->study_program_id);
         })
-            ->where('status', '!=', 'Menunggu Persetujuan Kaprodi ')
             ->where('status', '!=', 'Disetujui Oleh Kaprodi ')
             ->orderBy('tanggal_pengajuan', 'desc')
             ->get();

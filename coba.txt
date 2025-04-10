@@ -1,4 +1,8 @@
-mo upload ulang 
+mo upload ulang // udah
 middleware
-benerin psoso tabel kaprodi mo
+benerin posisi tabel kaprodi mo // udah
 error indonesia 
+status
+
+modal accept kaprodi
+close modal reject

@@ -90,7 +90,7 @@
                     <td>
                         <a onclick="downloadFile('{{ asset('assets/TemplateJadi/' . $pengajuan->path_template) }}')"
                             class="d-flex align-items-center justify-content-center rounded-circle"
-                            style="width: 42px; height: 42px; background-color: #1d3557; color: white; border: none; cursor: pointer;">
+                            style="width: 42px; height: 42px; background-color: #28a745; color: white; border: none; cursor: pointer;">
                             <i class="fas fa-download" style="font-size: 20px; line-height: 1;"></i>
                         </a>
                     </td>
@@ -113,7 +113,7 @@
                             <span id="fileName" class="text-muted" style="display: none; font-size: 14px;"></span>
 
                             <button type="submit" class="d-flex align-items-center justify-content-center rounded-circle"
-                                style="width: 42px; height: 42px; background-color: #28a745; color: white; border: none;">
+                                style="width: 42px; height: 42px; background-color: #0d6efd; color: white; border: none;">
                                 <i class="fas fa-upload" style="font-size: 20px; line-height: 1;"></i>
                             </button>
                         </form>

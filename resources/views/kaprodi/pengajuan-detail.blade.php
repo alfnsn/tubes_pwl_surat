@@ -13,10 +13,22 @@
                     <th>Tanggal Pengajuan</th>
                     <td>{{\Carbon\Carbon::parse($pengajuan->tanggal_pengajuan)->format('d - m - Y')}}</td>
                 </tr>
+                @if($pengajuan->status == "Disetujui Oleh Kaprodi" || $pengajuan->status == "Surat Telah Selesai Dibuat")
+                    <tr>
+                        <th>Tanggal Disetujui</th>
+                        <td>{{\Carbon\Carbon::parse($pengajuan->updated_at)->format('d - m - Y')}}</td>
+                    </tr>
+                @endif
                 <tr>
                     <th>Status</th>
                     <td>{{$pengajuan->status}}</td>
                 </tr>
+                @if($pengajuan->alasan_penolakan)
+                    <tr>
+                        <th class="text-danger">Alasan Penolakan</th>
+                        <td class="text-danger">{{$pengajuan->alasan_penolakan}}</td>
+                    </tr>
+                @endif
                 <tr>
                     <th>Jenis Surat</th>
                     <td>{{$pengajuan->jenisSurat->name}}</td>
@@ -89,41 +101,42 @@
                     <tr>
                         <th>Download Surat</th>
                         <td>
-                            <a onclick="downloadFile('{{ asset('assets/surat/' . $pengajuan->surat->file_path) }}')" 
-                               class="d-flex align-items-center justify-content-center rounded-circle"
-                               style="width: 42px; height: 42px; background-color: #28a745; color: white; border: none; cursor: pointer;">
+                            <a onclick="downloadFile('{{ asset('assets/surat/' . $pengajuan->surat->file_path) }}')"
+                                class="d-flex align-items-center justify-content-center rounded-circle"
+                                style="width: 42px; height: 42px; background-color: #28a745; color: white; border: none; cursor: pointer;">
                                 <i class="fas fa-download" style="font-size: 20px; line-height: 1;"></i>
                             </a>
                         </td>
                     </tr>
+                    @if(Auth::user()->role->name === 'MO')
+                        <tr>
+                            <th>Update Surat</th>
+                            <td>
+                                <form action="{{ route('pengajuan-upload', $pengajuan->idpengajuan) }}" method="POST"
+                                    class="d-inline" enctype="multipart/form-data">
+                                    @csrf
+                                    <input type="file" name="file" id="fileInput" class="d-none" required
+                                        onchange="updateFileName(this)" />
+
+                                    <label for="fileInput"
+                                        class="btn btn-secondary rounded-circle d-flex align-items-center justify-content-center"
+                                        style="width: 40px; height: 40px; cursor: pointer;">
+                                        <i class="fas fa-paperclip" style="font-size: 20px; line-height: 1;"></i>
+                                    </label>
+
+                                    <span id="fileName" class="text-muted" style="display: none; font-size: 14px;"></span>
+
+                                    <button type="submit" class="d-flex align-items-center justify-content-center rounded-circle"
+                                        style="width: 42px; height: 42px; background-color: #0d6efd; color: white; border: none;">
+                                        <i class="fas fa-upload" style="font-size: 20px; line-height: 1;"></i>
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                    @endif
                 @endif
 
-                @if(Auth::user()->role->name === 'MO')
-                <tr>
-                    <th>Upload Surat</th>
-                    <td>
-                        <form action="{{ route('pengajuan-upload', $pengajuan->idpengajuan) }}" method="POST"
-                            class="d-inline" enctype="multipart/form-data">
-                            @csrf
-                            <input type="file" name="file" id="fileInput" class="d-none" required
-                                onchange="updateFileName(this)" />
 
-                            <label for="fileInput"
-                                class="btn btn-secondary rounded-circle d-flex align-items-center justify-content-center"
-                                style="width: 40px; height: 40px; cursor: pointer;">
-                                <i class="fas fa-paperclip" style="font-size: 20px; line-height: 1;"></i>
-                            </label>
-
-                            <span id="fileName" class="text-muted" style="display: none; font-size: 14px;"></span>
-
-                            <button type="submit" class="d-flex align-items-center justify-content-center rounded-circle"
-                                style="width: 42px; height: 42px; background-color: #28a745; color: white; border: none;">
-                                <i class="fas fa-upload" style="font-size: 20px; line-height: 1;"></i>
-                            </button>
-                        </form>
-                    </td>
-                </tr>
-                @endif
             </tbody>
         </table>
 

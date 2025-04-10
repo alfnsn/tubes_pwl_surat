@@ -3,9 +3,9 @@
 @section('content')
     <main class="main">
         <!-- Hero Section -->
-        <section id="hero" class="hero section" style="padding-top: 70px; margin-top: -30px;">
+        <section id="hero" class="hero section" style="padding-top: 20px; margin-top: -30px;">
             <div class="container">
-                <h2>Permohonan Pengajuan Surat Keterangan Mahasiswa</h2>
+                <h2 class="mt-4">Permohonan Pengajuan Surat Keterangan Mahasiswa</h2>
                 <table class="table table-bordered text-start" id="dataTable" width="100%" cellspacing="0"
                     style="text-align: center;">
                     <thead>
@@ -26,12 +26,11 @@
                             <tr>
                                 <td class="text-start">{{$no++}}</td>
                                 <td class="text-start">{{$pengajuan->idpengajuan}}</td>
-                                <td>{{$pengajuan->user->name}} ({{ $pengajuan->user->id }})
-                                </td>
-                                <td>{{\Carbon\Carbon::parse($pengajuan->tanggal_pengajuan)->format('d - m - Y') }}</td>
-                                <td>{{\Carbon\Carbon::parse($pengajuan->updated_at)->format('d - m - Y') }}</td>
+                                <td class="text-start">{{$pengajuan->user->name}} ({{ $pengajuan->user->id }})</td>
+                                <td class="text-start">{{\Carbon\Carbon::parse($pengajuan->tanggal_pengajuan)->format('d - m - Y') }}</td>
+                                <td class="text-start">{{\Carbon\Carbon::parse($pengajuan->updated_at)->format('d - m - Y') }}</td>
                                 <td class="text-start">{{$pengajuan->disetujui_oleh}}</td>
-                                <td>{{$pengajuan->jenisSurat->name}}</td>
+                                <td class="text-start">{{$pengajuan->jenisSurat->name}}</td>
                                 <td>
                                     <div class="d-flex flex-column justify-content-center align-items-center gap-2">
                                         <a href="{{ route('pengajuan-detail-mo', $pengajuan->idpengajuan) }}"
