@@ -31,6 +31,7 @@ class User extends Authenticatable
         'remember_token',
         'role_id',
         'study_program_id',
+        'mata_kuliah_idmata_kuliah',
     ];
 
     public $incrementing = false; // Nonaktifkan auto-increment
@@ -69,6 +70,11 @@ class User extends Authenticatable
     public function studyProgram()
     {
         return $this->belongsTo(StudyProgram::class, 'study_program_id');
+    }
+
+    public function mataKuliah(): BelongsTo
+    {
+        return $this->belongsTo(MataKuliah::class, 'mata_kuliah_idmata_kuliah', 'idmata_kuliah');
     }
 
     public function pengajuans()

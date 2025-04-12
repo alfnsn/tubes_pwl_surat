@@ -1,7 +1,7 @@
 mo upload ulang // udah
 middleware
 benerin posisi tabel kaprodi mo // udah
-error indonesia 
+error indonesia // udah
 status
 
 modal accept kaprodi // udah

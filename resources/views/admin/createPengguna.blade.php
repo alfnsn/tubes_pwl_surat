@@ -20,6 +20,8 @@
                                 NRP
                             @elseif($role == 'Kaprodi')
                                 NIM
+                            @elseif($role == 'Dosen')
+                                NIM
                             @elseif($role == 'MO')
                                 NIK
                             @else
@@ -71,18 +73,7 @@
                             <small class="text-danger">{{ $message }}</small>
                         @enderror
                     </div>
-                    <div class="form-group">
-                        <label for="status">Status</label>
-                        <select class="form-control" id="status" name="status" required>
-                            <option value="">Pilih Status</option>
-                            <option value="aktif" {{ old('status') == 'aktif' ? 'selected' : '' }}>Aktif</option>
-                            <option value="tidak aktif" {{ old('status') == 'tidak aktif' ? 'selected' : '' }}>Tidak Aktif
-                            </option>
-                        </select>
-                        @error('status')
-                            <small class="text-danger">{{ $message }}</small>
-                        @enderror
-                    </div>
+                    <input type="hidden" name="status" value="aktif">
                     @if ($role != 'Admin')
                         <div class="form-group">
                             <label for="study_program">Program Studi</label>

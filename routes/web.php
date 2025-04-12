@@ -10,6 +10,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\KeteranganLulusController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\MataKuliahController;
 
 Route::get('/', function () {
     return view('auth.login');
@@ -64,6 +65,7 @@ Route::middleware('auth')->group(function () {
         Route::get('/kaprodi', [PenggunaController::class, 'showKaprodi'])->name('pengguna.kaprodi');
         Route::get('/mo', [PenggunaController::class, 'showMo'])->name('pengguna.mo');
         Route::get('/admin', [PenggunaController::class, 'showAdmin'])->name('pengguna.admin');
+        Route::get('/dosen', [PenggunaController::class, 'showDosen'])->name('pengguna.dosen');
     });
 
     Route::get('/admin/dashboard', [DashboardController::class, 'index'])->name('Admin.dashboard');
@@ -73,6 +75,15 @@ Route::middleware('auth')->group(function () {
     Route::get('/admin/studyProgram/{id}/edit', [App\Http\Controllers\StudyProgramController::class, 'edit'])->name('admin.studyProgram.edit');
     Route::put('/admin/studyProgram/{id}', [App\Http\Controllers\StudyProgramController::class, 'update'])->name('admin.studyProgram.update');
     Route::delete('/admin/studyProgram/{id}', [App\Http\Controllers\StudyProgramController::class, 'destroy'])->name('admin.studyProgram.destroy');
+
+    Route::prefix('admin')->name('admin.')->group(function () {
+        Route::get('mata-kuliah', [MataKuliahController::class, 'index'])->name('mataKuliah');
+        Route::get('mata-kuliah/create', [MataKuliahController::class, 'create'])->name('mataKuliah.create');
+        Route::post('mata-kuliah', [MataKuliahController::class, 'store'])->name('mataKuliah.store');
+        Route::get('mata-kuliah/{id}/edit', [MataKuliahController::class, 'edit'])->name('mataKuliah.edit');
+        Route::put('mata-kuliah/{id}', [MataKuliahController::class, 'update'])->name('mataKuliah.update');
+        Route::delete('mata-kuliah/{id}', [MataKuliahController::class, 'destroy'])->name('mataKuliah.destroy');
+    });
 
     Route::get('/riwayat-pengajuan', [PengajuanController::class, 'showPengajuan'])->name('riwayat-pengajuan');
     Route::get('/riwayat-pengajuan-detail/{id}', [PengajuanController::class, 'showPengajuanDetail'])->name('riwayat-pengajuan-detail');

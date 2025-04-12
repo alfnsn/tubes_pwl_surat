@@ -1,9 +1,11 @@
 <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
     <!-- Sidebar - Brand -->
-    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{ route(Auth::user()->role->name . '.dashboard') }}">
+    <a class="sidebar-brand d-flex align-items-center justify-content-center"
+        href="{{ route(Auth::user()->role->name . '.dashboard') }}">
         <div class="sidebar-brand-icon">
             <img src="https://kompaspedia.kompas.id/wp-content/uploads/2021/07/logo_universitas-kristen-maranatha.png"
-            alt="IMG" style="max-width: 50px; height: auto; transform: rotate(0); filter: brightness(0) invert(1);">
+                alt="IMG"
+                style="max-width: 50px; height: auto; transform: rotate(0); filter: brightness(0) invert(1);">
         </div>
         <div class="sidebar-brand-text mx-3"> Maranatha</div>
     </a>
@@ -33,14 +35,20 @@
             <i class="fas fa-fw fa-users"></i>
             <span>Pengguna</span>
         </a>
-        <div id="collapsePengguna" class="collapse {{ request()->routeIs('pengguna.*') ? 'show' : '' }}" aria-labelledby="headingPengguna"
-            data-parent="#accordionSidebar">
+        <div id="collapsePengguna" class="collapse {{ request()->routeIs('pengguna.*') ? 'show' : '' }}"
+            aria-labelledby="headingPengguna" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">Daftar Pengguna:</h6>
-                <a class="collapse-item {{ request()->routeIs('pengguna.mahasiswa') ? 'active' : '' }}" href="{{ route('pengguna.mahasiswa') }}">Mahasiswa</a>
-                <a class="collapse-item {{ request()->routeIs('pengguna.kaprodi') ? 'active' : '' }}" href="{{ route('pengguna.kaprodi') }}">Kaprodi</a>
-                <a class="collapse-item {{ request()->routeIs('pengguna.mo') ? 'active' : '' }}" href="{{ route('pengguna.mo') }}">MO</a>
-                <a class="collapse-item {{ request()->routeIs('pengguna.admin') ? 'active' : '' }}" href="{{ route('pengguna.admin') }}">Admin</a>
+                <a class="collapse-item {{ request()->routeIs('pengguna.mahasiswa') ? 'active' : '' }}"
+                    href="{{ route('pengguna.mahasiswa') }}">Mahasiswa</a>
+                <a class="collapse-item {{ request()->routeIs('pengguna.kaprodi') ? 'active' : '' }}"
+                    href="{{ route('pengguna.kaprodi') }}">Kaprodi</a>
+                <a class="collapse-item {{ request()->routeIs('pengguna.mo') ? 'active' : '' }}"
+                    href="{{ route('pengguna.mo') }}">MO</a>
+                <a class="collapse-item {{ request()->routeIs('pengguna.admin') ? 'active' : '' }}"
+                    href="{{ route('pengguna.admin') }}">Admin</a>
+                <a class="collapse-item {{ request()->routeIs('pengguna.dosen') ? 'active' : '' }}"
+                    href="{{ route('pengguna.dosen') }}">Dosen</a>
             </div>
         </div>
     </li>
@@ -50,6 +58,14 @@
         <a class="nav-link" href="{{ route('admin.studyProgram') }}">
             <i class="fas fa-fw fa-book"></i>
             <span>Program Studi</span>
+        </a>
+    </li>
+
+    <!-- Nav Item - Mata Kuliah -->
+    <li class="nav-item {{ request()->routeIs('admin.mataKuliah') ? 'active' : '' }}">
+        <a class="nav-link" href="{{ route('admin.mataKuliah') }}">
+            <i class="fas fa-fw fa-book"></i>
+            <span>Mata Kuliah</span>
         </a>
     </li>
 

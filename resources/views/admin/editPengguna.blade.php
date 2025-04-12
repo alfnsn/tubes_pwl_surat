@@ -70,12 +70,12 @@
                     <div class="form-group">
                         <label for="password">Password</label>
                         <input type="password" class="form-control" id="password" name="password"
-                            placeholder="Biarkan jika tidak ingin diubah">
+                            placeholder="Biarkan kosong jika tidak ingin diuba">
                     </div>
                     <div class="form-group">
                         <label for="password_confirmation">Konfirmasi Password</label>
                         <input type="password" class="form-control" id="password_confirmation" name="password_confirmation"
-                            placeholder="Masukkan ulang password baru">
+                            placeholder="Masukkan kembali password">
                     </div>
                     <div class="form-group">
                         <label for="role">Role</label>

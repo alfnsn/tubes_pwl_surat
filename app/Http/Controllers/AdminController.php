@@ -32,7 +32,6 @@ class AdminController extends Controller
             'email' => 'required|email|unique:users|max:45',
             'password' => 'required|confirmed|min:8|max:255',
             'address' => 'required|max:300',
-            'status' => 'required|max:12',
             'study_program_id' => 'required',
             'phone' => 'required|max:16',
             'role_id' => 'required',
@@ -52,8 +51,6 @@ class AdminController extends Controller
             'password.max' => 'Kata Sandi tidak boleh lebih dari 255 karakter.',
             'address.required' => 'Kolom Alamat wajib diisi.',
             'address.max' => 'Alamat tidak boleh lebih dari 300 karakter.',
-            'status.required' => 'Kolom Status wajib diisi.',
-            'status.max' => 'Status tidak boleh lebih dari 12 karakter.',
             'study_program_id.required' => 'Kolom Program Studi wajib diisi.',
             'phone.required' => 'Kolom Telepon wajib diisi.',
             'phone.max' => 'Telepon tidak boleh lebih dari 16 karakter.',
@@ -75,6 +72,7 @@ class AdminController extends Controller
         try {
             $data = $request->all();
             $data['password'] = bcrypt($request->password);
+            $data['status'] = 'aktif';
 
             $user = User::create($data);
 

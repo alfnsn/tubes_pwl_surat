@@ -57,5 +57,13 @@ class PenggunaController extends Controller
         return view('admin.pengguna', compact('users'));
     }
 
-    // ...existing code...
+    public function showDosen()
+    {
+        $users = User::with('studyProgram')->whereHas('role', function ($query) {
+            $query->where('name', 'Dosen');
+        })->get();
+
+        return view('admin.pengguna', compact('users'));
+    }
+
 }

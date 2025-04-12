@@ -89,12 +89,13 @@
                                                 <td>{{ $studyProgram->idstudy_program }}</td>
                                                 <td>{{ $studyProgram->nama }}</td>
                                                 <td style="white-space: nowrap;">
-                                                    <a href="{{ route('admin.studyProgram.edit', ['id' => $studyProgram->idstudy_program]) }}"
-                                                        class="btn btn-warning btn-circle btn-sm"
-                                                        style="display: inline-block;">
-                                                        <i class="fas fa-edit"></i>
-                                                    </a>
-                                                    <form
+                                                    <div class="d-flex justify-content-center">
+                                                        <a href="{{ route('admin.studyProgram.edit', ['id' => $studyProgram->idstudy_program]) }}"
+                                                            class="btn btn-warning btn-circle btn-sm">
+                                                            <i class="fas fa-edit"></i>
+                                                        </a>
+                                                    </div>
+                                                    {{-- <form
                                                         action="{{ route('admin.studyProgram.destroy', ['id' => $studyProgram->idstudy_program]) }}"
                                                         method="POST" style="display: inline-block;">
                                                         @csrf
@@ -103,7 +104,7 @@
                                                             onclick="showDeleteModal('{{ route('admin.studyProgram.destroy', ['id' => $studyProgram->idstudy_program]) }}')">
                                                             <i class="fas fa-trash"></i>
                                                         </button>
-                                                    </form>
+                                                    </form> --}}
                                                 </td>
                                             </tr>
                                         @endforeach

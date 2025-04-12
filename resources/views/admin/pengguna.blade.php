@@ -59,6 +59,8 @@
                                 MO
                             @elseif(request()->is('pengguna/admin'))
                                 Admin
+                            @elseif(request()->is('pengguna/dosen'))
+                                Dosen
                             @endif
                         </h1>
                         @if (request()->is('pengguna/mahasiswa'))
@@ -92,6 +94,14 @@
                                     <i class="fas fa-plus"></i>
                                 </span>
                                 <span class="text">Tambah Admin</span>
+                            </a>
+                        @elseif(request()->is('pengguna/dosen'))
+                            <a href="{{ route('admin.pengguna.create', ['role' => 'Dosen']) }}"
+                                class="btn btn-primary btn-icon-split">
+                                <span class="icon text-white-50">
+                                    <i class="fas fa-plus"></i>
+                                </span>
+                                <span class="text">Tambah Dosen</span>
                             </a>
                         @endif
                     </div>
