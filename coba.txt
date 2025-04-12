@@ -4,5 +4,5 @@ benerin posisi tabel kaprodi mo // udah
 error indonesia 
 status
 
-modal accept kaprodi
-close modal reject
+modal accept kaprodi // udah
+close modal reject // udah
