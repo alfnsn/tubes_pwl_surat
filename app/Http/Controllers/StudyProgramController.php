@@ -28,7 +28,7 @@ class StudyProgramController extends Controller
             'nama' => $request->nama,
         ]);
 
-        return redirect()->route('admin.studyProgram')->with('success', 'Study Program created successfully.');
+        return redirect()->route('admin.studyProgram')->with('success', 'Program Studi berhasil dibuat.');
     }
 
     public function edit($id)
@@ -36,7 +36,7 @@ class StudyProgramController extends Controller
         $studyProgram = StudyProgram::find($id);
 
         if (!$studyProgram) {
-            return redirect()->back()->with('error', 'Study Program with the specified ID does not exist.');
+            return redirect()->back()->with('error', 'Program Studi dengan ID yang dimaksud tidak ditemukan.');
         }
 
         return view('admin.editStudyProgram', compact('studyProgram'));
@@ -47,7 +47,7 @@ class StudyProgramController extends Controller
         $studyProgram = StudyProgram::find($id);
 
         if (!$studyProgram) {
-            return redirect()->back()->with('error', 'Study Program with the specified ID does not exist.');
+            return redirect()->back()->with('error', 'Program Studi dengan ID yang dimaksud tidak ditemukan.');
         }
 
         $request->validate([
@@ -56,9 +56,9 @@ class StudyProgramController extends Controller
 
         try {
             $studyProgram->update($request->all());
-            return redirect()->route('admin.studyProgram')->with('success', 'Study Program updated successfully.');
+            return redirect()->route('admin.studyProgram')->with('success', 'Program Studi berhasil diperbarui.');
         } catch (\Exception $e) {
-            return back()->with('error', 'Failed to update Study Program.');
+            return back()->with('error', 'Gagal memperbarui Program Studi.');
         }
     }
 
@@ -67,11 +67,11 @@ class StudyProgramController extends Controller
         $studyProgram = StudyProgram::findOrFail($id);
 
         if ($studyProgram->users()->count() > 0) {
-            return redirect()->route('admin.studyProgram')->with('error', 'Study Program cannot be deleted because it is associated with users.');
+            return redirect()->route('admin.studyProgram')->with('error', 'Program Studi tidak dapat dihapus karena terkait dengan pengguna.');
         }
 
         $studyProgram->delete();
 
-        return redirect()->route('admin.studyProgram')->with('success', 'Study Program deleted successfully.');
+        return redirect()->route('admin.studyProgram')->with('success', 'Program Studi berhasil dihapus.');
     }
 }

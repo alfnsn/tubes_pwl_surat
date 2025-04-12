@@ -12,7 +12,9 @@
 
     <!-- Custom fonts for this template -->
     <link href="{{ asset('assetsadmin/vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">
-    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+        rel="stylesheet">
 
     <!-- Custom styles for this template -->
     <link href="{{ asset('assetsadmin/css/sb-admin-2.min.css') }}" rel="stylesheet">
@@ -38,7 +40,7 @@
 
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
-                    @if(session('success'))
+                    @if (session('success'))
                         <div class="alert alert-success alert-dismissible fade show" role="alert">
                             {{ session('success') }}
                             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -49,7 +51,7 @@
                     <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
                         <h1 class="h3 mb-2 text-gray-800">
-                            @if(request()->is('pengguna/mahasiswa'))
+                            @if (request()->is('pengguna/mahasiswa'))
                                 Mahasiswa
                             @elseif(request()->is('pengguna/kaprodi'))
                                 Kaprodi
@@ -59,39 +61,43 @@
                                 Admin
                             @endif
                         </h1>
-                        @if(request()->is('pengguna/mahasiswa'))
-                            <a href="{{ route('admin.pengguna.create', ['role' => 'Mahasiswa']) }}" class="btn btn-primary btn-icon-split">
+                        @if (request()->is('pengguna/mahasiswa'))
+                            <a href="{{ route('admin.pengguna.create', ['role' => 'Mahasiswa']) }}"
+                                class="btn btn-primary btn-icon-split">
                                 <span class="icon text-white-50">
                                     <i class="fas fa-plus"></i>
                                 </span>
-                                <span class="text">Add Mahasiswa</span>
+                                <span class="text">Tambah Mahasiswa</span>
                             </a>
                         @elseif(request()->is('pengguna/kaprodi'))
-                            <a href="{{ route('admin.pengguna.create', ['role' => 'Kaprodi']) }}" class="btn btn-primary btn-icon-split">
+                            <a href="{{ route('admin.pengguna.create', ['role' => 'Kaprodi']) }}"
+                                class="btn btn-primary btn-icon-split">
                                 <span class="icon text-white-50">
                                     <i class="fas fa-plus"></i>
                                 </span>
-                                <span class="text">Add Kaprodi</span>
+                                <span class="text">Tambah Kaprodi</span>
                             </a>
                         @elseif(request()->is('pengguna/mo'))
-                            <a href="{{ route('admin.pengguna.create', ['role' => 'MO']) }}" class="btn btn-primary btn-icon-split">
+                            <a href="{{ route('admin.pengguna.create', ['role' => 'MO']) }}"
+                                class="btn btn-primary btn-icon-split">
                                 <span class="icon text-white-50">
                                     <i class="fas fa-plus"></i>
                                 </span>
-                                <span class="text">Add MO</span>
+                                <span class="text">Tambah MO</span>
                             </a>
                         @elseif(request()->is('pengguna/admin'))
-                            <a href="{{ route('admin.pengguna.create', ['role' => 'Admin']) }}" class="btn btn-primary btn-icon-split">
+                            <a href="{{ route('admin.pengguna.create', ['role' => 'Admin']) }}"
+                                class="btn btn-primary btn-icon-split">
                                 <span class="icon text-white-50">
                                     <i class="fas fa-plus"></i>
                                 </span>
-                                <span class="text">Add Admin</span>
+                                <span class="text">Tambah Admin</span>
                             </a>
                         @endif
                     </div>
                     <p class="mb-4">
-                        Berikut adalah data 
-                        @if(request()->is('pengguna/mahasiswa'))
+                        Berikut adalah data
+                        @if (request()->is('pengguna/mahasiswa'))
                             mahasiswa
                         @elseif(request()->is('pengguna/kaprodi'))
                             kaprodi
@@ -107,8 +113,8 @@
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
                             <h6 class="m-0 font-weight-bold text-primary">
-                                Data 
-                                @if(request()->is('pengguna/mahasiswa'))
+                                Data
+                                @if (request()->is('pengguna/mahasiswa'))
                                     Mahasiswa
                                 @elseif(request()->is('pengguna/kaprodi'))
                                     Kaprodi
@@ -136,13 +142,13 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach($users as $user)
+                                        @foreach ($users as $user)
                                             <tr>
                                                 <td>{{ $user->id }}</td>
                                                 <td>{{ $user->name }}</td>
                                                 <td>{{ $user->address }}</td>
                                                 <td>{{ $user->status }}</td>
-                                                @if($user->role->name != 'Admin')
+                                                @if ($user->role->name != 'Admin')
                                                     <td>{{ $user->studyProgram->nama }}</td>
                                                 @else
                                                     <td>-</td>
@@ -151,7 +157,9 @@
                                                 <td>{{ $user->email }}</td>
                                                 <td>{{ $user->role->name }}</td>
                                                 <td style="white-space: nowrap; text-align:center;">
-                                                    <a href="{{ route('admin.pengguna.edit', $user->id) }}" class="btn btn-warning btn-circle btn-sm" style="display: inline-block;">
+                                                    <a href="{{ route('admin.pengguna.edit', $user->id) }}"
+                                                        class="btn btn-warning btn-circle btn-sm"
+                                                        style="display: inline-block;">
                                                         <i class="fas fa-edit"></i>
                                                     </a>
                                                 </td>
@@ -184,7 +192,8 @@
     @include('layouts.logout-modal') --}}
 
     <!-- Delete Confirmation Modal -->
-    <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel"
+        aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">

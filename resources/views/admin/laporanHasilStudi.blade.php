@@ -16,7 +16,7 @@
             <span class="icon text-white-50">
                 <i class="fas fa-plus"></i>
             </span>
-            <span class="text">Add Laporan Hasil Studi</span>
+            <span class="text">Tambah Laporan Hasil Studi</span>
         </a>
     </div>
     <p class="mb-4">Berikut adalah data laporan hasil studi yang terdaftar dalam sistem.</p>

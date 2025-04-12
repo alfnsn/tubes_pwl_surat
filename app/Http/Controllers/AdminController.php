@@ -37,27 +37,27 @@ class AdminController extends Controller
             'phone' => 'required|max:16',
             'role_id' => 'required',
         ], [
-            'id.required' => 'The ID field is required.',
-            'id.unique' => 'The ID has already been taken.',
-            'id.max' => 'The ID may not be greater than 9 characters.',
-            'name.required' => 'The Name field is required.',
-            'name.max' => 'The Name may not be greater than 120 characters.',
-            'email.required' => 'The Email field is required.',
-            'email.email' => 'The Email must be a valid email address.',
-            'email.unique' => 'The Email has already been taken.',
-            'email.max' => 'The Email may not be greater than 45 characters.',
-            'password.required' => 'The Password field is required.',
-            'password.confirmed' => 'The Password confirmation does not match.',
-            'password.min' => 'The Password must be at least 8 characters.',
-            'password.max' => 'The Password may not be greater than 255 characters.',
-            'address.required' => 'The Address field is required.',
-            'address.max' => 'The Address may not be greater than 300 characters.',
-            'status.required' => 'The Status field is required.',
-            'status.max' => 'The Status may not be greater than 12 characters.',
-            'study_program_id.required' => 'The Study Program field is required.',
-            'phone.required' => 'The Phone field is required.',
-            'phone.max' => 'The Phone may not be greater than 16 characters.',
-            'role_id.required' => 'The Role field is required.',
+            'id.required' => 'Kolom ID wajib diisi.',
+            'id.unique' => 'ID sudah digunakan.',
+            'id.max' => 'ID tidak boleh lebih dari 9 karakter.',
+            'name.required' => 'Kolom Nama wajib diisi.',
+            'name.max' => 'Nama tidak boleh lebih dari 120 karakter.',
+            'email.required' => 'Kolom Email wajib diisi.',
+            'email.email' => 'Email harus berupa alamat email yang valid.',
+            'email.unique' => 'Email sudah digunakan.',
+            'email.max' => 'Email tidak boleh lebih dari 45 karakter.',
+            'password.required' => 'Kolom Kata Sandi wajib diisi.',
+            'password.confirmed' => 'Konfirmasi Kata Sandi tidak cocok.',
+            'password.min' => 'Kata Sandi harus minimal 8 karakter.',
+            'password.max' => 'Kata Sandi tidak boleh lebih dari 255 karakter.',
+            'address.required' => 'Kolom Alamat wajib diisi.',
+            'address.max' => 'Alamat tidak boleh lebih dari 300 karakter.',
+            'status.required' => 'Kolom Status wajib diisi.',
+            'status.max' => 'Status tidak boleh lebih dari 12 karakter.',
+            'study_program_id.required' => 'Kolom Program Studi wajib diisi.',
+            'phone.required' => 'Kolom Telepon wajib diisi.',
+            'phone.max' => 'Telepon tidak boleh lebih dari 16 karakter.',
+            'role_id.required' => 'Kolom Peran wajib diisi.',
         ]);
 
         // Check if the role is Kaprodi and if there is an active Kaprodi for the same study program
@@ -68,7 +68,7 @@ class AdminController extends Controller
                 ->first();
 
             if ($existingKaprodi) {
-                return back()->withInput()->with('error', 'An active Kaprodi already exists for the selected study program.');
+                return back()->withInput()->with('error', 'Kaprodi aktif sudah ada untuk program studi yang dipilih.');
             }
         }
 
@@ -83,9 +83,9 @@ class AdminController extends Controller
 
             $role = strtolower($user->role->name);
 
-            return redirect()->route('pengguna.' . $role)->with('success', 'Pengguna created successfully.');
+            return redirect()->route('pengguna.' . $role)->with('success', 'Pengguna berhasil dibuat.');
         } catch (\Exception $e) {
-            return back()->withInput()->with('error', 'Failed to create Pengguna.');
+            return back()->withInput()->with('error', 'Gagal membuat Pengguna.');
         }
     }
 
@@ -94,7 +94,7 @@ class AdminController extends Controller
         $user = User::find($id);
 
         if (!$user) {
-            return redirect()->back()->with('error', 'User with the specified ID does not exist.');
+            return redirect()->back()->with('error', 'Pengguna dengan ID yang ditentukan tidak ditemukan.');
         }
 
         $studyPrograms = StudyProgram::all();
@@ -107,7 +107,7 @@ class AdminController extends Controller
         $user = User::find($id);
 
         if (!$user) {
-            return redirect()->back()->with('error', 'User with the specified ID does not exist.');
+            return redirect()->back()->with('error', 'Pengguna dengan ID yang ditentukan tidak ditemukan.');
         }
 
         $request->validate([
@@ -120,23 +120,23 @@ class AdminController extends Controller
             'role_id' => 'required',
             'password' => 'nullable|confirmed|min:8|max:255',
         ], [
-            'name.required' => 'The Name field is required.',
-            'name.max' => 'The Name may not be greater than 120 characters.',
-            'email.required' => 'The Email field is required.',
-            'email.email' => 'The Email must be a valid email address.',
-            'email.unique' => 'The Email has already been taken.',
-            'email.max' => 'The Email may not be greater than 45 characters.',
-            'address.required' => 'The Address field is required.',
-            'address.max' => 'The Address may not be greater than 300 characters.',
-            'status.required' => 'The Status field is required.',
-            'status.max' => 'The Status may not be greater than 12 characters.',
-            'study_program_id.required' => 'The Study Program field is required.',
-            'phone.required' => 'The Phone field is required.',
-            'phone.max' => 'The Phone may not be greater than 16 characters.',
-            'role_id.required' => 'The Role field is required.',
-            'password.confirmed' => 'The Password confirmation does not match.',
-            'password.min' => 'The Password must be at least 8 characters.',
-            'password.max' => 'The Password may not be greater than 255 characters.',
+            'name.required' => 'Kolom Nama wajib diisi.',
+            'name.max' => 'Nama tidak boleh lebih dari 120 karakter.',
+            'email.required' => 'Kolom Email wajib diisi.',
+            'email.email' => 'Email harus berupa alamat email yang valid.',
+            'email.unique' => 'Email sudah digunakan.',
+            'email.max' => 'Email tidak boleh lebih dari 45 karakter.',
+            'address.required' => 'Kolom Alamat wajib diisi.',
+            'address.max' => 'Alamat tidak boleh lebih dari 300 karakter.',
+            'status.required' => 'Kolom Status wajib diisi.',
+            'status.max' => 'Status tidak boleh lebih dari 12 karakter.',
+            'study_program_id.required' => 'Kolom Program Studi wajib diisi.',
+            'phone.required' => 'Kolom Telepon wajib diisi.',
+            'phone.max' => 'Telepon tidak boleh lebih dari 16 karakter.',
+            'role_id.required' => 'Kolom Peran wajib diisi.',
+            'password.confirmed' => 'Konfirmasi Kata Sandi tidak cocok.',
+            'password.min' => 'Kata Sandi harus minimal 8 karakter.',
+            'password.max' => 'Kata Sandi tidak boleh lebih dari 255 karakter.',
         ]);
 
         try {
@@ -149,7 +149,7 @@ class AdminController extends Controller
                     ->first();
 
                 if ($existingKaprodi) {
-                    return back()->withInput()->with('error', 'An active Kaprodi already exists for the selected study program.');
+                    return back()->withInput()->with('error', 'Kaprodi aktif sudah ada untuk program studi yang dipilih.');
                 }
             }
 
@@ -164,9 +164,9 @@ class AdminController extends Controller
 
             $role = strtolower($user->role->name);
 
-            return redirect()->route('pengguna.' . $role)->with('success', 'Pengguna updated successfully.');
+            return redirect()->route('pengguna.' . $role)->with('success', 'Pengguna berhasil diperbarui.');
         } catch (\Exception $e) {
-            return back()->with('error', 'Failed to update Pengguna.');
+            return back()->with('error', 'Gagal memperbarui Pengguna.');
         }
     }
 
@@ -175,7 +175,7 @@ class AdminController extends Controller
         $user = User::find($id);
         $role = strtolower($user->role->name);
         $user->delete();
-        return redirect()->route('pengguna.' . $role)->with('success', 'Pengguna deleted successfully.');
+        return redirect()->route('pengguna.' . $role)->with('success', 'Pengguna berhasil dihapus.');
     }
 
     public function editProfile()
@@ -206,10 +206,10 @@ class AdminController extends Controller
 
             $user->save();
 
-            return redirect()->route('admin.profile')->with('success', 'Profile updated successfully.');
+            return redirect()->route('admin.profile')->with('success', 'Profil berhasil diperbarui.');
         } catch (\Exception $e) {
             return redirect()->route('admin.profile')
-                ->withErrors(['error' => 'Failed to update profile. Please try again.'])
+                ->withErrors(['error' => 'Gagal memperbarui profil. Silakan coba lagi.'])
                 ->withInput();
         }
     }

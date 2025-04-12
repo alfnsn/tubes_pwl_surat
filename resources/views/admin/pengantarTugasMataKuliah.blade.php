@@ -16,7 +16,7 @@
             <span class="icon text-white-50">
                 <i class="fas fa-plus"></i>
             </span>
-            <span class="text">Add Pengantar Tugas Mata Kuliah</span>
+            <span class="text">Tambah Pengantar Tugas Mata Kuliah</span>
         </a>
     </div>
     <p class="mb-4">Berikut adalah data pengantar tugas mata kuliah yang terdaftar dalam sistem.</p>

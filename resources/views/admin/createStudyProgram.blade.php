@@ -12,7 +12,9 @@
 
     <!-- Custom fonts for this template -->
     <link href="{{ asset('assetsadmin/vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">
-    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+        rel="stylesheet">
 
     <!-- Custom styles for this template -->
     <link href="{{ asset('assetsadmin/css/sb-admin-2.min.css') }}" rel="stylesheet">
@@ -37,19 +39,19 @@
                 <div class="container-fluid">
                     <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h3 mb-2 text-gray-800">Create Study Program</h1>
+                        <h1 class="h3 mb-2 text-gray-800">Tambah Program Studi</h1>
                     </div>
 
                     <!-- Form Example -->
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">New Study Program</h6>
+                            <h6 class="m-0 font-weight-bold text-primary">Program Studi Baru</h6>
                         </div>
                         <div class="card-body">
                             <form action="{{ route('admin.studyProgram.store') }}" method="POST">
                                 @csrf
                                 <div class="form-group">
-                                    <label for="name">Name</label>
+                                    <label for="name">Nama</label>
                                     <input type="text" class="form-control" id="name" name="nama" required>
                                 </div>
                                 <button type="submit" class="btn btn-primary">Submit</button>

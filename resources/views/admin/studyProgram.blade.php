@@ -12,7 +12,9 @@
 
     <!-- Custom fonts for this template -->
     <link href="{{ asset('assetsadmin/vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">
-    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+        rel="stylesheet">
 
     <!-- Custom styles for this template -->
     <link href="{{ asset('assetsadmin/css/sb-admin-2.min.css') }}" rel="stylesheet">
@@ -38,7 +40,7 @@
 
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
-                    @if(session('success'))
+                    @if (session('success'))
                         <div class="alert alert-success alert-dismissible fade show" role="alert">
                             {{ session('success') }}
                             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -46,7 +48,7 @@
                             </button>
                         </div>
                     @endif
-                    @if(session('error'))
+                    @if (session('error'))
                         <div class="alert alert-danger alert-dismissible fade show" role="alert">
                             {{ session('error') }}
                             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -56,15 +58,15 @@
                     @endif
                     <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h3 mb-2 text-gray-800">Study Program</h1>
+                        <h1 class="h3 mb-2 text-gray-800">Program Studi</h1>
                         <a href="{{ route('admin.studyProgram.create') }}" class="btn btn-primary btn-icon-split">
                             <span class="icon text-white-50">
                                 <i class="fas fa-plus"></i>
                             </span>
-                            <span class="text">Add Study Program</span>
+                            <span class="text">Tambah Program Studi</span>
                         </a>
                     </div>
-                    <p class="mb-4">Berikut adalah data study program yang terdaftar dalam sistem.</p>
+                    <p class="mb-4">Berikut adalah data Program Studi yang terdaftar dalam sistem.</p>
 
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
@@ -82,18 +84,23 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach($studyPrograms as $studyProgram)
+                                        @foreach ($studyPrograms as $studyProgram)
                                             <tr>
                                                 <td>{{ $studyProgram->idstudy_program }}</td>
                                                 <td>{{ $studyProgram->nama }}</td>
                                                 <td style="white-space: nowrap;">
-                                                    <a href="{{ route('admin.studyProgram.edit', ['id' => $studyProgram->idstudy_program]) }}" class="btn btn-warning btn-circle btn-sm" style="display: inline-block;">
+                                                    <a href="{{ route('admin.studyProgram.edit', ['id' => $studyProgram->idstudy_program]) }}"
+                                                        class="btn btn-warning btn-circle btn-sm"
+                                                        style="display: inline-block;">
                                                         <i class="fas fa-edit"></i>
                                                     </a>
-                                                    <form action="{{ route('admin.studyProgram.destroy', ['id' => $studyProgram->idstudy_program]) }}" method="POST" style="display: inline-block;">
+                                                    <form
+                                                        action="{{ route('admin.studyProgram.destroy', ['id' => $studyProgram->idstudy_program]) }}"
+                                                        method="POST" style="display: inline-block;">
                                                         @csrf
                                                         @method('DELETE')
-                                                        <button type="button" class="btn btn-danger btn-circle btn-sm" onclick="showDeleteModal('{{ route('admin.studyProgram.destroy', ['id' => $studyProgram->idstudy_program]) }}')">
+                                                        <button type="button" class="btn btn-danger btn-circle btn-sm"
+                                                            onclick="showDeleteModal('{{ route('admin.studyProgram.destroy', ['id' => $studyProgram->idstudy_program]) }}')">
                                                             <i class="fas fa-trash"></i>
                                                         </button>
                                                     </form>
@@ -127,24 +134,25 @@
     @include('layouts.logout-modal') --}}
 
     <!-- Delete Confirmation Modal -->
-    <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel"
+        aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="deleteModalLabel">Confirm Delete</h5>
+                    <h5 class="modal-title" id="deleteModalLabel">Konfirmasi Penghapusan</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                    Are you sure you want to delete this study program?
+                    Apakah Anda yakin ingin menghapus program studi ini?
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
                     <form id="deleteForm" method="POST">
                         @csrf
                         @method('DELETE')
-                        <button type="submit" class="btn btn-danger">Delete</button>
+                        <button type="submit" class="btn btn-danger">Hapus</button>
                     </form>
                 </div>
             </div>

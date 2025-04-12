@@ -61,7 +61,7 @@
                             <span class="icon text-white-50">
                                 <i class="fas fa-plus"></i>
                             </span>
-                            <span class="text">Add Keterangan Lulus</span>
+                            <span class="text">Tambah Keterangan Lulus</span>
                         </a>
                     </div>
                     <p class="mb-4">Berikut adalah data keterangan lulus yang terdaftar dalam sistem.</p>
