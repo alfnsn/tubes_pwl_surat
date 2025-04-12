@@ -7,7 +7,7 @@
 <head>
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <title>Dashboard {{Auth::user()->role->name}}</title>
+    <title>Dashboard {{ Auth::user()->role->name }}</title>
     <link rel="icon" type="image/png"
         href="https://kompaspedia.kompas.id/wp-content/uploads/2021/07/logo_universitas-kristen-maranatha.png">
     <meta name="description" content="">
@@ -30,12 +30,12 @@
         rel="stylesheet">
 
     <!-- Vendor CSS Files -->
-    <link href="{{ asset('assets/vendor/bootstrap/css/bootstrap.min.css')}}" rel="stylesheet">
-    <link href="{{ asset('assets/vendor/bootstrap-icons/bootstrap-icons.css')}}" rel="stylesheet">
+    <link href="{{ asset('assets/vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/vendor/bootstrap-icons/bootstrap-icons.css') }}" rel="stylesheet">
     {{--
     <link href="{{ asset ('assets/vendor/aos/aos.css" rel="stylesheet')}}"> --}}
-    <link href="{{ asset('assets/vendor/glightbox/css/glightbox.min.css')}}" rel="stylesheet">
-    <link href="{{ asset('assets/vendor/swiper/swiper-bundle.min.css')}}" rel="stylesheet">
+    <link href="{{ asset('assets/vendor/glightbox/css/glightbox.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/vendor/swiper/swiper-bundle.min.css') }}" rel="stylesheet">
 
     <!-- Main CSS File -->
     <link href="{{ asset('assets/css/main.css') }}" rel="stylesheet">
@@ -44,11 +44,11 @@
 
     <!-- Form -->
     <link href="https://fonts.googleapis.com/css?family=Roboto:400,700,900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="{{asset('assets/fonts/icomoon/style.css')}}">
+    <link rel="stylesheet" href="{{ asset('assets/fonts/icomoon/style.css') }}">
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="{{asset('assets/css/bootstrap.min.css')}}">
+    <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.min.css') }}">
     <!-- Style -->
-    <link rel="stylesheet" href="{{asset('assets/css/style.css')}}">
+    <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
 
     <!-- Custom styles for this template-->
     <link href="{{ asset('assetsadmin/css/sb-admin-2.min.css') }}" rel="stylesheet">
@@ -63,22 +63,22 @@
 </head>
 
 <body class="index-page">
-    @if(session('success'))
+    @if (session('success'))
         <div id="success-alert" class="alert alert-success">
             {{ session('success') }}
         </div>
         <script>
-            setTimeout(function () {
+            setTimeout(function() {
                 $("#success-alert").fadeOut("slow");
             }, 3000);
         </script>
     @endif
-    @if(session('error'))
+    @if (session('error'))
         <div id="error-alert" class="alert alert-danger">
             {{ session('error') }}
         </div>
         <script>
-            setTimeout(function () {
+            setTimeout(function() {
                 $("#error-alert").fadeOut("slow");
             }, 3000);
         </script>
@@ -98,23 +98,50 @@
 
 
     <!-- Vendor JS Files -->
-    <script src="{{ asset('assets/vendor/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
-    <script src="{{ asset('assets/vendor/php-email-form/validate.js')}}"></script>
-    <script src="{{ asset('assets/vendor/aos/aos.js')}}"></script>
-    <script src="{{ asset('assets/vendor/purecounter/purecounter_vanilla.js')}}"></script>
-    <script src="{{ asset('assets/vendor/glightbox/js/glightbox.min.js')}}"></script>
-    <script src="{{ asset('assets/vendor/swiper/swiper-bundle.min.js')}}"></script>
-    <script src="{{ asset('assets/vendor/imagesloaded/imagesloaded.pkgd.min.js')}}"></script>
-    <script src="{{ asset('assets/vendor/isotope-layout/isotope.pkgd.min.js')}}"></script>
+    <script src="{{ asset('assets/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+    <script src="{{ asset('assets/vendor/php-email-form/validate.js') }}"></script>
+    <script src="{{ asset('assets/vendor/aos/aos.js') }}"></script>
+    <script src="{{ asset('assets/vendor/purecounter/purecounter_vanilla.js') }}"></script>
+    <script src="{{ asset('assets/vendor/glightbox/js/glightbox.min.js') }}"></script>
+    <script src="{{ asset('assets/vendor/swiper/swiper-bundle.min.js') }}"></script>
+    <script src="{{ asset('assets/vendor/imagesloaded/imagesloaded.pkgd.min.js') }}"></script>
+    <script src="{{ asset('assets/vendor/isotope-layout/isotope.pkgd.min.js') }}"></script>
 
     <!-- Main JS File -->
-    <script src="{{ asset('assets/js/main.js')}}"></script>
+    <script src="{{ asset('assets/js/main.js') }}"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
     <link rel="stylesheet" href="https://cdn.datatables.net/2.2.2/css/dataTables.dataTables.min.css">
     <script src="https://cdn.datatables.net/2.2.2/js/dataTables.min.js"></script>
-    <script>let table = new DataTable('#dataTable');</script>
+    <script>
+        let table = new DataTable('#dataTable');
+    </script>
     <!-- Bootstrap core JavaScript-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('Bootstrap JS loaded successfully');
+        });
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Close dropdown when clicking outside
+            document.addEventListener('click', function(event) {
+                const dropdowns = document.querySelectorAll('.dropdown-menu');
+                dropdowns.forEach(dropdown => {
+                    if (!dropdown.parentElement.contains(event.target)) {
+                        dropdown.classList.remove('show');
+                    }
+                });
+            });
+
+            // Ensure Bootstrap dropdown is initialized
+            const dropdownElements = document.querySelectorAll('.dropdown-toggle');
+            dropdownElements.forEach(dropdown => {
+                new bootstrap.Dropdown(dropdown);
+            });
+        });
+    </script>
     {{--
     <script src="{{ asset('assetsadmin/vendor/jquery/jquery.min.js') }}"></script> --}}
     <script src="{{ asset('assetsadmin/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>

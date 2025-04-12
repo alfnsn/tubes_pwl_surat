@@ -106,6 +106,14 @@ Route::middleware('auth')->group(function () {
         return view('mahasiswa.profile');
     })->name('mahasiswa.profile');
 
+    Route::get('/kaprodi/profile', function () {
+        return view('mahasiswa.profile');
+    })->name('kaprodi.profile');
+
+    Route::get('/MO/profile', function () {
+        return view('mahasiswa.profile');
+    })->name('mo.profile');
+
     Route::get('/admin/profile', [AdminController::class, 'editProfile'])->name('admin.profile');
     Route::put('/admin/profile', [AdminController::class, 'updateProfile'])->name('admin.profile.update');
 
