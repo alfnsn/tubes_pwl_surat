@@ -63,26 +63,28 @@
 </head>
 
 <body class="index-page">
-    @if (session('success'))
-        <div id="success-alert" class="alert alert-success">
-            {{ session('success') }}
-        </div>
-        <script>
-            setTimeout(function() {
-                $("#success-alert").fadeOut("slow");
-            }, 3000);
-        </script>
-    @endif
-    @if (session('error'))
-        <div id="error-alert" class="alert alert-danger">
-            {{ session('error') }}
-        </div>
-        <script>
-            setTimeout(function() {
-                $("#error-alert").fadeOut("slow");
-            }, 3000);
-        </script>
-    @endif
+    <div style="position: fixed; top: 0; left: 0; width: 100%; height: auto; z-index: 1050;">
+        @if (session('success'))
+            <div id="success-alert" class="alert alert-success">
+                {{ session('success') }}
+            </div>
+            <script>
+                setTimeout(function() {
+                    $("#success-alert").fadeOut("slow");
+                }, 3000);
+            </script>
+        @endif
+        @if (session('error'))
+            <div id="error-alert" class="alert alert-danger">
+                {{ session('error') }}
+            </div>
+            <script>
+                setTimeout(function() {
+                    $("#error-alert").fadeOut("slow");
+                }, 3000);
+            </script>
+        @endif
+    </div>
     @include('layouts.navMahasiswa')
 
     @yield('content')

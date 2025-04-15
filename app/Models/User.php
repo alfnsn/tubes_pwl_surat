@@ -26,7 +26,6 @@ class User extends Authenticatable
         'phone',
         'email',
         'password',
-        'profile_picture',
         'semester',
         'remember_token',
         'role_id',
@@ -72,9 +71,9 @@ class User extends Authenticatable
         return $this->belongsTo(StudyProgram::class, 'study_program_id');
     }
 
-    public function mataKuliah(): BelongsTo
+    public function mataKuliah()
     {
-        return $this->belongsTo(MataKuliah::class, 'mata_kuliah_idmata_kuliah', 'idmata_kuliah');
+        return $this->belongsToMany(MataKuliah::class, 'users_has_mata_kuliah', 'users_id', 'mata_kuliah_idmata_kuliah');
     }
 
     public function pengajuans()

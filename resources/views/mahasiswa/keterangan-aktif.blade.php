@@ -1,7 +1,6 @@
 @extends('layouts.indexMahasiswa')
 
 @section('content')
-
     <main class="main">
         <div class="content">
             <div class="container">
@@ -30,14 +29,29 @@
                                     <div class="col-md-12 form-group mb-3">
                                         <label for="semester" class="col-form-label">Semester *</label>
                                         <select class="form-control" name="semester" id="semester">
-                                            <option value="" disabled {{ old('semester') ? '' : 'selected' }}>Pilih Semester</option>
-                                            <option value="Semester Genap 24/25" {{ old('semester') == 'Semester Genap 24/25' ? 'selected' : '' }}>Semester Genap 24/25</option>
-                                            <option value="Semester Ganjil 25/26" {{ old('semester') == 'Semester Ganjil 25/26' ? 'selected' : '' }}>Semester Ganjil 25/26</option>
-                                            <option value="Semester Genap 25/26" {{ old('semester') == 'Semester Genap 25/26' ? 'selected' : '' }}>Semester Genap 25/26</option>
-                                            <option value="Semester Ganjil 27/28" {{ old('semester') == 'Semester Ganjil 27/28' ? 'selected' : '' }}>Semester Ganjil 27/28</option>
-                                            <option value="Semester Genap 27/28" {{ old('semester') == 'Semester Genap 27/28' ? 'selected' : '' }}>Semester Genap 27/28</option>
-                                            <option value="Semester Ganjil 29/30" {{ old('semester') == 'Semester Ganjil 29/30' ? 'selected' : '' }}>Semester Ganjil 29/30</option>
-                                            <option value="Semester Genap 29/30" {{ old('semester') == 'Semester Genap 29/30' ? 'selected' : '' }}>Semester Genap 29/30</option>
+                                            <option value="" disabled {{ old('semester') ? '' : 'selected' }}>Pilih
+                                                Semester</option>
+                                            <option value="Semester Genap 24/25"
+                                                {{ old('semester') == 'Semester Genap 24/25' ? 'selected' : '' }}>Semester
+                                                Genap 24/25</option>
+                                            <option value="Semester Ganjil 25/26"
+                                                {{ old('semester') == 'Semester Ganjil 25/26' ? 'selected' : '' }}>Semester
+                                                Ganjil 25/26</option>
+                                            <option value="Semester Genap 25/26"
+                                                {{ old('semester') == 'Semester Genap 25/26' ? 'selected' : '' }}>Semester
+                                                Genap 25/26</option>
+                                            <option value="Semester Ganjil 27/28"
+                                                {{ old('semester') == 'Semester Ganjil 27/28' ? 'selected' : '' }}>Semester
+                                                Ganjil 27/28</option>
+                                            <option value="Semester Genap 27/28"
+                                                {{ old('semester') == 'Semester Genap 27/28' ? 'selected' : '' }}>Semester
+                                                Genap 27/28</option>
+                                            <option value="Semester Ganjil 29/30"
+                                                {{ old('semester') == 'Semester Ganjil 29/30' ? 'selected' : '' }}>Semester
+                                                Ganjil 29/30</option>
+                                            <option value="Semester Genap 29/30"
+                                                {{ old('semester') == 'Semester Genap 29/30' ? 'selected' : '' }}>Semester
+                                                Genap 29/30</option>
                                         </select>
                                         @if ($errors->has('semester'))
                                             <small class="text-danger">{{ $errors->first('semester') }}</small>
@@ -49,8 +63,8 @@
                                     <div class="col-md-12 form-group mb-3">
                                         <label for="alamat" class="col-form-label">Alamat Lengkap Mahasiswa di Bandung
                                             *</label>
-                                        <textarea class="form-control" name="alamat" id="alamat" cols="30" rows="1"
-                                            placeholder="Alamat" required maxlength="300">{{ old('alamat') }}</textarea>
+                                        <textarea class="form-control" name="alamat" id="alamat" cols="30" rows="1" placeholder="Alamat" required
+                                            maxlength="300">{{ old('alamat') }}</textarea>
                                         @if ($errors->has('alamat'))
                                             <small class="text-danger">{{ $errors->first('alamat') }}</small>
                                         @endif
@@ -88,7 +102,7 @@
                     <div class="col-md-4">
                         <div class="contact-info h-100">
                             <h3>Contact Information</h3>
-                            <p class="mb-5">Divisi ..... Universitas Kristen Maranatha</p>
+                            <p class="mb-5">Divisi Universitas Kristen Maranatha</p>
                             <ul class="list-unstyled">
                                 <li class="d-flex">
                                     <span class="wrap-icon icon-room mr-3"></span>

@@ -1,8 +1,14 @@
 mo upload ulang // udah
-middleware
+middleware // udah
 benerin posisi tabel kaprodi mo // udah
 error indonesia // udah
-status
+status // udah
 
 modal accept kaprodi // udah
 close modal reject // udah
+
+atur gelap modal notifikasi
+rubah form pengajuan di mahasiswa
+opsional hapus form pengajuan di mahasiswa
+liat jenis surat di admin
+modal all view notifikasi mahasiswa

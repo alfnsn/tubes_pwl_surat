@@ -36,7 +36,7 @@
             </div>
         </div>
 
-        <table class="table table-bordered table-sm mx-auto mt-5" style="width: 60%; margin-top: 120px !important;">
+        <table class="table table-bordered table-sm mx-auto mt-5" style="width: 80%; margin-top: 120px !important;">
             <tbody>
                 <tr>
                     <th width="40%">ID Pengajuan</th>

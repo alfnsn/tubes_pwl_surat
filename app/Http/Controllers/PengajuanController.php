@@ -331,7 +331,7 @@ class PengajuanController extends Controller
                 return redirect()->back()->with('success', 'Pengajuan Berhasil Ditolak.');
             }
             $pengajuan->save();
-            return redirect()->back()->with('succes', 'Pengajuan Berhasil Diterima.');
+            return redirect()->back()->with('success', 'Pengajuan Berhasil Diterima.');
         }
         return redirect()->back()->with('error', 'Pengajuan Tidak Ditemukan.');
     }
@@ -427,7 +427,9 @@ class PengajuanController extends Controller
         $pengajuans = Pengajuan::whereHas('user', function ($query) use ($mo) {
             $query->where('study_program_id', $mo->study_program_id);
         })
-            ->where('status', '!=', 'Disetujui Oleh Kaprodi ')
+            ->where('status', '!=', 'Menunggu Persetujuan Kaprodi')
+            ->where('status', '!=', 'Disetujui Oleh Kaprodi')
+            ->where('status', '!=', 'Ditolak Oleh Kaprodi')
             ->orderBy('tanggal_pengajuan', 'desc')
             ->get();
 
@@ -448,5 +450,22 @@ class PengajuanController extends Controller
 
 
         return view('MO.pengajuan-detail', compact('pengajuan'));
+    }
+
+    public function edit($id)
+    {
+        $pengajuan = Pengajuan::with([
+            'jenisSurat',
+            'keteranganAktif',
+            'keteranganLulus',
+            'laporanHasilStudi',
+            'pengantarMataKuliah'
+        ])->findOrFail($id);
+
+        if ($pengajuan->status !== 'Menunggu Persetujuan Kaprodi') {
+            return redirect()->back()->with('error', 'Pengajuan tidak dapat diedit.');
+        }
+
+        return view('mahasiswa.edit-pengajuan', compact('pengajuan'));
     }
 }

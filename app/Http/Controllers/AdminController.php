@@ -108,63 +108,62 @@ class AdminController extends Controller
             return redirect()->back()->with('error', 'Pengguna dengan ID yang ditentukan tidak ditemukan.');
         }
 
-        $request->validate([
+        $validatedData = $request->validate([
             'name' => 'required|max:120',
-            'email' => 'required|email|unique:users,email,'.$id.'|max:45',
             'address' => 'required|max:300',
-            'status' => 'required|max:12',
-            'study_program_id' => 'required',
+            'status' => 'required|in:aktif,tidak aktif',
             'phone' => 'required|max:16',
-            'role_id' => 'required',
             'password' => 'nullable|confirmed|min:8|max:255',
+            'role_id' => 'required_if:role,Dosen|in:dosen,kaprodi',
         ], [
             'name.required' => 'Kolom Nama wajib diisi.',
             'name.max' => 'Nama tidak boleh lebih dari 120 karakter.',
-            'email.required' => 'Kolom Email wajib diisi.',
-            'email.email' => 'Email harus berupa alamat email yang valid.',
-            'email.unique' => 'Email sudah digunakan.',
-            'email.max' => 'Email tidak boleh lebih dari 45 karakter.',
             'address.required' => 'Kolom Alamat wajib diisi.',
             'address.max' => 'Alamat tidak boleh lebih dari 300 karakter.',
             'status.required' => 'Kolom Status wajib diisi.',
-            'status.max' => 'Status tidak boleh lebih dari 12 karakter.',
-            'study_program_id.required' => 'Kolom Program Studi wajib diisi.',
+            'status.in' => 'Status harus berupa Aktif atau Tidak Aktif.',
             'phone.required' => 'Kolom Telepon wajib diisi.',
             'phone.max' => 'Telepon tidak boleh lebih dari 16 karakter.',
-            'role_id.required' => 'Kolom Peran wajib diisi.',
             'password.confirmed' => 'Konfirmasi Kata Sandi tidak cocok.',
             'password.min' => 'Kata Sandi harus minimal 8 karakter.',
             'password.max' => 'Kata Sandi tidak boleh lebih dari 255 karakter.',
+            'role_id.required_if' => 'Kolom Role wajib diisi jika pengguna adalah Dosen.',
+            'role_id.in' => 'Role harus berupa Dosen atau Kaprodi.',
         ]);
 
         try {
-            // Check if the role is Kaprodi and the status is being set to "aktif"
-            if ($request->role_id == $user->role_id && strtolower($user->role->name) == 'kaprodi' && $request->status == 'aktif') {
-                $existingKaprodi = User::where('role_id', $user->role_id)
-                    ->where('study_program_id', $request->study_program_id)
+            // Check if the role is being changed to Kaprodi
+            if ($user->role->name == 'Dosen' && $validatedData['role_id'] == 'kaprodi') {
+                $existingKaprodi = User::where('role_id', Role::where('name', 'Kaprodi')->first()->id)
+                    ->where('study_program_id', $user->study_program_id)
                     ->where('status', 'aktif')
-                    ->where('id', '!=', $id)
                     ->first();
 
                 if ($existingKaprodi) {
-                    return back()->withInput()->with('error', 'Kaprodi aktif sudah ada untuk program studi yang dipilih.');
+                    return redirect()->back()->with('error', 'Kaprodi aktif sudah ada untuk program studi yang dipilih.');
                 }
             }
 
-            $data = $request->all();
-            if (!empty($request->password)) {
-                $data['password'] = bcrypt($request->password);
-            } else {
-                unset($data['password']);
+            $user->name = $validatedData['name'];
+            $user->address = $validatedData['address'];
+            $user->status = $validatedData['status'];
+            $user->phone = $validatedData['phone'];
+
+            if (!empty($validatedData['password'])) {
+                $user->password = Hash::make($validatedData['password']);
             }
 
-            $user->update($data);
+            // Update role if applicable
+            if ($user->role->name == 'Dosen' && isset($validatedData['role_id'])) {
+                $user->role_id = Role::where('name', ucfirst($validatedData['role_id']))->first()->id;
+            }
+
+            $user->save();
 
             $role = strtolower($user->role->name);
-
             return redirect()->route('pengguna.' . $role)->with('success', 'Pengguna berhasil diperbarui.');
         } catch (\Exception $e) {
-            return back()->with('error', 'Gagal memperbarui Pengguna.');
+            return redirect()->back()->with('error', 'Gagal memperbarui Pengguna.')->withInput();
         }
     }
 

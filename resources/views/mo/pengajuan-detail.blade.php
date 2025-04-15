@@ -3,86 +3,87 @@
 @section('content')
     <div class="container" style="min-height: 70vh;">
         <h1 class="mt-4" style="color: #124265;">Detail Pengajuan</h1>
-        <table class="table table-bordered table-sm mx-auto mt-5" style="width: 60%;">
+        <table class="table table-bordered table-sm mx-auto mt-5" style="width: 80%;">
             <tbody>
                 <tr>
                     <th width="40%">ID Pengajuan</th>
-                    <td>{{$pengajuan->idpengajuan}}</td>
+                    <td>{{ $pengajuan->idpengajuan }}</td>
                 </tr>
                 <tr>
                     <th>Tanggal Pengajuan</th>
-                    <td>{{\Carbon\Carbon::parse($pengajuan->tanggal_pengajuan)->format('d - m - Y')}}</td>
+                    <td>{{ \Carbon\Carbon::parse($pengajuan->tanggal_pengajuan)->format('d - m - Y') }}</td>
                 </tr>
                 <tr>
                     <th>Status</th>
-                    <td>{{$pengajuan->status}}</td>
+                    <td>{{ $pengajuan->status }}</td>
                 </tr>
                 <tr>
                     <th>Jenis Surat</th>
-                    <td>{{$pengajuan->jenisSurat->name}}</td>
+                    <td>{{ $pengajuan->jenisSurat->name }}</td>
                 </tr>
 
-                @if($pengajuan->pengantarMataKuliah)
+                @if ($pengajuan->pengantarMataKuliah)
                     <tr>
                         <th>Ditujukan Kepada</th>
-                        <td>{{$pengajuan->pengantarMataKuliah->ditujukan}}</td>
+                        <td>{{ $pengajuan->pengantarMataKuliah->ditujukan }}</td>
                     </tr>
                     <tr>
                         <th>Nama Kode MMata Kuliah</th>
-                        <td>{{$pengajuan->pengantarMataKuliah->nama_kode_mk}}</td>
+                        <td>{{ $pengajuan->pengantarMataKuliah->nama_kode_mk }}</td>
                     </tr>
                     <tr>
                         <th>Semester</th>
-                        <td>{{$pengajuan->pengantarMataKuliah->semester}}</td>
+                        <td>{{ $pengajuan->pengantarMataKuliah->semester }}</td>
                     </tr>
-                    @if($pengajuan->pengantarMataKuliah->mahasiswa->isNotEmpty())
+                    @if ($pengajuan->pengantarMataKuliah->mahasiswa->isNotEmpty())
                         <tr>
-                            <th rowspan="{{$pengajuan->pengantarMataKuliah->mahasiswa->count()}}">Data Mahasiswa</th>
-                            @foreach($pengajuan->pengantarMataKuliah->mahasiswa as $data => $mahasiswa)
-                                    @if($data > 0)
-                                        <tr>
-                                    @endif
-                                    <td>{{$mahasiswa->nama}} - {{$mahasiswa->nrp}}</td>
-                                </tr>
-                            @endforeach
-                        </tr>
+                            <th rowspan="{{ $pengajuan->pengantarMataKuliah->mahasiswa->count() }}">Data Mahasiswa</th>
+                            @foreach ($pengajuan->pengantarMataKuliah->mahasiswa as $data => $mahasiswa)
+                                @if ($data > 0)
+                        <tr>
                     @endif
-                    <tr>
-                        <th>Tujuan</th>
-                        <td>{{$pengajuan->pengantarMataKuliah->tujuan}}</td>
+                    <td>{{ $mahasiswa->nama }} - {{ $mahasiswa->nrp }}</td>
                     </tr>
-                    <tr>
-                        <th>Topik</th>
-                        <td>{{$pengajuan->pengantarMataKuliah->topik}}</td>
-                    </tr>
+                @endforeach
+                </tr>
+                @endif
+                <tr>
+                    <th>Tujuan</th>
+                    <td>{{ $pengajuan->pengantarMataKuliah->tujuan }}</td>
+                </tr>
+                <tr>
+                    <th>Topik</th>
+                    <td>{{ $pengajuan->pengantarMataKuliah->topik }}</td>
+                </tr>
                 @endif
 
-                @if($pengajuan->keteranganAktif)
+                @if ($pengajuan->keteranganAktif)
                     <tr>
                         <th>Semester</th>
-                        <td>{{$pengajuan->keteranganAktif->semester}}</td>
+                        <td>{{ $pengajuan->keteranganAktif->semester }}</td>
                     </tr>
                     <tr>
                         <th>Alamat Bandung</th>
-                        <td>{{$pengajuan->keteranganAktif->alamat_bandung }}</td>
+                        <td>{{ $pengajuan->keteranganAktif->alamat_bandung }}</td>
                     </tr>
                     <tr>
                         <th>Keperluan</th>
-                        <td>{{$pengajuan->keteranganAktif->keperluan_pengajuan}}</td>
+                        <td>{{ $pengajuan->keteranganAktif->keperluan_pengajuan }}</td>
                     </tr>
                 @endif
 
-                @if($pengajuan->keteranganLulus)
+                @if ($pengajuan->keteranganLulus)
                     <tr>
                         <th>Tanggal Kelulusan</th>
-                        <td>{{\Carbon\Carbon::parse($pengajuan->keteranganLulus->tanggal_kelulusan)->format('d-m-Y')}}</td>
+                        <td>{{ \Carbon\Carbon::parse($pengajuan->keteranganLulus->tanggal_kelulusan)->format('d-m-Y') }}
+                        </td>
                     </tr>
                 @endif
 
-                @if($pengajuan->laporanHasilStudi)
+                @if ($pengajuan->laporanHasilStudi)
                     <tr>
                         <th>Keperluan Laporan Studi</th>
-                        <td>{{$pengajuan->laporanHasilStudi->keperluan_pembuatan}}</td>
+                        <td>{{ $pengajuan->laporanHasilStudi->keperluan_pembuatan }}</td>
                     </tr>
                 @endif
                 <tr>
@@ -123,35 +124,35 @@
         </table>
 
         <h3 class="mt-4" style="color: #124265;">Data Mahasiswa Pemohon</h3>
-        <table class="table table-bordered table-sm mx-auto mt-5" style="width: 60%;">
+        <table class="table table-bordered table-sm mx-auto mt-5" style="width: 80%;">
             <tbody>
                 <tr>
                     <th width="40%">Nama</th>
-                    <td>{{$pengajuan->user->name}}</td>
+                    <td>{{ $pengajuan->user->name }}</td>
                 </tr>
                 <tr>
                     <th width="40%">NRP</th>
-                    <td>{{$pengajuan->user->id}}</td>
+                    <td>{{ $pengajuan->user->id }}</td>
                 </tr>
                 <tr>
                     <th width="40%">Alamat</th>
-                    <td>{{$pengajuan->user->address}}</td>
+                    <td>{{ $pengajuan->user->address }}</td>
                 </tr>
                 <tr>
                     <th width="40%">No Telepon</th>
-                    <td>{{$pengajuan->user->phone}}</td>
+                    <td>{{ $pengajuan->user->phone }}</td>
                 </tr>
                 <tr>
                     <th width="40%">Email</th>
-                    <td>{{$pengajuan->user->email}}</td>
+                    <td>{{ $pengajuan->user->email }}</td>
                 </tr>
                 <tr>
                     <th width="40%">Status</th>
-                    <td>{{$pengajuan->user->status}}</td>
+                    <td>{{ $pengajuan->user->status }}</td>
                 </tr>
                 <tr>
                     <th width="40%">Program Studi</th>
-                    <td>{{$pengajuan->user->studyProgram->nama}}</td>
+                    <td>{{ $pengajuan->user->studyProgram->nama }}</td>
                 </tr>
 
             </tbody>

@@ -36,8 +36,11 @@
                     </div>
                     <div class="form-group">
                         <label for="name">Nama</label>
-                        <input type="text" class="form-control" id="name" name="name" value="{{ $user->name }}"
-                            required>
+                        <input type="text" class="form-control" id="name" name="name"
+                            value="{{ old('name', $user->name) }}" required>
+                        @error('name')
+                            <small class="text-danger">{{ $message }}</small>
+                        @enderror
                     </div>
                     <div class="form-group">
                         <label for="email">Email</label>
@@ -47,15 +50,23 @@
                     <div class="form-group">
                         <label for="address">Alamat</label>
                         <input type="text" class="form-control" id="address" name="address"
-                            value="{{ $user->address }}" required>
+                            value="{{ old('address', $user->address) }}" required>
+                        @error('address')
+                            <small class="text-danger">{{ $message }}</small>
+                        @enderror
                     </div>
                     <div class="form-group">
                         <label for="status">Status</label>
                         <select class="form-control" id="status" name="status" required>
-                            <option value="aktif" {{ $user->status == 'aktif' ? 'selected' : '' }}>Aktif</option>
-                            <option value="tidak aktif" {{ $user->status == 'tidak aktif' ? 'selected' : '' }}>Tidak Aktif
+                            <option value="aktif" {{ old('status', $user->status) == 'aktif' ? 'selected' : '' }}>Aktif
+                            </option>
+                            <option value="tidak aktif"
+                                {{ old('status', $user->status) == 'tidak aktif' ? 'selected' : '' }}>Tidak Aktif
                             </option>
                         </select>
+                        @error('status')
+                            <small class="text-danger">{{ $message }}</small>
+                        @enderror
                     </div>
                     <div class="form-group">
                         <label for="study_program">Program Study</label>
@@ -65,22 +76,44 @@
                     <div class="form-group">
                         <label for="phone">Nomor Telepon</label>
                         <input type="text" class="form-control" id="phone" name="phone"
-                            value="{{ $user->phone }}" required>
+                            value="{{ old('phone', $user->phone) }}" required>
+                        @error('phone')
+                            <small class="text-danger">{{ $message }}</small>
+                        @enderror
                     </div>
                     <div class="form-group">
                         <label for="password">Password</label>
                         <input type="password" class="form-control" id="password" name="password"
-                            placeholder="Biarkan kosong jika tidak ingin diuba">
+                            placeholder="Biarkan kosong jika tidak ingin diubah">
+                        @error('password')
+                            <small class="text-danger">{{ $message }}</small>
+                        @enderror
                     </div>
                     <div class="form-group">
                         <label for="password_confirmation">Konfirmasi Password</label>
                         <input type="password" class="form-control" id="password_confirmation" name="password_confirmation"
                             placeholder="Masukkan kembali password">
+                        @error('password_confirmation')
+                            <small class="text-danger">{{ $message }}</small>
+                        @enderror
                     </div>
                     <div class="form-group">
                         <label for="role">Role</label>
-                        <input type="text" class="form-control" id="role" name="role"
-                            value="{{ $user->role->name }}" readonly>
+                        @if ($user->role->name == 'Dosen')
+                            <select class="form-control" id="role" name="role_id" required>
+                                <option value="dosen"
+                                    {{ old('role_id', $user->role->name) == 'Dosen' ? 'selected' : '' }}>Dosen</option>
+                                <option value="kaprodi"
+                                    {{ old('role_id', $user->role->name) == 'Kaprodi' ? 'selected' : '' }}>Kaprodi
+                                </option>
+                            </select>
+                        @else
+                            <input type="text" class="form-control" id="role" name="role"
+                                value="{{ $user->role->name }}" readonly>
+                        @endif
+                        @error('role_id')
+                            <small class="text-danger">{{ $message }}</small>
+                        @enderror
                     </div>
                     <button type="submit" class="btn btn-primary">Update</button>
                 </form>

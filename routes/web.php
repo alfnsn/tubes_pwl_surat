@@ -22,6 +22,8 @@ Route::post('/notifications/{id}/markAsRead', [NotificationController::class, 'm
 
 Route::post('/pengajuan/{id}/upload', [PengajuanController::class, 'upload'])->name('pengajuan-upload');
 
+Route::get('/pengajuan/edit/{id}', [PengajuanController::class, 'edit'])->name('pengajuan-edit');
+
 Route::middleware('auth')->group(function () {
     
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

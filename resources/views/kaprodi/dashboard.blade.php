@@ -36,62 +36,64 @@
         <section id="hero" class="hero section" style="padding-top: 20px; margin-top: -30px;">
             <div class="container">
                 <h2 class="mt-4">Permohonan Pengajuan Surat Keterangan Mahasiswa</h2>
-                <table class="table table-bordered text-start" id="dataTable" width="100%" cellspacing="0"
-                    style="text-align: center;">
-                    <thead>
-                        <tr>
-                            <th class="text-start">No</th>
-                            <th class="text-start">ID Pengajuan</th>
-                            <th class="text-start">Diajukan Oleh</th>
-                            <th>Tanggal Pengajuan</th>
-                            <th>Jenis Surat</th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @php $no = 1; @endphp
-                        @foreach ($pengajuans as $pengajuan)
+                <div class="table-responsive">
+                    <table class="table table-bordered text-start" id="dataTable" width="100%" cellspacing="0"
+                        style="text-align: center;">
+                        <thead>
                             <tr>
-                                <td class="text-start">{{ $no++ }}</td>
-                                <td class="text-start">{{ $pengajuan->idpengajuan }}</td>
-                                <td>{{ $pengajuan->user->name }} ({{ $pengajuan->user->id }})
-                                </td>
-                                <td>{{ \Carbon\Carbon::parse($pengajuan->tanggal_pengajuan)->format('d - m - Y') }}</td>
-                                <td>{{ $pengajuan->jenisSurat->name }}</td>
-                                <td class="text-nowrap">
-                                    <div class="d-flex justify-content-center align-items-center gap-2">
-                                        <form id="acceptForm"
-                                            action="{{ route('pengajuan-accept', $pengajuan->idpengajuan) }}" method="POST"
-                                            class="d-inline">
-                                            @csrf
-                                            <button type="button"
-                                                class="d-flex align-items-center justify-content-center rounded-circle"
-                                                style="width: 42px; height: 42px; background-color: #28a745; color: white; border: none;"
-                                                onclick="openAcceptModal({{ $pengajuan->idpengajuan }})">
-                                                <i class="fas fa-check" style="font-size: 20px; line-height: 1;"></i>
-                                            </button>
-                                        </form>
-                                        <form action="{{ route('pengajuan-reject', $pengajuan->idpengajuan) }}"
-                                            method="POST" class="d-inline">
-                                            @csrf
-                                            <button type="button"
-                                                class="d-flex align-items-center justify-content-center rounded-circle"
-                                                style="width: 42px; height: 42px; background-color: #dc3545; color: white; border: none;"
-                                                onclick="openRejectModal({{ $pengajuan->idpengajuan }})">
-                                                <i class="fas fa-times" style="font-size: 20px; line-height: 1;"></i>
-                                            </button>
-                                        </form>
-                                        <a href="{{ route('pengajuan-detail', $pengajuan->idpengajuan) }}"
-                                            class="d-flex align-items-center justify-content-center rounded-circle"
-                                            style="width: 42px; height: 42px; background-color: #1d3557; color: white; text-decoration: none;">
-                                            <i class="fas fa-eye" style="font-size: 20px; line-height: 1;"></i>
-                                        </a>
-                                    </div>
-                                </td>
+                                <th class="text-start">No</th>
+                                <th class="text-start">ID Pengajuan</th>
+                                <th class="text-start">Diajukan Oleh</th>
+                                <th>Tanggal Pengajuan</th>
+                                <th>Jenis Surat</th>
+                                <th>Action</th>
                             </tr>
-                        @endforeach
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+                            @php $no = 1; @endphp
+                            @foreach ($pengajuans as $pengajuan)
+                                <tr>
+                                    <td class="text-start">{{ $no++ }}</td>
+                                    <td class="text-start">{{ $pengajuan->idpengajuan }}</td>
+                                    <td>{{ $pengajuan->user->name }} ({{ $pengajuan->user->id }})
+                                    </td>
+                                    <td>{{ \Carbon\Carbon::parse($pengajuan->tanggal_pengajuan)->format('d - m - Y') }}</td>
+                                    <td>{{ $pengajuan->jenisSurat->name }}</td>
+                                    <td class="text-nowrap">
+                                        <div class="d-flex justify-content-center align-items-center gap-2">
+                                            <form id="acceptForm"
+                                                action="{{ route('pengajuan-accept', $pengajuan->idpengajuan) }}"
+                                                method="POST" class="d-inline">
+                                                @csrf
+                                                <button type="button"
+                                                    class="d-flex align-items-center justify-content-center rounded-circle"
+                                                    style="width: 42px; height: 42px; background-color: #28a745; color: white; border: none;"
+                                                    onclick="openAcceptModal({{ $pengajuan->idpengajuan }})">
+                                                    <i class="fas fa-check" style="font-size: 20px; line-height: 1;"></i>
+                                                </button>
+                                            </form>
+                                            <form action="{{ route('pengajuan-reject', $pengajuan->idpengajuan) }}"
+                                                method="POST" class="d-inline">
+                                                @csrf
+                                                <button type="button"
+                                                    class="d-flex align-items-center justify-content-center rounded-circle"
+                                                    style="width: 42px; height: 42px; background-color: #dc3545; color: white; border: none;"
+                                                    onclick="openRejectModal({{ $pengajuan->idpengajuan }})">
+                                                    <i class="fas fa-times" style="font-size: 20px; line-height: 1;"></i>
+                                                </button>
+                                            </form>
+                                            <a href="{{ route('pengajuan-detail', $pengajuan->idpengajuan) }}"
+                                                class="d-flex align-items-center justify-content-center rounded-circle"
+                                                style="width: 42px; height: 42px; background-color: #1d3557; color: white; text-decoration: none;">
+                                                <i class="fas fa-eye" style="font-size: 20px; line-height: 1;"></i>
+                                            </a>
+                                        </div>
+                                    </td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </section>
 
@@ -161,7 +163,7 @@
             modal.classList.remove('show');
             setTimeout(() => {
                 modal.style.display = 'none';
-            }, 300); 
+            }, 300);
         }
 
         function closeModalOnOutsideClick(event, modalId) {
@@ -172,8 +174,8 @@
         }
 
         function resetModal(modal) {
-            modal.style.display = 'block'; 
-            modal.offsetHeight; 
+            modal.style.display = 'block';
+            modal.offsetHeight;
         }
     </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>

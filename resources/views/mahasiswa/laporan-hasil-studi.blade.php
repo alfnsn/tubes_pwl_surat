@@ -53,7 +53,7 @@
                     <div class="col-md-4">
                         <div class="contact-info h-100">
                             <h3>Contact Information</h3>
-                            <p class="mb-5">Divisi ..... Universitas Kristen Maranatha</p>
+                            <p class="mb-5">Divisi Universitas Kristen Maranatha</p>
                             <ul class="list-unstyled">
                                 <li class="d-flex">
                                     <span class="wrap-icon icon-room mr-3"></span>
