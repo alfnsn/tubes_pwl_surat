@@ -363,6 +363,15 @@
         dropdownElements.forEach(dropdown => {
             new bootstrap.Dropdown(dropdown);
         });
+
+        // Ensure modal backdrop is removed when modal is closed
+        const modals = document.querySelectorAll('.modal');
+        modals.forEach(modal => {
+            modal.addEventListener('hidden.bs.modal', function() {
+                const backdrops = document.querySelectorAll('.modal-backdrop');
+                backdrops.forEach(backdrop => backdrop.remove());
+            });
+        });
     });
 </script>
 
@@ -388,14 +397,40 @@
     }
 
     .dropdown-menu {
-        max-width: 300vh;
+        max-width: 1200px !important;
         word-wrap: break-word;
         overflow-wrap: break-word;
         white-space: normal;
         right: 1% !important;
-        left: Auto !important;
+        left: auto !important;
         transform: translateY(1%) !important;
         margin-top: 50px !important;
+    }
+
+    @media (min-width: 992px) {
+        .dropdown-menu {
+            max-width: 800px !important;
+        }
+    }
+
+    @media (max-width: 992px) {
+        .dropdown-menu {
+            max-width: 90% !important;
+            right: auto !important;
+            left: 0 !important;
+            transform: translateY(0) !important;
+            margin-top: 2.5rem !important;
+            word-wrap: break-word !important;
+            overflow-wrap: break-word !important;
+            white-space: normal !important;
+        }
+
+        .dropdown-item {
+            white-space: normal !important;
+            /* Ensure text wraps within the dropdown */
+            word-wrap: break-word !important;
+            overflow-wrap: break-word !important;
+        }
     }
 
     .dropdown-item p {
@@ -407,5 +442,21 @@
         margin: 0;
         padding: 0;
         list-style: none;
+    }
+
+    .modal-backdrop {
+        background-color: rgba(0, 0, 0, 0.3) !important;
+    }
+
+    .modal-dialog {
+        max-width: 800px !important;
+    }
+
+    .mobile-nav-toggle i {
+        color: black !important;
+    }
+
+    .bi-x::before {
+        color: black !important;
     }
 </style>

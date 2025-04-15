@@ -7,8 +7,8 @@ status // udah
 modal accept kaprodi // udah
 close modal reject // udah
 
-atur gelap modal notifikasi
-rubah form pengajuan di mahasiswa
+atur gelap modal notifikasi // udah
+rubah form pengajuan di mahasiswa // udah
 opsional hapus form pengajuan di mahasiswa
 liat jenis surat di admin
-modal all view notifikasi mahasiswa
+modal all view notifikasi mahasiswa // udah

@@ -468,4 +468,96 @@ class PengajuanController extends Controller
 
         return view('mahasiswa.edit-pengajuan', compact('pengajuan'));
     }
+
+    public function updatePengajuan(Request $request, $id)
+    {
+        $pengajuan = Pengajuan::findOrFail($id);
+
+        if ($pengajuan->status !== 'Menunggu Persetujuan Kaprodi') {
+            return redirect()->back()->with('error', 'Pengajuan tidak dapat diedit.');
+        }
+
+        $request->validate([
+            'idjenisSurat' => 'required|integer',
+        ]);
+
+        try {
+            if ($request->idjenisSurat == 1) {
+                $request->validate([
+                    'semester' => 'required|string|max:21',
+                    'alamat' => 'required|string|max:300',
+                    'keperluan' => 'required|string|max:255',
+                ]);
+
+                $pengajuan->keteranganAktif->update([
+                    'semester' => $request->semester,
+                    'alamat_bandung' => $request->alamat,
+                    'keperluan_pengajuan' => $request->keperluan,
+                ]);
+            } elseif ($request->idjenisSurat == 2) {
+                $request->validate([
+                    'namaKodeMk' => [
+                        'required',
+                        'string',
+                        'max:50',
+                        'regex:/^[A-Za-z0-9\s]+ - [A-Za-z0-9\s]+$/'
+                    ],
+                    'ditujukan' => [
+                        'required',
+                        'string',
+                        'max:300',
+                        'regex:/^([A-Za-z0-9\s.,;()\-\/]+;\s*){2}[A-Za-z0-9\s.,;()\-\/]+$/'
+                    ],
+                    'semester' => 'required|string|max:21',
+                    'tujuan' => 'required|string|max:200',
+                    'topik' => 'required|string|max:100',
+                    'namaMahasiswa' => 'required|array',
+                    'namaMahasiswa.*' => 'required|string|max:120',
+                    'nrpMahasiswa' => 'required|array',
+                    'nrpMahasiswa.*' => 'required|string|max:9',
+                ]);
+
+                $pengajuan->pengantarMataKuliah->update([
+                    'ditujukan' => $request->ditujukan,
+                    'nama_kode_mk' => $request->namaKodeMk,
+                    'semester' => $request->semester,
+                    'tujuan' => $request->tujuan,
+                    'topik' => $request->topik,
+                ]);
+
+                // Update mahasiswa data
+                $pengajuan->pengantarMataKuliah->mahasiswa()->detach();
+                foreach ($request->namaMahasiswa as $index => $nama) {
+                    $nrp = $request->nrpMahasiswa[$index];
+
+                    $mahasiswa = DataMahasiswa::updateOrCreate(
+                        ['nrp' => $nrp],
+                        ['nama' => $nama]
+                    );
+
+                    $pengajuan->pengantarMataKuliah->mahasiswa()->attach($mahasiswa->nrp);
+                }
+            } elseif ($request->idjenisSurat == 3) {
+                $request->validate([
+                    'tanggal' => ['required', 'date', 'before_or_equal:today'],
+                ]);
+
+                $pengajuan->keteranganLulus->update([
+                    'tanggal_kelulusan' => $request->tanggal,
+                ]);
+            } elseif ($request->idjenisSurat == 4) {
+                $request->validate([
+                    'keperluan' => 'required|string|max:200',
+                ]);
+
+                $pengajuan->laporanHasilStudi->update([
+                    'keperluan_pembuatan' => $request->keperluan,
+                ]);
+            }
+
+            return redirect()->back()->with('success', 'Pengajuan berhasil diperbarui.');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Terjadi kesalahan saat memperbarui data. Silakan coba lagi.');
+        }
+    }
 }

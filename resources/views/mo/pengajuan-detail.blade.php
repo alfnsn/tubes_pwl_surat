@@ -102,7 +102,7 @@
                         <form action="{{ route('pengajuan-upload', $pengajuan->idpengajuan) }}" method="POST"
                             class="d-inline" enctype="multipart/form-data">
                             @csrf
-                            <input type="file" name="file" id="fileInput" class="d-none" required
+                            <input type="file" name="file" id="fileInput" class="d-none" required accept=".pdf"
                                 onchange="updateFileName(this)" />
 
                             <label for="fileInput"

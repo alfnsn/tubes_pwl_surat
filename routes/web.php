@@ -16,19 +16,15 @@ Route::get('/', function () {
     return view('auth.login');
 });
 
-Route::post('/pengajuan/store', [PengajuanController::class, 'store'])->name('pengajuan');
-
-Route::post('/notifications/{id}/markAsRead', [NotificationController::class, 'markAsRead'])->name('notifications.markAsRead');
-
-Route::post('/pengajuan/{id}/upload', [PengajuanController::class, 'upload'])->name('pengajuan-upload');
-
-Route::get('/pengajuan/edit/{id}', [PengajuanController::class, 'edit'])->name('pengajuan-edit');
-
 Route::middleware('auth')->group(function () {
     
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
+    Route::post('/pengajuan/store', [PengajuanController::class, 'store'])->name('pengajuan');
+
+    Route::post('/notifications/{id}/markAsRead', [NotificationController::class, 'markAsRead'])->name('notifications.markAsRead');
 
     Route::middleware(['role:1'])->group(function (){
         Route::get('/Mahasiswa/dashboard', function () {
@@ -54,6 +50,12 @@ Route::middleware('auth')->group(function () {
         Route::get('/mahasiswa/laporan-hasil-studi', function () {
             return view('mahasiswa.laporan-hasil-studi');
         })->name('mahasiswa.laporan-hasil-studi');
+
+
+        Route::post('/pengajuan/update/{id}', [PengajuanController::class, 'updatePengajuan'])->name('pengajuan-update');
+
+        Route::get('/pengajuan/edit/{id}', [PengajuanController::class, 'edit'])->name('pengajuan-edit');
+
     });
 
     Route::middleware(['role:2'])->group(function (){
@@ -85,6 +87,9 @@ Route::middleware('auth')->group(function () {
         Route::get('/MO/profile', function () {
             return view('mahasiswa.profile');
         })->name('mo.profile');
+
+        Route::post('/pengajuan/{id}/upload', [PengajuanController::class, 'upload'])->name('pengajuan-upload');
+
     });
 
     

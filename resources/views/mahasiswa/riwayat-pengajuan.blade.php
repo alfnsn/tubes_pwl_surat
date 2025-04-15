@@ -40,7 +40,7 @@
                                         <td class="text-center">
                                             <a href="{{ route('riwayat-pengajuan-detail', $pengajuan->idpengajuan) }}"
                                                 class="d-flex align-items-center justify-content-center rounded-circle mx-auto"
-                                                style="width: 42px; height: 42px; background-color: #1d3557; color: white; text-decoration: none;">
+                                                style="width: 42px; margin-bottom: 10px; height: 42px; background-color: #1d3557; color: white; text-decoration: none;">
                                                 <i class="fas fa-eye" style="font-size: 20px;"></i>
                                             </a>
                                             @if ($pengajuan->status == 'Menunggu Persetujuan Kaprodi')
