@@ -560,4 +560,37 @@ class PengajuanController extends Controller
             return redirect()->back()->with('error', 'Terjadi kesalahan saat memperbarui data. Silakan coba lagi.');
         }
     }
+    public function destroy($id)
+{
+    try {
+        $pengajuan = Pengajuan::findOrFail($id);
+        $idjenisSurat = $pengajuan->jenisSurat_idjenisSurat;
+
+        // Hapus detail sesuai jenis surat
+        if ($idjenisSurat == 1) {
+            KeteranganAktif::where('pengajuan_idpengajuan', $id)->delete();
+        } elseif ($idjenisSurat == 2) {
+            $pengantar = PengantarMataKuliah::where('pengajuan_idpengajuan', $id)->first();
+            if ($pengantar) {
+                $pengantar->mahasiswa()->detach(); // hapus relasi many-to-many
+                $pengantar->delete();
+            }
+        } elseif ($idjenisSurat == 3) {
+            KeteranganLulus::where('pengajuan_idpengajuan', $id)->delete();
+        } elseif ($idjenisSurat == 4) {
+            LaporanHasilStudi::where('pengajuan_idpengajuan', $id)->delete();
+        }
+
+        // (Opsional) Hapus notifikasi yang berkaitan
+        Notifikasi::where('pengajuan_idpengajuan', $id)->delete();
+
+        // Hapus pengajuan utama
+        $pengajuan->delete();
+
+        return redirect()->back()->with('success', 'Pengajuan berhasil dihapus.');
+    } catch (\Exception $e) {
+        return redirect()->back()->with('error', 'Gagal menghapus pengajuan: ' . $e->getMessage());
+    }
+}
+
 }

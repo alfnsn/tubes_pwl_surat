@@ -49,8 +49,13 @@
                                             @if ($pengajuan->status == 'Menunggu Persetujuan Kaprodi')
                                                 <a href="{{ route('pengajuan-edit', $pengajuan->idpengajuan) }}"
                                                     class="d-flex align-items-center justify-content-center rounded-circle mx-auto"
-                                                    style="width: 42px; height: 42px; background-color: #f4a261; color: white; text-decoration: none;">
+                                                    style="width: 42px;  margin-bottom: 10px; height: 42px; background-color: #f4a261; color: white; text-decoration: none;">
                                                     <i class="fas fa-edit" style="font-size: 20px;"></i>
+                                                </a>
+                                                <a href="{{ route('pengajuan-hapus', $pengajuan->idpengajuan) }}"
+                                                    class="d-flex align-items-center justify-content-center rounded-circle mx-auto"
+                                                    style="width: 42px; height: 42px; background-color: #ff0000; color: white; text-decoration: none;">
+                                                    <i class="fas fa-trash" style="font-size: 20px;"></i>
                                                 </a>
                                             @endif
                                         </td>

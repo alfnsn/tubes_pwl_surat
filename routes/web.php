@@ -55,6 +55,8 @@ Route::middleware('auth')->group(function () {
         Route::post('/pengajuan/update/{id}', [PengajuanController::class, 'updatePengajuan'])->name('pengajuan-update');
 
         Route::get('/pengajuan/edit/{id}', [PengajuanController::class, 'edit'])->name('pengajuan-edit');
+        Route::get('/pengajuan/hapus/{id}', [PengajuanController::class, 'destroy'])->name('pengajuan-hapus');
+
 
     });
 
