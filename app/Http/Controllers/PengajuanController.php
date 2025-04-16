@@ -281,7 +281,7 @@ class PengajuanController extends Controller
                 $pengajuan->status = 'Disetujui Oleh Kaprodi';
                 $pengajuan->disetujui_oleh = Auth::id() . ' (' . Auth::user()->name . ')';
                 Notifikasi::create([
-                    'pesan' => 'Kaprodi menyetujui permintaan Anda',
+                    'pesan' => 'Kaprodi menyetujui permintaan '. $pengajuan->jenisSurat->name,
                     'status' => 'unread',
                     'users_id' => Auth::id(),
                     'tujuan' => $pengajuan->users_id,
@@ -294,7 +294,7 @@ class PengajuanController extends Controller
                     ->first();
                     $namaKaprodi = $kaprodi->id;
                     Notifikasi::create([
-                        'pesan' => Auth::user()->name . ' melakukan persetujuan surat',
+                        'pesan' => Auth::user()->name . ' melakukan persetujuan '. $pengajuan->jenisSurat->name,
                         'status' => 'unread',
                         'users_id' => Auth::id(),
                         'tujuan' => $namaKaprodi,
@@ -388,7 +388,7 @@ class PengajuanController extends Controller
             $request->file('file')->move(public_path('assets/surat'), $namaFile);
 
             Notifikasi::create([
-                'pesan' => Auth::user()->name . ' telah membuatkan surat anda',
+                'pesan' => Auth::user()->name . ' telah membuatkan '. $pengajuan->jenisSurat->name,
                 'status' => 'unread',
                 'users_id' => Auth::id(),
                 'tujuan' => $pengajuan->users_id,

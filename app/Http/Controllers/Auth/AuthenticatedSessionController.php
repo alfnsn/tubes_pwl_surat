@@ -47,6 +47,15 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
         $user = Auth::user();
+
+        // Check if the user's account status is active
+        if ($user->status !== 'aktif') {
+            Auth::logout();
+            throw ValidationException::withMessages([
+                'login' => __('Your account is no longer active.'),
+            ]);
+        }
+
         switch ($user->role_id) {
             case 1:
                 return redirect()->route('Mahasiswa.dashboard');

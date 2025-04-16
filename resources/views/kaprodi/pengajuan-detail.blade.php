@@ -117,7 +117,7 @@
                                     class="d-inline" enctype="multipart/form-data">
                                     @csrf
                                     <input type="file" name="file" id="fileInput" class="d-none" required
-                                        onchange="updateFileName(this)" />
+                                        accept=".pdf" onchange="updateFileName(this)" />
 
                                     <label for="fileInput"
                                         class="btn btn-secondary rounded-circle d-flex align-items-center justify-content-center"

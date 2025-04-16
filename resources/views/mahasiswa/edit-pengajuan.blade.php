@@ -140,7 +140,8 @@
                     </div>
                 @endif
 
-                <button type="submit" class="btn btn-primary" style="margin-bottom: 20px;">Simpan Perubahan</button>
+                <button type="submit" class="btn-primary"
+                    style="margin-bottom: 20px; padding: 7px; border-radius: 10px;">Simpan</button>
             </form>
         </div>
     </main>

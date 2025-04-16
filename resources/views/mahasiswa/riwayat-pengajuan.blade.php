@@ -1,7 +1,6 @@
 @extends('layouts.indexMahasiswa')
 
 @section('content')
-
     <main class="main">
         <div class="container">
             <h1 class="mt-4" style="color: #124265">Daftar Pengajuan</h1>
@@ -31,10 +30,14 @@
                                         <td class="text-start">
                                             {{ \Carbon\Carbon::parse($pengajuan->tanggal_pengajuan)->format('d - m - Y') }}
                                         </td>
-                                        @if ($pengajuan->status == 'Rejected')
-                                            <td class="text-start text-danger">{{ $pengajuan->status }}</td>
+                                        @if ($pengajuan->status == 'Ditolak Oleh Kaprodi')
+                                            <td class="text-start text-danger fw-bold">{{ $pengajuan->status }}</td>
+                                        @elseif($pengajuan->status == 'Disetujui Oleh Kaprodi')
+                                            <td class="text-start text-success fw-bold">{{ $pengajuan->status }}</td>
+                                        @elseif($pengajuan->status == 'Surat Telah Selesai Dibuat')
+                                            <td class="text-start text-primary fw-bold">{{ $pengajuan->status }}</td>
                                         @else
-                                            <td class="text-start">{{ $pengajuan->status }}</td>
+                                            <td class="text-start text-warning fw-bold">{{ $pengajuan->status }}</td>
                                         @endif
                                         <td class="text-start">{{ $pengajuan->jenisSurat->name }}</td>
                                         <td class="text-center">
@@ -60,5 +63,4 @@
             </div>
         </div>
     </main>
-
 @endsection
