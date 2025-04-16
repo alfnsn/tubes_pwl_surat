@@ -312,6 +312,11 @@ class PengajuanController extends Controller
                 if ($idjenisSurat == 1) {
                     KeteranganAktif::where('pengajuan_idpengajuan', $pengajuan->idpengajuan)->delete();
                 } elseif ($idjenisSurat == 2) {
+                    $pengantar = PengantarMataKuliah::where('pengajuan_idpengajuan', $id)->first();
+                    if ($pengantar) {
+                        $pengantar->mahasiswa()->detach(); 
+                        $pengantar->delete();
+                    }
                     PengantarMataKuliah::where('pengajuan_idpengajuan', $pengajuan->idpengajuan)->delete();
                 } elseif ($idjenisSurat == 3) {
                     KeteranganLulus::where('pengajuan_idpengajuan', $pengajuan->idpengajuan)->delete();
@@ -572,7 +577,7 @@ class PengajuanController extends Controller
         } elseif ($idjenisSurat == 2) {
             $pengantar = PengantarMataKuliah::where('pengajuan_idpengajuan', $id)->first();
             if ($pengantar) {
-                $pengantar->mahasiswa()->detach(); // hapus relasi many-to-many
+                $pengantar->mahasiswa()->detach(); 
                 $pengantar->delete();
             }
         } elseif ($idjenisSurat == 3) {
