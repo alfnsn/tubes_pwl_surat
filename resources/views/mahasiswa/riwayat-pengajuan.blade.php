@@ -52,7 +52,8 @@
                                                     style="width: 42px;  margin-bottom: 10px; height: 42px; background-color: #f4a261; color: white; text-decoration: none;">
                                                     <i class="fas fa-edit" style="font-size: 20px;"></i>
                                                 </a>
-                                                <a href="{{ route('pengajuan-hapus', $pengajuan->idpengajuan) }}"
+                                                <a href="#"
+                                                    onclick="confirmDelete('{{ route('pengajuan-hapus', $pengajuan->idpengajuan) }}')"
                                                     class="d-flex align-items-center justify-content-center rounded-circle mx-auto"
                                                     style="width: 42px; height: 42px; background-color: #ff0000; color: white; text-decoration: none;">
                                                     <i class="fas fa-trash" style="font-size: 20px;"></i>
@@ -68,4 +69,43 @@
             </div>
         </div>
     </main>
+
+    <!-- Modal Konfirmasi -->
+    <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="deleteModalLabel">Konfirmasi Penghapusan</h5>
+                    <button type="button" class="btn-close" onclick="closeModal()" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Apakah Anda yakin ingin menghapus pengajuan ini? Tindakan ini tidak dapat dibatalkan.
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" onclick="closeModal()">Batal</button>
+                    <a id="confirmDeleteButton" href="#" class="btn btn-danger">Hapus</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function confirmDelete(url) {
+            const deleteButton = document.getElementById('confirmDeleteButton');
+            deleteButton.href = url;
+            const deleteModal = new bootstrap.Modal(document.getElementById('deleteModal'));
+            deleteModal.show();
+        }
+
+        function closeModal() {
+            const deleteModal = document.getElementById('deleteModal');
+            deleteModal.style.display = 'none';
+            deleteModal.classList.remove('show');
+            document.body.classList.remove('modal-open');
+            const backdrop = document.querySelector('.modal-backdrop');
+            if (backdrop) {
+                backdrop.remove();
+            }
+        }
+    </script>
 @endsection
