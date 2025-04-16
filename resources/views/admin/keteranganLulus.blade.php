@@ -9,6 +9,9 @@
     <meta name="author" content="">
 
     <title>Admin - Keterangan Lulus</title>
+    <link rel="icon" type="image/png"
+        href="https://kompaspedia.kompas.id/wp-content/uploads/2021/07/logo_universitas-kristen-maranatha.png">
+    <meta name="description" content="">
 
     <!-- Custom fonts for this template -->
     <link href="{{ asset('assetsadmin/vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">
